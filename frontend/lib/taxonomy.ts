@@ -13,6 +13,7 @@ export interface TaxonomyEntry {
   example: string;
   wholeTextOnly?: boolean; // true = whole-text observation only, never a span error
   readingOnly?: boolean; // true = only valid for reading exercises, never routed to writing drills
+  speakingOnly?: boolean; // true = only valid for speaking exercises, never routed to writing drills
 }
 
 export const TAXONOMY: readonly TaxonomyEntry[] = [
@@ -303,6 +304,59 @@ export const TAXONOMY: readonly TaxonomyEntry[] = [
     readingOnly: true,
   },
 
+  // ── PRODUCTION ORALE (speaking-only — never routed to writing drills) ───────
+  {
+    tag: "hesitation_excessive",
+    category: "syntaxe",
+    gloss: "Pauses, faux départs ou répétitions qui fragmentent le discours de façon non idiomatique",
+    example: "Je veux… je veux dire… euh… c'est que…",
+    speakingOnly: true,
+  },
+  {
+    tag: "coherence_discursive",
+    category: "syntaxe",
+    gloss: "Enchaînement logique absent entre les idées dans le monologue",
+    example: "(whole-discourse: idées juxtaposées sans marqueurs d'organisation)",
+    speakingOnly: true,
+    wholeTextOnly: true,
+  },
+  {
+    tag: "debit_syntaxique",
+    category: "syntaxe",
+    gloss: "Structures syntaxiques tronquées ou non finalisées typiques du débit oral spontané",
+    example: "Si on regarde les… enfin, ça dépend du contexte",
+    speakingOnly: true,
+  },
+  {
+    tag: "approximation_lexicale",
+    category: "lexique",
+    gloss: "Terme approximatif ou périphrase utilisé faute du mot précis à l'oral",
+    example: "*le truc pour mesurer* → le thermomètre",
+    speakingOnly: true,
+  },
+  {
+    tag: "calque_phonologique",
+    category: "lexique",
+    gloss: "Mot étranger prononcé ou orthographié à la française révélant une lacune lexicale",
+    example: "*le meeting* → la réunion",
+    speakingOnly: true,
+  },
+  {
+    tag: "registre_oral_inadapte",
+    category: "registre",
+    gloss: "Registre familier systématique dans un contexte de production formelle simulée",
+    example: "*ouais, genre, truc* dans un monologue de présentation formelle",
+    speakingOnly: true,
+    wholeTextOnly: true,
+  },
+  {
+    tag: "comprehension_consigne_partielle",
+    category: "comprehension",
+    gloss: "Le monologue ne répond que partiellement au scénario ou ignore une contrainte du prompt",
+    example: "Prompt demandait de défendre une position — l'apprenant décrit sans argumenter",
+    speakingOnly: true,
+  },
+
   // ── UNCATEGORIZED (fallback — LLM uses only when no tag fits) ─────────────
   {
     tag: "uncategorized",
@@ -317,7 +371,7 @@ export type ErrorTag = (typeof TAXONOMY)[number]["tag"];
 export const TAXONOMY_TAGS: readonly ErrorTag[] = TAXONOMY.map((e) => e.tag);
 
 export const SPAN_TAGS: readonly ErrorTag[] = TAXONOMY.filter(
-  (e) => !e.wholeTextOnly && !e.readingOnly
+  (e) => !e.wholeTextOnly && !e.readingOnly && !e.speakingOnly
 ).map((e) => e.tag);
 
 export const WHOLE_TEXT_TAGS: readonly ErrorTag[] = TAXONOMY.filter(
@@ -326,6 +380,10 @@ export const WHOLE_TEXT_TAGS: readonly ErrorTag[] = TAXONOMY.filter(
 
 export const READING_TAGS: readonly ErrorTag[] = TAXONOMY.filter(
   (e) => e.readingOnly
+).map((e) => e.tag);
+
+export const SPEAKING_TAGS: readonly ErrorTag[] = TAXONOMY.filter(
+  (e) => e.speakingOnly
 ).map((e) => e.tag);
 
 export function getTaxonomyEntry(tag: string): TaxonomyEntry | undefined {

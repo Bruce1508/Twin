@@ -1,6 +1,6 @@
 import { getProfile, topSpanTags } from "@/lib/profile";
 import { db } from "@/lib/db";
-import { getTaxonomyEntry, READING_TAGS } from "@/lib/taxonomy";
+import { getTaxonomyEntry, READING_TAGS, SPEAKING_TAGS } from "@/lib/taxonomy";
 import Link from "next/link";
 
 const CATEGORY_COLORS: Record<string, string> = {
@@ -42,8 +42,9 @@ export default async function DashboardPage() {
   }
 
   const allTop = profile ? topSpanTags(profile.errorFrequencies, 20) : [];
-  const writingTop = allTop.filter(({ tag }) => !READING_TAGS.includes(tag as never)).slice(0, 10);
-  const readingTop = allTop.filter(({ tag }) => READING_TAGS.includes(tag as never)).slice(0, 6);
+  const writingTop  = allTop.filter(({ tag }) => !READING_TAGS.includes(tag as never) && !SPEAKING_TAGS.includes(tag as never)).slice(0, 10);
+  const readingTop  = allTop.filter(({ tag }) => READING_TAGS.includes(tag as never)).slice(0, 6);
+  const speakingTop = allTop.filter(({ tag }) => SPEAKING_TAGS.includes(tag as never)).slice(0, 6);
 
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
@@ -124,11 +125,32 @@ export default async function DashboardPage() {
               </section>
             )}
 
-            {writingTop.length === 0 && readingTop.length === 0 && (
+            {speakingTop.length > 0 && (
+              <section>
+                <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400 mb-4">Erreurs à l&apos;oral</h2>
+                <div className="space-y-2">
+                  {speakingTop.map(({ tag, count }) => {
+                    const pct = Math.round((count / (speakingTop[0]?.count ?? 1)) * 100);
+                    return (
+                      <div key={tag} className="flex items-center gap-3">
+                        <div className="w-48 text-xs text-zinc-700 dark:text-zinc-300 truncate shrink-0">{tag}</div>
+                        <div className="flex-1 h-2 rounded-full bg-zinc-100 dark:bg-zinc-800 overflow-hidden">
+                          <div className="h-full rounded-full bg-teal-500" style={{ width: `${pct}%` }} />
+                        </div>
+                        <div className="w-6 text-xs text-right text-zinc-500 shrink-0">{count}</div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </section>
+            )}
+
+            {writingTop.length === 0 && readingTop.length === 0 && speakingTop.length === 0 && (
               <div className="rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-6 py-8 text-center text-sm text-zinc-400">
                 Aucune donnée —{" "}
-                <Link href="/submit" className="underline">soumettre un texte</Link>{" "}ou{" "}
-                <Link href="/read" className="underline">faire un exercice de lecture</Link>.
+                <Link href="/submit" className="underline">soumettre un texte</Link>,{" "}
+                <Link href="/read" className="underline">faire un exercice de lecture</Link>{" "}ou{" "}
+                <Link href="/speak" className="underline">pratiquer l&apos;oral</Link>.
               </div>
             )}
 

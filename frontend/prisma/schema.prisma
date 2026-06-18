@@ -30,10 +30,11 @@ model User {
   targetLevel String   @default("B2")
   createdAt   DateTime @default(now())
 
-  submissions      Submission[]
-  profile          Profile?
-  drills           Drill[]
-  readingExercises ReadingExercise[]
+  submissions       Submission[]
+  profile           Profile?
+  drills            Drill[]
+  readingExercises  ReadingExercise[]
+  speakingExercises SpeakingExercise[]
 }
 
 // A single unit of language production — immutable after creation.
@@ -53,7 +54,9 @@ model Submission {
   // When this submission is the response to a drill, the drill links back here.
   drillAnswer Drill?       @relation("DrillResponse")
   // When this submission is the response to a reading exercise, it links back here.
-  readingExerciseAnswer ReadingExercise? @relation("ReadingExerciseResponse")
+  readingExerciseAnswer   ReadingExercise?  @relation("ReadingExerciseResponse")
+  // When this submission is the response to a speaking exercise, it links back here.
+  speakingExerciseAnswer  SpeakingExercise? @relation("SpeakingExerciseResponse")
 }
 
 // A single error extracted from a Submission — immutable after creation.
@@ -104,6 +107,24 @@ model Drill {
   user               User        @relation(fields: [userId], references: [id])
   sourceError        ErrorEvent? @relation(fields: [sourceErrorId], references: [id])
   responseSubmission Submission? @relation("DrillResponse", fields: [responseSubmissionId], references: [id])
+}
+
+// Stores a speaking exercise: generated prompt + transcript + grading results.
+// transcriptText is set by the /transcribe step, grading by the /grade step.
+// submissionId is set when grading completes, closing the loop.
+model SpeakingExercise {
+  id              String   @id @default(cuid())
+  userId          String
+  topic           String
+  promptText      String
+  scenarioContext String
+  transcriptText  String?
+  grading         Json?
+  submissionId    String?  @unique
+  createdAt       DateTime @default(now())
+
+  user       User        @relation(fields: [userId], references: [id])
+  submission Submission? @relation("SpeakingExerciseResponse", fields: [submissionId], references: [id])
 }
 
 // Stores a reading exercise: article + generated questions with answer keys.

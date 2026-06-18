@@ -17,6 +17,7 @@ export default function Home() {
           {[
             { href: "/submit", title: "Écrire", sub: "Soumettre un texte en français" },
             { href: "/read", title: "Lire", sub: "Compréhension écrite — questions style TCF" },
+            { href: "/speak", title: "Parler", sub: "Expression orale — monologue style TCF" },
             { href: "/practice", title: "Pratiquer", sub: "Exercice Reverse Tutor sur ton point faible" },
             { href: "/dashboard", title: "Profil", sub: "Voir tes erreurs accumulées" },
           ].map(({ href, title, sub }) => (
