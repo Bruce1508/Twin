@@ -1,0 +1,124 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ── Enums ─────────────────────────────────────────────────────────────────────
+
+enum ErrorCategory {
+  grammaire
+  lexique
+  orthographe
+  syntaxe
+  registre
+  comprehension
+}
+
+// error_tag is a plain String validated against the TS taxonomy at the app layer
+// (keeping it out of the schema avoids duplicating the taxonomy in two places)
+
+// ── Models ────────────────────────────────────────────────────────────────────
+
+model User {
+  id          String   @id @default(cuid())
+  email       String   @unique
+  name        String?
+  targetLevel String   @default("B2")
+  createdAt   DateTime @default(now())
+
+  submissions      Submission[]
+  profile          Profile?
+  drills           Drill[]
+  readingExercises ReadingExercise[]
+}
+
+// A single unit of language production — immutable after creation.
+// source: "free_practice" | "drill_response"
+model Submission {
+  id        String   @id @default(cuid())
+  userId    String
+  source    String
+  prompt    String?
+  content   String
+  wordCount Int
+  metrics   Json
+  createdAt DateTime @default(now())
+
+  user        User         @relation(fields: [userId], references: [id])
+  errorEvents ErrorEvent[]
+  // When this submission is the response to a drill, the drill links back here.
+  drillAnswer Drill?       @relation("DrillResponse")
+  // When this submission is the response to a reading exercise, it links back here.
+  readingExerciseAnswer ReadingExercise? @relation("ReadingExerciseResponse")
+}
+
+// A single error extracted from a Submission — immutable after creation.
+// excerpt is null for whole-text observations (no specific span).
+// errorTag is validated against TAXONOMY_TAGS at the app layer before write.
+model ErrorEvent {
+  id           String        @id @default(cuid())
+  submissionId String
+  category     ErrorCategory
+  errorTag     String
+  excerpt      String?
+  correction   String
+  explanation  String
+  createdAt    DateTime      @default(now())
+
+  submission Submission @relation(fields: [submissionId], references: [id])
+  drills     Drill[]
+}
+
+// Derived ability profile — NOT a source of truth.
+// Must only be written by the recompute function, never directly.
+// computedAt is auto-set on every write, making any stale manual write visible.
+model Profile {
+  id               String   @id @default(cuid())
+  userId           String   @unique
+  errorFrequencies Json
+  knownVocab       Int      @default(0)
+  complexityTrend  Json
+  computedAt       DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+// A practice item produced by the generation layer.
+// sourceErrorId: the specific ErrorEvent that triggered this drill (always set for Reverse Tutor).
+// responseSubmissionId: set when the learner answers — closes the loop.
+// resolved: true once the tag is considered mastered (set by targeting logic in M5).
+model Drill {
+  id                   String   @id @default(cuid())
+  userId               String
+  type                 String
+  payload              Json
+  resolved             Boolean  @default(false)
+  sourceErrorId        String?
+  responseSubmissionId String?  @unique
+  createdAt            DateTime @default(now())
+
+  user               User        @relation(fields: [userId], references: [id])
+  sourceError        ErrorEvent? @relation(fields: [sourceErrorId], references: [id])
+  responseSubmission Submission? @relation("DrillResponse", fields: [responseSubmissionId], references: [id])
+}
+
+// Stores a reading exercise: article + generated questions with answer keys.
+// submissionId is set when the learner submits answers, closing the loop.
+// articleSource: "pasted" | "generated"
+model ReadingExercise {
+  id            String   @id @default(cuid())
+  userId        String
+  articleText   String
+  topic         String?
+  articleSource String
+  questions     Json
+  submissionId  String?  @unique
+  createdAt     DateTime @default(now())
+
+  user       User        @relation(fields: [userId], references: [id])
+  submission Submission? @relation("ReadingExerciseResponse", fields: [submissionId], references: [id])
+}
