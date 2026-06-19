@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { TASK_TYPES, type TaskType, type ExtractionResult } from "@/lib/extractor";
+import { TASK_TYPES, type TaskType, type ExtractionResult, type RubricResult, type RubricCriterionKey } from "@/lib/extractor";
 
 const CATEGORY_COLORS: Record<string, string> = {
   grammaire: "bg-red-100 text-red-800 border-red-200",
@@ -11,10 +11,18 @@ const CATEGORY_COLORS: Record<string, string> = {
   registre: "bg-orange-100 text-orange-800 border-orange-200",
 };
 
+const RUBRIC_LABELS: Record<RubricCriterionKey, string> = {
+  coherence:   "Cohérence",
+  vocabulaire: "Vocabulaire",
+  grammaire:   "Grammaire",
+  registre:    "Registre",
+};
+
 type SubmitResult = {
   submissionId: string | null;
   persisted: boolean;
   extraction: ExtractionResult;
+  rubric: RubricResult | null;
 };
 
 export default function SubmitPage() {
@@ -158,6 +166,45 @@ export default function SubmitPage() {
                 </>
               )}
             </div>
+
+            {/* Rubric */}
+            {result.rubric && (
+              <section>
+                <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400 mb-3">
+                  Évaluation par critères
+                </h2>
+                <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-3">
+                  {result.rubric.overall_feedback}
+                </p>
+                <div className="grid grid-cols-2 gap-3">
+                  {result.rubric.criteria.map((c) => (
+                    <div key={c.criterion}
+                      className="rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-3 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-medium text-zinc-700 dark:text-zinc-300">
+                          {RUBRIC_LABELS[c.criterion]}
+                        </span>
+                        <span className={`text-xs rounded-full px-2 py-0.5 font-medium ${
+                          c.strength
+                            ? "bg-green-100 text-green-700 dark:bg-green-950/40 dark:text-green-400"
+                            : "bg-orange-100 text-orange-700 dark:bg-orange-950/40 dark:text-orange-400"
+                        }`}>
+                          {c.strength ? "Point fort" : "À travailler"}
+                        </span>
+                      </div>
+                      <div className="flex gap-1">
+                        {[0, 1, 2, 3].map((i) => (
+                          <div key={i} className={`h-1.5 flex-1 rounded-full ${
+                            i < c.score ? "bg-zinc-900 dark:bg-zinc-100" : "bg-zinc-100 dark:bg-zinc-800"
+                          }`} />
+                        ))}
+                      </div>
+                      <p className="text-xs text-zinc-500 dark:text-zinc-400">{c.feedback}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
 
             {/* Span errors */}
             {result.extraction.span_errors.length > 0 && (

@@ -1,4 +1,4 @@
-import { extractErrors, type TaskType } from "@/lib/extractor";
+import { extractErrors, scoreRubric, type TaskType, type RubricResult } from "@/lib/extractor";
 import { getTaxonomyEntry } from "@/lib/taxonomy";
 import { db } from "@/lib/db";
 import { recomputeProfile } from "@/lib/profile";
@@ -35,20 +35,24 @@ export async function POST(request: Request) {
     return Response.json({ error: "taskType is required" }, { status: 400 });
   }
 
-  // ── LLM extraction ─────────────────────────────────────────────────────────
+  // ── LLM extraction + rubric (parallel) ────────────────────────────────────
   let extraction;
+  let rubric: RubricResult | null = null;
   try {
-    extraction = await extractErrors(
-      content.trim(),
-      taskType as TaskType,
-      prompt
-    );
+    const [extractionResult, rubricResult] = await Promise.allSettled([
+      extractErrors(content.trim(), taskType as TaskType, prompt),
+      scoreRubric(content.trim(), taskType as TaskType, prompt),
+    ]);
+    if (extractionResult.status === "rejected") {
+      console.error("Extraction failed:", extractionResult.reason);
+      return Response.json({ error: "Extraction failed — check server logs" }, { status: 500 });
+    }
+    extraction = extractionResult.value;
+    if (rubricResult.status === "fulfilled") rubric = rubricResult.value;
+    else console.error("Rubric scoring failed (non-fatal):", rubricResult.reason);
   } catch (err) {
     console.error("Extraction failed:", err);
-    return Response.json(
-      { error: "Extraction failed — check server logs" },
-      { status: 500 }
-    );
+    return Response.json({ error: "Extraction failed — check server logs" }, { status: 500 });
   }
 
   // ── DB persistence ─────────────────────────────────────────────────────────
@@ -101,5 +105,6 @@ export async function POST(request: Request) {
     submissionId,
     persisted: submissionId !== null,
     extraction,
+    rubric,
   });
 }

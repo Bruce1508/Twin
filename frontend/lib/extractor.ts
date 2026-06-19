@@ -37,6 +37,22 @@ export interface ExtractionResult {
   metrics: ExtractionMetrics;
 }
 
+// ── Rubric types ──────────────────────────────────────────────────────────────
+
+export type RubricCriterionKey = "coherence" | "vocabulaire" | "grammaire" | "registre";
+
+export interface RubricCriterion {
+  criterion: RubricCriterionKey;
+  score: number; // 0–4
+  feedback: string; // descriptive only, never a CEFR verdict
+  strength: boolean; // true if score >= 3
+}
+
+export interface RubricResult {
+  criteria: RubricCriterion[];
+  overall_feedback: string;
+}
+
 // ── Task types ────────────────────────────────────────────────────────────────
 
 export const TASK_TYPES = [
@@ -195,4 +211,66 @@ export async function extractErrors(
     whole_text_observations: (raw.whole_text_observations ?? []).map(normalizeObservation),
     metrics: raw.metrics,
   };
+}
+
+// ── Rubric scoring ────────────────────────────────────────────────────────────
+
+const rubricSchema = {
+  type: "object",
+  properties: {
+    criteria: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          criterion: { type: "string", enum: ["coherence", "vocabulaire", "grammaire", "registre"] },
+          score:     { type: "integer" },
+          feedback:  { type: "string" },
+          strength:  { type: "boolean" },
+        },
+        required: ["criterion", "score", "feedback", "strength"],
+      },
+    },
+    overall_feedback: { type: "string" },
+  },
+  required: ["criteria", "overall_feedback"],
+};
+
+export async function scoreRubric(
+  content: string,
+  taskType: TaskType,
+  prompt?: string
+): Promise<RubricResult> {
+  const client = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY! });
+  const context = prompt
+    ? `Type de tâche : ${taskType}. Sujet : "${prompt}".`
+    : `Type de tâche : ${taskType}.`;
+
+  const response = await client.models.generateContent({
+    model: "gemini-2.5-flash",
+    contents: content,
+    config: {
+      systemInstruction: `Tu es un correcteur TCF Canada spécialisé en expression écrite niveau B2.
+Évalue ce texte selon 4 critères, chacun noté de 0 à 4.
+
+Contexte : ${context}
+
+Critères :
+- coherence : organisation logique des idées, structure des paragraphes, enchaînement des arguments
+- vocabulaire : étendue et précision du lexique, variété, absence de répétitions excessives
+- grammaire : correction des structures grammaticales, complexité syntaxique
+- registre : adéquation du niveau de langue au type de tâche demandé
+
+Pour chaque critère :
+- score : entier 0–4 (0 = très insuffisant, 1 = insuffisant, 2 = satisfaisant, 3 = bon, 4 = excellent)
+- feedback : UNE phrase descriptive et précise. INTERDIT de mentionner un niveau CECRL (A1, A2, B1, B2, C1, C2).
+- strength : true si score >= 3, false sinon
+
+overall_feedback : 1 à 2 phrases de synthèse sur les points saillants. Sans niveau CECRL.`,
+      responseMimeType: "application/json",
+      responseJsonSchema: rubricSchema,
+    },
+  });
+
+  return JSON.parse(response.text!) as RubricResult;
 }
