@@ -14,6 +14,7 @@ export interface TaxonomyEntry {
   wholeTextOnly?: boolean; // true = whole-text observation only, never a span error
   readingOnly?: boolean; // true = only valid for reading exercises, never routed to writing drills
   speakingOnly?: boolean; // true = only valid for speaking exercises, never routed to writing drills
+  listeningOnly?: boolean; // true = only valid for listening exercises, never routed to writing drills
 }
 
 export const TAXONOMY: readonly TaxonomyEntry[] = [
@@ -357,6 +358,44 @@ export const TAXONOMY: readonly TaxonomyEntry[] = [
     speakingOnly: true,
   },
 
+  // ── COMPRÉHENSION ORALE (listening-only — never routed to writing drills) ───
+  {
+    tag: "ecoute_information_explicite",
+    category: "comprehension",
+    gloss: "Détail explicitement mentionné dans le passage oral non repéré par l'apprenant",
+    example: "Question sur un fait dit clairement → mauvais choix MCQ",
+    listeningOnly: true,
+  },
+  {
+    tag: "ecoute_inference",
+    category: "comprehension",
+    gloss: "Sens implicite du passage oral non déduit par l'apprenant",
+    example: "Le locuteur sous-entend une opinion → apprenant choisit le sens littéral",
+    listeningOnly: true,
+  },
+  {
+    tag: "ecoute_attitude_locuteur",
+    category: "comprehension",
+    gloss: "Ton, attitude ou sentiment du locuteur mal identifié",
+    example: "Locuteur ironique → apprenant interprète comme sincère",
+    listeningOnly: true,
+  },
+  {
+    tag: "ecoute_reformulation",
+    category: "comprehension",
+    gloss: "Paraphrase d'un élément du passage oral non reconnue dans la question",
+    example: "'c'est inévitable' reformulé en 'on ne peut pas l'éviter' → non reconnu",
+    listeningOnly: true,
+  },
+  {
+    tag: "ecoute_idee_principale",
+    category: "comprehension",
+    gloss: "Idée principale ou intention générale du passage oral mal identifiée",
+    example: "Passage argumentatif → apprenant croit que c'est informatif",
+    listeningOnly: true,
+    wholeTextOnly: true,
+  },
+
   // ── UNCATEGORIZED (fallback — LLM uses only when no tag fits) ─────────────
   {
     tag: "uncategorized",
@@ -371,7 +410,7 @@ export type ErrorTag = (typeof TAXONOMY)[number]["tag"];
 export const TAXONOMY_TAGS: readonly ErrorTag[] = TAXONOMY.map((e) => e.tag);
 
 export const SPAN_TAGS: readonly ErrorTag[] = TAXONOMY.filter(
-  (e) => !e.wholeTextOnly && !e.readingOnly && !e.speakingOnly
+  (e) => !e.wholeTextOnly && !e.readingOnly && !e.speakingOnly && !e.listeningOnly
 ).map((e) => e.tag);
 
 export const WHOLE_TEXT_TAGS: readonly ErrorTag[] = TAXONOMY.filter(
@@ -384,6 +423,10 @@ export const READING_TAGS: readonly ErrorTag[] = TAXONOMY.filter(
 
 export const SPEAKING_TAGS: readonly ErrorTag[] = TAXONOMY.filter(
   (e) => e.speakingOnly
+).map((e) => e.tag);
+
+export const LISTENING_TAGS: readonly ErrorTag[] = TAXONOMY.filter(
+  (e) => e.listeningOnly
 ).map((e) => e.tag);
 
 export function getTaxonomyEntry(tag: string): TaxonomyEntry | undefined {

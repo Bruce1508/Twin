@@ -34,8 +34,9 @@ model User {
   profile           Profile?
   drills            Drill[]
   readingExercises  ReadingExercise[]
-  speakingExercises SpeakingExercise[]
-  flashcards        Flashcard[]
+  speakingExercises  SpeakingExercise[]
+  flashcards         Flashcard[]
+  listeningExercises ListeningExercise[]
 }
 
 // A single unit of language production — immutable after creation.
@@ -57,7 +58,8 @@ model Submission {
   // When this submission is the response to a reading exercise, it links back here.
   readingExerciseAnswer   ReadingExercise?  @relation("ReadingExerciseResponse")
   // When this submission is the response to a speaking exercise, it links back here.
-  speakingExerciseAnswer  SpeakingExercise? @relation("SpeakingExerciseResponse")
+  speakingExerciseAnswer  SpeakingExercise?  @relation("SpeakingExerciseResponse")
+  listeningExerciseAnswer ListeningExercise? @relation("ListeningExerciseResponse")
 }
 
 // A single error extracted from a Submission — immutable after creation.
@@ -144,6 +146,23 @@ model SpeakingExercise {
 
   user       User        @relation(fields: [userId], references: [id])
   submission Submission? @relation("SpeakingExerciseResponse", fields: [submissionId], references: [id])
+}
+
+// Stores a listening exercise: generated passage + MCQ questions with answer keys.
+// passageType: "dialogue" | "monologue". Audio is derived from passageText on demand.
+// submissionId is set when the learner submits answers, closing the loop.
+model ListeningExercise {
+  id           String   @id @default(cuid())
+  userId       String
+  passageText  String
+  topic        String?
+  passageType  String
+  questions    Json
+  submissionId String?  @unique
+  createdAt    DateTime @default(now())
+
+  user       User        @relation(fields: [userId], references: [id])
+  submission Submission? @relation("ListeningExerciseResponse", fields: [submissionId], references: [id])
 }
 
 // Stores a reading exercise: article + generated questions with answer keys.
