@@ -35,6 +35,7 @@ model User {
   drills            Drill[]
   readingExercises  ReadingExercise[]
   speakingExercises SpeakingExercise[]
+  flashcards        Flashcard[]
 }
 
 // A single unit of language production — immutable after creation.
@@ -74,6 +75,7 @@ model ErrorEvent {
 
   submission Submission @relation(fields: [submissionId], references: [id])
   drills     Drill[]
+  flashcard  Flashcard?
 }
 
 // Derived ability profile — NOT a source of truth.
@@ -107,6 +109,23 @@ model Drill {
   user               User        @relation(fields: [userId], references: [id])
   sourceError        ErrorEvent? @relation(fields: [sourceErrorId], references: [id])
   responseSubmission Submission? @relation("DrillResponse", fields: [responseSubmissionId], references: [id])
+}
+
+// SRS schedule for one ErrorEvent. Created lazily on first /flashcards visit.
+// interval is in days; easeFactor is SM-2 ease multiplier (floor 1.3).
+// dueAt drives the review queue — cards surface when dueAt <= now().
+model Flashcard {
+  id             String    @id @default(cuid())
+  userId         String
+  errorEventId   String    @unique
+  dueAt          DateTime  @default(now())
+  interval       Int       @default(1)
+  easeFactor     Float     @default(2.5)
+  reviewCount    Int       @default(0)
+  lastReviewedAt DateTime?
+
+  user       User       @relation(fields: [userId], references: [id])
+  errorEvent ErrorEvent @relation(fields: [errorEventId], references: [id])
 }
 
 // Stores a speaking exercise: generated prompt + transcript + grading results.
