@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ReviserBadge from "./ReviserBadge";
 
 export default function Home() {
   return (
@@ -25,7 +26,10 @@ export default function Home() {
           ].map(({ href, title, sub }) => (
             <Link key={href} href={href} className="flex items-center justify-between w-full rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-5 py-4 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
               <div>
-                <div className="text-sm font-medium text-zinc-900 dark:text-zinc-100">{title}</div>
+                <div className="flex items-center text-sm font-medium text-zinc-900 dark:text-zinc-100">
+                  {title}
+                  {href === "/flashcards" && <ReviserBadge />}
+                </div>
                 <div className="text-xs text-zinc-400 mt-0.5">{sub}</div>
               </div>
               <span className="text-zinc-300">→</span>
