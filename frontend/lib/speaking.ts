@@ -94,7 +94,9 @@ Le prompt doit exiger une prise de position argumentée, pas une simple descript
       responseJsonSchema: promptSchema,
     },
   });
-  return JSON.parse(response.text!) as SpeakingPrompt;
+  if (!response.text) throw new Error("Empty response from Gemini (generateSpeakingPrompt)");
+  try { return JSON.parse(response.text) as SpeakingPrompt; }
+  catch { throw new Error("Invalid JSON from Gemini (generateSpeakingPrompt)"); }
 }
 
 export async function transcribeSpeech(
@@ -118,7 +120,8 @@ export async function transcribeSpeech(
       },
     ],
   });
-  return response.text!.trim();
+  if (!response.text) throw new Error("Empty response from Gemini (transcribeSpeech)");
+  return response.text.trim();
 }
 
 export async function gradeSpeech(
@@ -161,5 +164,7 @@ Résumé :
     },
   });
 
-  return JSON.parse(response.text!) as SpeakingGradingResult;
+  if (!response.text) throw new Error("Empty response from Gemini (gradeSpeech)");
+  try { return JSON.parse(response.text) as SpeakingGradingResult; }
+  catch { throw new Error("Invalid JSON from Gemini (gradeSpeech)"); }
 }

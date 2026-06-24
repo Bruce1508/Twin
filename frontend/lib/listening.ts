@@ -116,7 +116,8 @@ Registre oral naturel B2 avec une structure claire : introduction, développemen
 Retourne uniquement le texte du monologue, rien d'autre.`,
     },
   });
-  return response.text!.trim();
+  if (!response.text) throw new Error("Empty response from Gemini (generatePassage)");
+  return response.text.trim();
 }
 
 export async function generateQuestions(
@@ -144,7 +145,10 @@ Pour chaque question :
       responseJsonSchema: questionSchema,
     },
   });
-  const raw = JSON.parse(response.text!) as { questions: ListeningQuestion[] };
+  if (!response.text) throw new Error("Empty response from Gemini (generateQuestions)");
+  let raw: { questions: ListeningQuestion[] };
+  try { raw = JSON.parse(response.text); }
+  catch { throw new Error("Invalid JSON from Gemini (generateQuestions)"); }
   return raw.questions;
 }
 
