@@ -61,11 +61,12 @@ export async function POST(
       data: { submissionId: submission.id, grading: grading as any },
     });
 
+    type ErrCat = "grammaire" | "lexique" | "orthographe" | "syntaxe" | "registre" | "comprehension";
     const errorRows = grading.criteria
       .filter((r) => r.score <= 2)
       .map((r) => ({
         submissionId: submission.id,
-        category: getTaxonomyEntry(r.error_tag)?.category ?? ("grammaire" as const),
+        category: (getTaxonomyEntry(r.error_tag)?.category ?? "grammaire") as ErrCat,
         errorTag: r.error_tag,
         excerpt: r.excerpt ?? null,
         correction: r.feedback,
@@ -73,7 +74,7 @@ export async function POST(
       }));
 
     if (errorRows.length > 0) {
-      await db.errorEvent.createMany({ data: errorRows as any });
+      await db.errorEvent.createMany({ data: errorRows });
     }
 
     await recomputeProfile(userId);

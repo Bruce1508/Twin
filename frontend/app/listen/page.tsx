@@ -49,7 +49,7 @@ export default function ListenPage() {
       setStage({ name: "listening", exerciseId: data.exerciseId, passageText: data.passageText, passageType: data.passageType, questions: data.questions });
       setAnswers({});
       setShowTranscript(false);
-    } catch { setError("Impossible de contacter le serveur."); }
+    } catch (e) { console.error("generate failed:", e); setError("Impossible de contacter le serveur."); }
     finally { setLoading(false); }
   }
 
@@ -70,7 +70,7 @@ export default function ListenPage() {
       const data = await res.json();
       if (!res.ok) { setError(data.error ?? "Erreur"); return; }
       setStage({ name: "results", results: data.grading.results, accuracy: data.grading.summary.accuracy });
-    } catch { setError("Impossible de contacter le serveur."); }
+    } catch (e) { console.error("grade failed:", e); setError("Impossible de contacter le serveur."); }
     finally { setLoading(false); }
   }
 

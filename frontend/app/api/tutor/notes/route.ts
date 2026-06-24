@@ -26,6 +26,9 @@ export async function POST(request: Request) {
   let body: { notes?: string; homework?: string };
   try { body = await request.json(); }
   catch { return Response.json({ error: "Invalid JSON" }, { status: 400 }); }
+  if ((body.notes?.length ?? 0) > 10000 || (body.homework?.length ?? 0) > 5000) {
+    return Response.json({ error: "Payload too large" }, { status: 413 });
+  }
 
   try {
     const note = await db.tutorNote.create({
