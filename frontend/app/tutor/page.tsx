@@ -60,10 +60,11 @@ export default function TutorPage() {
   useEffect(() => {
     if (authStatus !== "unlocked") return;
     setDataLoading(true);
+    const headers = { Authorization: `Bearer ${token}` };
     Promise.all([
-      fetch("/api/tutor/report").then((r) => r.json()),
-      fetch("/api/tutor/history").then((r) => r.json()),
-      fetch("/api/tutor/notes").then((r) => r.json()),
+      fetch("/api/tutor/report", { headers }).then((r) => r.json()),
+      fetch("/api/tutor/history", { headers }).then((r) => r.json()),
+      fetch("/api/tutor/notes", { headers }).then((r) => r.json()),
     ]).then(([r, h, n]) => {
       if (r.summary) setReport(r);
       if (h.submissions) setHistory(h.submissions);

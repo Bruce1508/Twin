@@ -1,6 +1,14 @@
 import { db } from "@/lib/db";
+import { verifyToken, extractBearer } from "@/lib/tutor-auth";
 
-export async function GET() {
+function authorized(request: Request): boolean {
+  const passcode = process.env.TUTOR_PASSCODE;
+  if (!passcode) return false;
+  return verifyToken(extractBearer(request), passcode);
+}
+
+export async function GET(request: Request) {
+  if (!authorized(request)) return Response.json({ error: "Unauthorized" }, { status: 401 });
   try {
     const note = await db.tutorNote.findFirst({ orderBy: { createdAt: "desc" } });
     return Response.json({ note: note ?? { notes: "", homework: "", createdAt: null } });
@@ -11,8 +19,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const auth = request.headers.get("Authorization") ?? "";
-  if (!auth.startsWith("Bearer tutor_")) {
+  if (!authorized(request)) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
 

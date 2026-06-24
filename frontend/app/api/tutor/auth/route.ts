@@ -1,3 +1,5 @@
+import { generateToken } from "@/lib/tutor-auth";
+
 export async function POST(request: Request) {
   const passcode = process.env.TUTOR_PASSCODE;
   if (!passcode) return Response.json({ error: "TUTOR_PASSCODE not configured" }, { status: 503 });
@@ -10,6 +12,5 @@ export async function POST(request: Request) {
     return Response.json({ error: "Incorrect passcode" }, { status: 401 });
   }
 
-  const token = `tutor_${Date.now()}_${Math.random().toString(36).slice(2)}`;
-  return Response.json({ token });
+  return Response.json({ token: generateToken(passcode) });
 }
