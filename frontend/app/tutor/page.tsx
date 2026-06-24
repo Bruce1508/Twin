@@ -70,7 +70,7 @@ export default function TutorPage() {
       if (h.submissions) setHistory(h.submissions);
       if (n.note) { setNotes(n.note.notes ?? ""); setHomework(n.note.homework ?? ""); }
     }).finally(() => setDataLoading(false));
-  }, [authStatus]);
+  }, [authStatus, token]);
 
   async function handleAuth(e: React.FormEvent) {
     e.preventDefault();
@@ -89,7 +89,8 @@ export default function TutorPage() {
     if (!token) return;
     setSaveStatus("saving");
     try {
-      await fetch("/api/tutor/notes", { method: "POST", headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` }, body: JSON.stringify({ notes, homework }) });
+      const res = await fetch("/api/tutor/notes", { method: "POST", headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` }, body: JSON.stringify({ notes, homework }) });
+      if (!res.ok) { setSaveStatus("idle"); return; }
       setSaveStatus("saved");
       setTimeout(() => setSaveStatus("idle"), 2500);
     } catch { setSaveStatus("idle"); }
