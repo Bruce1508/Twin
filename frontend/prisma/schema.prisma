@@ -165,6 +165,15 @@ model ListeningExercise {
   submission Submission? @relation("ListeningExerciseResponse", fields: [submissionId], references: [id])
 }
 
+// Stores tutor session notes and homework assignments (singleton pattern — no userId).
+// Always use the most recent row. New row = new session.
+model TutorNote {
+  id        String   @id @default(cuid())
+  notes     String   @default("")
+  homework  String   @default("")
+  createdAt DateTime @default(now())
+}
+
 // Stores a reading exercise: article + generated questions with answer keys.
 // submissionId is set when the learner submits answers, closing the loop.
 // articleSource: "pasted" | "generated"

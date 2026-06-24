@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ReviserBadge from "./ReviserBadge";
+import HomeworkBanner from "./HomeworkBanner";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
             Estimation de progression uniquement — non officielle. Pour la certification TCF, consulte les sources officielles d'IRCC.
           </p>
         </div>
+        <HomeworkBanner />
         <nav className="space-y-3">
           {[
             { href: "/submit", title: "Écrire", sub: "Soumettre un texte en français" },
@@ -36,6 +38,11 @@ export default function Home() {
             </Link>
           ))}
         </nav>
+        <div className="text-center">
+          <Link href="/tutor" className="text-xs text-zinc-300 dark:text-zinc-700 hover:text-zinc-400 dark:hover:text-zinc-500 transition-colors">
+            Mode tuteur
+          </Link>
+        </div>
       </div>
     </div>
   );
