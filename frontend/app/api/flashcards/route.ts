@@ -31,23 +31,15 @@ export async function GET() {
   if (!userId) return Response.json({ error: "DEV_USER_ID not configured" }, { status: 503 });
 
   try {
-    // Lazy sync: find ErrorEvents without a Flashcard yet
-    const allEvents = await db.errorEvent.findMany({
-      where: { submission: { userId } },
+    // Lazy sync: single query finds ErrorEvents with no Flashcard yet
+    const unsynced = await db.errorEvent.findMany({
+      where: { submission: { userId }, flashcard: null },
       select: { id: true },
     });
 
-    const existingCards = await db.flashcard.findMany({
-      where: { userId },
-      select: { errorEventId: true },
-    });
-
-    const existingIds = new Set(existingCards.map((c) => c.errorEventId));
-    const newIds = allEvents.map((e) => e.id).filter((id) => !existingIds.has(id));
-
-    if (newIds.length > 0) {
+    if (unsynced.length > 0) {
       await db.flashcard.createMany({
-        data: newIds.map((errorEventId) => ({ userId, errorEventId })),
+        data: unsynced.map(({ id }) => ({ userId, errorEventId: id })),
         skipDuplicates: true,
       });
     }
