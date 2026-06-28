@@ -62,6 +62,11 @@ export type ErrorEvent = Prisma.ErrorEventModel
  */
 export type Profile = Prisma.ProfileModel
 /**
+ * Model SessionProgress
+ * 
+ */
+export type SessionProgress = Prisma.SessionProgressModel
+/**
  * Model Drill
  * 
  */

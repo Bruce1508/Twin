@@ -189,6 +189,7 @@ export type UserWhereInput = {
   speakingExercises?: Prisma.SpeakingExerciseListRelationFilter
   flashcards?: Prisma.FlashcardListRelationFilter
   listeningExercises?: Prisma.ListeningExerciseListRelationFilter
+  sessionProgress?: Prisma.XOR<Prisma.SessionProgressNullableScalarRelationFilter, Prisma.SessionProgressWhereInput> | null
 }
 
 export type UserOrderByWithRelationInput = {
@@ -204,6 +205,7 @@ export type UserOrderByWithRelationInput = {
   speakingExercises?: Prisma.SpeakingExerciseOrderByRelationAggregateInput
   flashcards?: Prisma.FlashcardOrderByRelationAggregateInput
   listeningExercises?: Prisma.ListeningExerciseOrderByRelationAggregateInput
+  sessionProgress?: Prisma.SessionProgressOrderByWithRelationInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -222,6 +224,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   speakingExercises?: Prisma.SpeakingExerciseListRelationFilter
   flashcards?: Prisma.FlashcardListRelationFilter
   listeningExercises?: Prisma.ListeningExerciseListRelationFilter
+  sessionProgress?: Prisma.XOR<Prisma.SessionProgressNullableScalarRelationFilter, Prisma.SessionProgressWhereInput> | null
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -259,6 +262,7 @@ export type UserCreateInput = {
   speakingExercises?: Prisma.SpeakingExerciseCreateNestedManyWithoutUserInput
   flashcards?: Prisma.FlashcardCreateNestedManyWithoutUserInput
   listeningExercises?: Prisma.ListeningExerciseCreateNestedManyWithoutUserInput
+  sessionProgress?: Prisma.SessionProgressCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -274,6 +278,7 @@ export type UserUncheckedCreateInput = {
   speakingExercises?: Prisma.SpeakingExerciseUncheckedCreateNestedManyWithoutUserInput
   flashcards?: Prisma.FlashcardUncheckedCreateNestedManyWithoutUserInput
   listeningExercises?: Prisma.ListeningExerciseUncheckedCreateNestedManyWithoutUserInput
+  sessionProgress?: Prisma.SessionProgressUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -289,6 +294,7 @@ export type UserUpdateInput = {
   speakingExercises?: Prisma.SpeakingExerciseUpdateManyWithoutUserNestedInput
   flashcards?: Prisma.FlashcardUpdateManyWithoutUserNestedInput
   listeningExercises?: Prisma.ListeningExerciseUpdateManyWithoutUserNestedInput
+  sessionProgress?: Prisma.SessionProgressUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -304,6 +310,7 @@ export type UserUncheckedUpdateInput = {
   speakingExercises?: Prisma.SpeakingExerciseUncheckedUpdateManyWithoutUserNestedInput
   flashcards?: Prisma.FlashcardUncheckedUpdateManyWithoutUserNestedInput
   listeningExercises?: Prisma.ListeningExerciseUncheckedUpdateManyWithoutUserNestedInput
+  sessionProgress?: Prisma.SessionProgressUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -399,6 +406,20 @@ export type UserUpdateOneRequiredWithoutProfileNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProfileInput, Prisma.UserUpdateWithoutProfileInput>, Prisma.UserUncheckedUpdateWithoutProfileInput>
 }
 
+export type UserCreateNestedOneWithoutSessionProgressInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSessionProgressInput, Prisma.UserUncheckedCreateWithoutSessionProgressInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSessionProgressInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSessionProgressNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSessionProgressInput, Prisma.UserUncheckedCreateWithoutSessionProgressInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSessionProgressInput
+  upsert?: Prisma.UserUpsertWithoutSessionProgressInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSessionProgressInput, Prisma.UserUpdateWithoutSessionProgressInput>, Prisma.UserUncheckedUpdateWithoutSessionProgressInput>
+}
+
 export type UserCreateNestedOneWithoutDrillsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutDrillsInput, Prisma.UserUncheckedCreateWithoutDrillsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutDrillsInput
@@ -481,6 +502,7 @@ export type UserCreateWithoutSubmissionsInput = {
   speakingExercises?: Prisma.SpeakingExerciseCreateNestedManyWithoutUserInput
   flashcards?: Prisma.FlashcardCreateNestedManyWithoutUserInput
   listeningExercises?: Prisma.ListeningExerciseCreateNestedManyWithoutUserInput
+  sessionProgress?: Prisma.SessionProgressCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSubmissionsInput = {
@@ -495,6 +517,7 @@ export type UserUncheckedCreateWithoutSubmissionsInput = {
   speakingExercises?: Prisma.SpeakingExerciseUncheckedCreateNestedManyWithoutUserInput
   flashcards?: Prisma.FlashcardUncheckedCreateNestedManyWithoutUserInput
   listeningExercises?: Prisma.ListeningExerciseUncheckedCreateNestedManyWithoutUserInput
+  sessionProgress?: Prisma.SessionProgressUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSubmissionsInput = {
@@ -525,6 +548,7 @@ export type UserUpdateWithoutSubmissionsInput = {
   speakingExercises?: Prisma.SpeakingExerciseUpdateManyWithoutUserNestedInput
   flashcards?: Prisma.FlashcardUpdateManyWithoutUserNestedInput
   listeningExercises?: Prisma.ListeningExerciseUpdateManyWithoutUserNestedInput
+  sessionProgress?: Prisma.SessionProgressUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSubmissionsInput = {
@@ -539,6 +563,7 @@ export type UserUncheckedUpdateWithoutSubmissionsInput = {
   speakingExercises?: Prisma.SpeakingExerciseUncheckedUpdateManyWithoutUserNestedInput
   flashcards?: Prisma.FlashcardUncheckedUpdateManyWithoutUserNestedInput
   listeningExercises?: Prisma.ListeningExerciseUncheckedUpdateManyWithoutUserNestedInput
+  sessionProgress?: Prisma.SessionProgressUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProfileInput = {
@@ -553,6 +578,7 @@ export type UserCreateWithoutProfileInput = {
   speakingExercises?: Prisma.SpeakingExerciseCreateNestedManyWithoutUserInput
   flashcards?: Prisma.FlashcardCreateNestedManyWithoutUserInput
   listeningExercises?: Prisma.ListeningExerciseCreateNestedManyWithoutUserInput
+  sessionProgress?: Prisma.SessionProgressCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProfileInput = {
@@ -567,6 +593,7 @@ export type UserUncheckedCreateWithoutProfileInput = {
   speakingExercises?: Prisma.SpeakingExerciseUncheckedCreateNestedManyWithoutUserInput
   flashcards?: Prisma.FlashcardUncheckedCreateNestedManyWithoutUserInput
   listeningExercises?: Prisma.ListeningExerciseUncheckedCreateNestedManyWithoutUserInput
+  sessionProgress?: Prisma.SessionProgressUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProfileInput = {
@@ -597,6 +624,7 @@ export type UserUpdateWithoutProfileInput = {
   speakingExercises?: Prisma.SpeakingExerciseUpdateManyWithoutUserNestedInput
   flashcards?: Prisma.FlashcardUpdateManyWithoutUserNestedInput
   listeningExercises?: Prisma.ListeningExerciseUpdateManyWithoutUserNestedInput
+  sessionProgress?: Prisma.SessionProgressUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProfileInput = {
@@ -606,6 +634,83 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   targetLevel?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutUserNestedInput
+  drills?: Prisma.DrillUncheckedUpdateManyWithoutUserNestedInput
+  readingExercises?: Prisma.ReadingExerciseUncheckedUpdateManyWithoutUserNestedInput
+  speakingExercises?: Prisma.SpeakingExerciseUncheckedUpdateManyWithoutUserNestedInput
+  flashcards?: Prisma.FlashcardUncheckedUpdateManyWithoutUserNestedInput
+  listeningExercises?: Prisma.ListeningExerciseUncheckedUpdateManyWithoutUserNestedInput
+  sessionProgress?: Prisma.SessionProgressUncheckedUpdateOneWithoutUserNestedInput
+}
+
+export type UserCreateWithoutSessionProgressInput = {
+  id?: string
+  email: string
+  name?: string | null
+  targetLevel?: string
+  createdAt?: Date | string
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutUserInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  drills?: Prisma.DrillCreateNestedManyWithoutUserInput
+  readingExercises?: Prisma.ReadingExerciseCreateNestedManyWithoutUserInput
+  speakingExercises?: Prisma.SpeakingExerciseCreateNestedManyWithoutUserInput
+  flashcards?: Prisma.FlashcardCreateNestedManyWithoutUserInput
+  listeningExercises?: Prisma.ListeningExerciseCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutSessionProgressInput = {
+  id?: string
+  email: string
+  name?: string | null
+  targetLevel?: string
+  createdAt?: Date | string
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutUserInput
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  drills?: Prisma.DrillUncheckedCreateNestedManyWithoutUserInput
+  readingExercises?: Prisma.ReadingExerciseUncheckedCreateNestedManyWithoutUserInput
+  speakingExercises?: Prisma.SpeakingExerciseUncheckedCreateNestedManyWithoutUserInput
+  flashcards?: Prisma.FlashcardUncheckedCreateNestedManyWithoutUserInput
+  listeningExercises?: Prisma.ListeningExerciseUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutSessionProgressInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSessionProgressInput, Prisma.UserUncheckedCreateWithoutSessionProgressInput>
+}
+
+export type UserUpsertWithoutSessionProgressInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSessionProgressInput, Prisma.UserUncheckedUpdateWithoutSessionProgressInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSessionProgressInput, Prisma.UserUncheckedCreateWithoutSessionProgressInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSessionProgressInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSessionProgressInput, Prisma.UserUncheckedUpdateWithoutSessionProgressInput>
+}
+
+export type UserUpdateWithoutSessionProgressInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetLevel?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submissions?: Prisma.SubmissionUpdateManyWithoutUserNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  drills?: Prisma.DrillUpdateManyWithoutUserNestedInput
+  readingExercises?: Prisma.ReadingExerciseUpdateManyWithoutUserNestedInput
+  speakingExercises?: Prisma.SpeakingExerciseUpdateManyWithoutUserNestedInput
+  flashcards?: Prisma.FlashcardUpdateManyWithoutUserNestedInput
+  listeningExercises?: Prisma.ListeningExerciseUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSessionProgressInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetLevel?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutUserNestedInput
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   drills?: Prisma.DrillUncheckedUpdateManyWithoutUserNestedInput
   readingExercises?: Prisma.ReadingExerciseUncheckedUpdateManyWithoutUserNestedInput
   speakingExercises?: Prisma.SpeakingExerciseUncheckedUpdateManyWithoutUserNestedInput
@@ -625,6 +730,7 @@ export type UserCreateWithoutDrillsInput = {
   speakingExercises?: Prisma.SpeakingExerciseCreateNestedManyWithoutUserInput
   flashcards?: Prisma.FlashcardCreateNestedManyWithoutUserInput
   listeningExercises?: Prisma.ListeningExerciseCreateNestedManyWithoutUserInput
+  sessionProgress?: Prisma.SessionProgressCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDrillsInput = {
@@ -639,6 +745,7 @@ export type UserUncheckedCreateWithoutDrillsInput = {
   speakingExercises?: Prisma.SpeakingExerciseUncheckedCreateNestedManyWithoutUserInput
   flashcards?: Prisma.FlashcardUncheckedCreateNestedManyWithoutUserInput
   listeningExercises?: Prisma.ListeningExerciseUncheckedCreateNestedManyWithoutUserInput
+  sessionProgress?: Prisma.SessionProgressUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDrillsInput = {
@@ -669,6 +776,7 @@ export type UserUpdateWithoutDrillsInput = {
   speakingExercises?: Prisma.SpeakingExerciseUpdateManyWithoutUserNestedInput
   flashcards?: Prisma.FlashcardUpdateManyWithoutUserNestedInput
   listeningExercises?: Prisma.ListeningExerciseUpdateManyWithoutUserNestedInput
+  sessionProgress?: Prisma.SessionProgressUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDrillsInput = {
@@ -683,6 +791,7 @@ export type UserUncheckedUpdateWithoutDrillsInput = {
   speakingExercises?: Prisma.SpeakingExerciseUncheckedUpdateManyWithoutUserNestedInput
   flashcards?: Prisma.FlashcardUncheckedUpdateManyWithoutUserNestedInput
   listeningExercises?: Prisma.ListeningExerciseUncheckedUpdateManyWithoutUserNestedInput
+  sessionProgress?: Prisma.SessionProgressUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutFlashcardsInput = {
@@ -697,6 +806,7 @@ export type UserCreateWithoutFlashcardsInput = {
   readingExercises?: Prisma.ReadingExerciseCreateNestedManyWithoutUserInput
   speakingExercises?: Prisma.SpeakingExerciseCreateNestedManyWithoutUserInput
   listeningExercises?: Prisma.ListeningExerciseCreateNestedManyWithoutUserInput
+  sessionProgress?: Prisma.SessionProgressCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFlashcardsInput = {
@@ -711,6 +821,7 @@ export type UserUncheckedCreateWithoutFlashcardsInput = {
   readingExercises?: Prisma.ReadingExerciseUncheckedCreateNestedManyWithoutUserInput
   speakingExercises?: Prisma.SpeakingExerciseUncheckedCreateNestedManyWithoutUserInput
   listeningExercises?: Prisma.ListeningExerciseUncheckedCreateNestedManyWithoutUserInput
+  sessionProgress?: Prisma.SessionProgressUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFlashcardsInput = {
@@ -741,6 +852,7 @@ export type UserUpdateWithoutFlashcardsInput = {
   readingExercises?: Prisma.ReadingExerciseUpdateManyWithoutUserNestedInput
   speakingExercises?: Prisma.SpeakingExerciseUpdateManyWithoutUserNestedInput
   listeningExercises?: Prisma.ListeningExerciseUpdateManyWithoutUserNestedInput
+  sessionProgress?: Prisma.SessionProgressUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFlashcardsInput = {
@@ -755,6 +867,7 @@ export type UserUncheckedUpdateWithoutFlashcardsInput = {
   readingExercises?: Prisma.ReadingExerciseUncheckedUpdateManyWithoutUserNestedInput
   speakingExercises?: Prisma.SpeakingExerciseUncheckedUpdateManyWithoutUserNestedInput
   listeningExercises?: Prisma.ListeningExerciseUncheckedUpdateManyWithoutUserNestedInput
+  sessionProgress?: Prisma.SessionProgressUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSpeakingExercisesInput = {
@@ -769,6 +882,7 @@ export type UserCreateWithoutSpeakingExercisesInput = {
   readingExercises?: Prisma.ReadingExerciseCreateNestedManyWithoutUserInput
   flashcards?: Prisma.FlashcardCreateNestedManyWithoutUserInput
   listeningExercises?: Prisma.ListeningExerciseCreateNestedManyWithoutUserInput
+  sessionProgress?: Prisma.SessionProgressCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSpeakingExercisesInput = {
@@ -783,6 +897,7 @@ export type UserUncheckedCreateWithoutSpeakingExercisesInput = {
   readingExercises?: Prisma.ReadingExerciseUncheckedCreateNestedManyWithoutUserInput
   flashcards?: Prisma.FlashcardUncheckedCreateNestedManyWithoutUserInput
   listeningExercises?: Prisma.ListeningExerciseUncheckedCreateNestedManyWithoutUserInput
+  sessionProgress?: Prisma.SessionProgressUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSpeakingExercisesInput = {
@@ -813,6 +928,7 @@ export type UserUpdateWithoutSpeakingExercisesInput = {
   readingExercises?: Prisma.ReadingExerciseUpdateManyWithoutUserNestedInput
   flashcards?: Prisma.FlashcardUpdateManyWithoutUserNestedInput
   listeningExercises?: Prisma.ListeningExerciseUpdateManyWithoutUserNestedInput
+  sessionProgress?: Prisma.SessionProgressUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSpeakingExercisesInput = {
@@ -827,6 +943,7 @@ export type UserUncheckedUpdateWithoutSpeakingExercisesInput = {
   readingExercises?: Prisma.ReadingExerciseUncheckedUpdateManyWithoutUserNestedInput
   flashcards?: Prisma.FlashcardUncheckedUpdateManyWithoutUserNestedInput
   listeningExercises?: Prisma.ListeningExerciseUncheckedUpdateManyWithoutUserNestedInput
+  sessionProgress?: Prisma.SessionProgressUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutListeningExercisesInput = {
@@ -841,6 +958,7 @@ export type UserCreateWithoutListeningExercisesInput = {
   readingExercises?: Prisma.ReadingExerciseCreateNestedManyWithoutUserInput
   speakingExercises?: Prisma.SpeakingExerciseCreateNestedManyWithoutUserInput
   flashcards?: Prisma.FlashcardCreateNestedManyWithoutUserInput
+  sessionProgress?: Prisma.SessionProgressCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutListeningExercisesInput = {
@@ -855,6 +973,7 @@ export type UserUncheckedCreateWithoutListeningExercisesInput = {
   readingExercises?: Prisma.ReadingExerciseUncheckedCreateNestedManyWithoutUserInput
   speakingExercises?: Prisma.SpeakingExerciseUncheckedCreateNestedManyWithoutUserInput
   flashcards?: Prisma.FlashcardUncheckedCreateNestedManyWithoutUserInput
+  sessionProgress?: Prisma.SessionProgressUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutListeningExercisesInput = {
@@ -885,6 +1004,7 @@ export type UserUpdateWithoutListeningExercisesInput = {
   readingExercises?: Prisma.ReadingExerciseUpdateManyWithoutUserNestedInput
   speakingExercises?: Prisma.SpeakingExerciseUpdateManyWithoutUserNestedInput
   flashcards?: Prisma.FlashcardUpdateManyWithoutUserNestedInput
+  sessionProgress?: Prisma.SessionProgressUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutListeningExercisesInput = {
@@ -899,6 +1019,7 @@ export type UserUncheckedUpdateWithoutListeningExercisesInput = {
   readingExercises?: Prisma.ReadingExerciseUncheckedUpdateManyWithoutUserNestedInput
   speakingExercises?: Prisma.SpeakingExerciseUncheckedUpdateManyWithoutUserNestedInput
   flashcards?: Prisma.FlashcardUncheckedUpdateManyWithoutUserNestedInput
+  sessionProgress?: Prisma.SessionProgressUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReadingExercisesInput = {
@@ -913,6 +1034,7 @@ export type UserCreateWithoutReadingExercisesInput = {
   speakingExercises?: Prisma.SpeakingExerciseCreateNestedManyWithoutUserInput
   flashcards?: Prisma.FlashcardCreateNestedManyWithoutUserInput
   listeningExercises?: Prisma.ListeningExerciseCreateNestedManyWithoutUserInput
+  sessionProgress?: Prisma.SessionProgressCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReadingExercisesInput = {
@@ -927,6 +1049,7 @@ export type UserUncheckedCreateWithoutReadingExercisesInput = {
   speakingExercises?: Prisma.SpeakingExerciseUncheckedCreateNestedManyWithoutUserInput
   flashcards?: Prisma.FlashcardUncheckedCreateNestedManyWithoutUserInput
   listeningExercises?: Prisma.ListeningExerciseUncheckedCreateNestedManyWithoutUserInput
+  sessionProgress?: Prisma.SessionProgressUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReadingExercisesInput = {
@@ -957,6 +1080,7 @@ export type UserUpdateWithoutReadingExercisesInput = {
   speakingExercises?: Prisma.SpeakingExerciseUpdateManyWithoutUserNestedInput
   flashcards?: Prisma.FlashcardUpdateManyWithoutUserNestedInput
   listeningExercises?: Prisma.ListeningExerciseUpdateManyWithoutUserNestedInput
+  sessionProgress?: Prisma.SessionProgressUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReadingExercisesInput = {
@@ -971,6 +1095,7 @@ export type UserUncheckedUpdateWithoutReadingExercisesInput = {
   speakingExercises?: Prisma.SpeakingExerciseUncheckedUpdateManyWithoutUserNestedInput
   flashcards?: Prisma.FlashcardUncheckedUpdateManyWithoutUserNestedInput
   listeningExercises?: Prisma.ListeningExerciseUncheckedUpdateManyWithoutUserNestedInput
+  sessionProgress?: Prisma.SessionProgressUncheckedUpdateOneWithoutUserNestedInput
 }
 
 
@@ -1062,6 +1187,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   speakingExercises?: boolean | Prisma.User$speakingExercisesArgs<ExtArgs>
   flashcards?: boolean | Prisma.User$flashcardsArgs<ExtArgs>
   listeningExercises?: boolean | Prisma.User$listeningExercisesArgs<ExtArgs>
+  sessionProgress?: boolean | Prisma.User$sessionProgressArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1098,6 +1224,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   speakingExercises?: boolean | Prisma.User$speakingExercisesArgs<ExtArgs>
   flashcards?: boolean | Prisma.User$flashcardsArgs<ExtArgs>
   listeningExercises?: boolean | Prisma.User$listeningExercisesArgs<ExtArgs>
+  sessionProgress?: boolean | Prisma.User$sessionProgressArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1113,6 +1240,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     speakingExercises: Prisma.$SpeakingExercisePayload<ExtArgs>[]
     flashcards: Prisma.$FlashcardPayload<ExtArgs>[]
     listeningExercises: Prisma.$ListeningExercisePayload<ExtArgs>[]
+    sessionProgress: Prisma.$SessionProgressPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1521,6 +1649,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   speakingExercises<T extends Prisma.User$speakingExercisesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$speakingExercisesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SpeakingExercisePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   flashcards<T extends Prisma.User$flashcardsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$flashcardsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FlashcardPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   listeningExercises<T extends Prisma.User$listeningExercisesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$listeningExercisesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListeningExercisePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  sessionProgress<T extends Prisma.User$sessionProgressArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionProgressArgs<ExtArgs>>): Prisma.Prisma__SessionProgressClient<runtime.Types.Result.GetResult<Prisma.$SessionProgressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2108,6 +2237,25 @@ export type User$listeningExercisesArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   distinct?: Prisma.ListeningExerciseScalarFieldEnum | Prisma.ListeningExerciseScalarFieldEnum[]
+}
+
+/**
+ * User.sessionProgress
+ */
+export type User$sessionProgressArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SessionProgress
+   */
+  select?: Prisma.SessionProgressSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SessionProgress
+   */
+  omit?: Prisma.SessionProgressOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SessionProgressInclude<ExtArgs> | null
+  where?: Prisma.SessionProgressWhereInput
 }
 
 /**

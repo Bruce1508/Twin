@@ -55,6 +55,7 @@ export const ModelName = {
   Submission: 'Submission',
   ErrorEvent: 'ErrorEvent',
   Profile: 'Profile',
+  SessionProgress: 'SessionProgress',
   Drill: 'Drill',
   Flashcard: 'Flashcard',
   SpeakingExercise: 'SpeakingExercise',
@@ -128,6 +129,18 @@ export const ProfileScalarFieldEnum = {
 } as const
 
 export type ProfileScalarFieldEnum = (typeof ProfileScalarFieldEnum)[keyof typeof ProfileScalarFieldEnum]
+
+
+export const SessionProgressScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  planPosition: 'planPosition',
+  activeSession: 'activeSession',
+  startedAt: 'startedAt',
+  lastCompletedAt: 'lastCompletedAt'
+} as const
+
+export type SessionProgressScalarFieldEnum = (typeof SessionProgressScalarFieldEnum)[keyof typeof SessionProgressScalarFieldEnum]
 
 
 export const DrillScalarFieldEnum = {

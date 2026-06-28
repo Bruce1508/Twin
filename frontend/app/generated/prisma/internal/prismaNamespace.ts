@@ -388,6 +388,7 @@ export const ModelName = {
   Submission: 'Submission',
   ErrorEvent: 'ErrorEvent',
   Profile: 'Profile',
+  SessionProgress: 'SessionProgress',
   Drill: 'Drill',
   Flashcard: 'Flashcard',
   SpeakingExercise: 'SpeakingExercise',
@@ -409,7 +410,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "submission" | "errorEvent" | "profile" | "drill" | "flashcard" | "speakingExercise" | "listeningExercise" | "tutorNote" | "readingExercise"
+    modelProps: "user" | "submission" | "errorEvent" | "profile" | "sessionProgress" | "drill" | "flashcard" | "speakingExercise" | "listeningExercise" | "tutorNote" | "readingExercise"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -706,6 +707,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.ProfileCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.ProfileCountAggregateOutputType> | number
+        }
+      }
+    }
+    SessionProgress: {
+      payload: Prisma.$SessionProgressPayload<ExtArgs>
+      fields: Prisma.SessionProgressFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SessionProgressFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionProgressPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SessionProgressFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionProgressPayload>
+        }
+        findFirst: {
+          args: Prisma.SessionProgressFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionProgressPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SessionProgressFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionProgressPayload>
+        }
+        findMany: {
+          args: Prisma.SessionProgressFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionProgressPayload>[]
+        }
+        create: {
+          args: Prisma.SessionProgressCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionProgressPayload>
+        }
+        createMany: {
+          args: Prisma.SessionProgressCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SessionProgressCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionProgressPayload>[]
+        }
+        delete: {
+          args: Prisma.SessionProgressDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionProgressPayload>
+        }
+        update: {
+          args: Prisma.SessionProgressUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionProgressPayload>
+        }
+        deleteMany: {
+          args: Prisma.SessionProgressDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SessionProgressUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SessionProgressUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionProgressPayload>[]
+        }
+        upsert: {
+          args: Prisma.SessionProgressUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionProgressPayload>
+        }
+        aggregate: {
+          args: Prisma.SessionProgressAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSessionProgress>
+        }
+        groupBy: {
+          args: Prisma.SessionProgressGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SessionProgressGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SessionProgressCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SessionProgressCountAggregateOutputType> | number
         }
       }
     }
@@ -1243,6 +1318,18 @@ export const ProfileScalarFieldEnum = {
 export type ProfileScalarFieldEnum = (typeof ProfileScalarFieldEnum)[keyof typeof ProfileScalarFieldEnum]
 
 
+export const SessionProgressScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  planPosition: 'planPosition',
+  activeSession: 'activeSession',
+  startedAt: 'startedAt',
+  lastCompletedAt: 'lastCompletedAt'
+} as const
+
+export type SessionProgressScalarFieldEnum = (typeof SessionProgressScalarFieldEnum)[keyof typeof SessionProgressScalarFieldEnum]
+
+
 export const DrillScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -1582,6 +1669,7 @@ export type GlobalOmitConfig = {
   submission?: Prisma.SubmissionOmit
   errorEvent?: Prisma.ErrorEventOmit
   profile?: Prisma.ProfileOmit
+  sessionProgress?: Prisma.SessionProgressOmit
   drill?: Prisma.DrillOmit
   flashcard?: Prisma.FlashcardOmit
   speakingExercise?: Prisma.SpeakingExerciseOmit

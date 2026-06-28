@@ -528,10 +528,6 @@ export type FloatFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
-}
-
 export type FlashcardCreateWithoutUserInput = {
   id?: string
   dueAt?: Date | string
