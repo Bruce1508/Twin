@@ -37,6 +37,7 @@ model User {
   speakingExercises  SpeakingExercise[]
   flashcards         Flashcard[]
   listeningExercises ListeningExercise[]
+  sessionProgress   SessionProgress?
 }
 
 // A single unit of language production — immutable after creation.
@@ -90,6 +91,21 @@ model Profile {
   knownVocab       Int      @default(0)
   complexityTrend  Json
   computedAt       DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+// Single-row-per-user queue state for the "Aujourd'hui" daily session.
+// planPosition is a QUEUE index into lib/plan.ts PLAN — it advances only when a
+// session is completed, never by calendar date, so skipped days never create a
+// "behind" state. activeSession holds the in-progress SessionStep[] for resume.
+model SessionProgress {
+  id              String    @id @default(cuid())
+  userId          String    @unique
+  planPosition    Int       @default(1)
+  activeSession   Json?
+  startedAt       DateTime?
+  lastCompletedAt DateTime?
 
   user User @relation(fields: [userId], references: [id])
 }
