@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, Suspense } from "react";
 import type { SpeakingCriterionResult } from "@/lib/speaking";
+import SessionStepButton from "@/app/SessionStepButton";
 
 type Stage =
   | { name: "setup" }
@@ -331,6 +332,7 @@ export default function SpeakPage() {
               ))}
             </div>
 
+            <Suspense fallback={null}><SessionStepButton /></Suspense>
             <div className="flex gap-3">
               <button onClick={resetExercise}
                 className="rounded-full bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 px-6 py-2.5 text-sm font-medium">

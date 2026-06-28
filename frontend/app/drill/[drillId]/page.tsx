@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useParams, useRouter } from "next/navigation";
+import SessionStepButton from "@/app/SessionStepButton";
 import type { GradingResult, LearnerAnswer } from "@/lib/generator";
 
 type Sentence = { id: number; text: string };
@@ -134,6 +135,7 @@ export default function DrillPage() {
                 </div>
               ))}
             </div>
+            <Suspense fallback={null}><SessionStepButton /></Suspense>
             <div className="flex gap-3">
               <button onClick={() => router.push("/practice")} className="rounded-full bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 px-6 py-2.5 text-sm font-medium">
                 Exercice suivant

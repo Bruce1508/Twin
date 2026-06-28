@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import type { ListeningCriterionResult, PassageType, LearnerChoice } from "@/lib/listening";
+import SessionStepButton from "@/app/SessionStepButton";
 
 type PublicQuestion = {
   id: number;
@@ -220,6 +221,7 @@ export default function ListenPage() {
               ))}
             </div>
 
+            <Suspense fallback={null}><SessionStepButton /></Suspense>
             <div className="flex gap-3">
               <button onClick={() => { setStage({ name: "setup" }); setAnswers({}); setError(null); }}
                 className="rounded-full bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 px-6 py-2.5 text-sm font-medium">
