@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import { Prisma } from "@/app/generated/prisma/client";
 import { getPlanDay } from "@/lib/plan";
 import { getNextTarget } from "@/lib/targeting";
 import { buildSession, trimToMin, type SessionStep, type SessionMode } from "@/lib/session";
@@ -33,7 +34,19 @@ export async function GET(req: Request) {
     } else if (mode === "min") {
       // Live session + explicit "10 min" request: trim remaining pending steps.
       steps = trimToMin(steps);
-      await db.sessionProgress.update({ where: { userId }, data: { activeSession: steps } });
+      if (steps.some((s) => s.status === "pending")) {
+        await db.sessionProgress.update({ where: { userId }, data: { activeSession: steps } });
+      } else {
+        // All remaining pending steps were non-vocab/grammar and got dropped — session is complete.
+        await db.sessionProgress.update({
+          where: { userId },
+          data: {
+            planPosition: { increment: 1 },
+            activeSession: Prisma.DbNull,
+            lastCompletedAt: new Date(),
+          },
+        });
+      }
     }
 
     return Response.json({

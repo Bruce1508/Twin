@@ -73,4 +73,14 @@ describe("trimToMin", () => {
     ];
     expect(trimToMin(steps).map((s) => s.kind)).toEqual(["vocab", "grammar"]);
   });
+
+  it("leaves no pending step when only non-vocab/grammar steps remain", () => {
+    const steps: SessionStep[] = [
+      { kind: "vocab", route: "/flashcards", label: "Réviser", status: "done" },
+      { kind: "grammar", route: "/practice", label: "Pratiquer", status: "done" },
+      { kind: "listening", route: "/listen", label: "Écouter", status: "pending" },
+    ];
+    const trimmed = trimToMin(steps);
+    expect(trimmed.some((s) => s.status === "pending")).toBe(false);
+  });
 });
