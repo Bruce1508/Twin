@@ -8,6 +8,12 @@ const buf = new Uint8Array(readFileSync(xlsxPath));
 const files = unzipSync(buf);
 const sheet = strFromU8(files["xl/worksheets/sheet2.xml"]);
 
+function decode(s) {
+  return s.replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
+          .replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">")
+          .replace(/&#39;/g, "'").replace(/&apos;/g, "'").replace(/&quot;/g, '"');
+}
+
 // Sheet2 stores inline strings (<is><t>...</t></is>) and numbers (<v>...</v>). Parse rows in order.
 const rowBlocks = sheet.split("<row").slice(1);
 const rows = rowBlocks.map((block) => {
@@ -26,10 +32,6 @@ const rows = rowBlocks.map((block) => {
   }
   return cells;
 });
-function decode(s) {
-  return s.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">")
-          .replace(/&#39;/g, "'").replace(/&apos;/g, "'").replace(/&quot;/g, '"');
-}
 
 // Row 0 is the header: Day, Week, Theme, Vocabulary, Grammar, Listening, Reading, Speaking, Writing, Checklist
 const data = rows.slice(1).filter((r) => r[0]).map((r) => ({
@@ -49,7 +51,7 @@ const data = rows.slice(1).filter((r) => r[0]).map((r) => ({
 
 const src = readFileSync("lib/plan.ts", "utf8");
 const out = src.replace(
-  /export const PLAN: PlanDay\[\] = \[\][^\n]*/,
+  /export const PLAN: PlanDay\[\] = \[[\s\S]*?\n\]/,
   "export const PLAN: PlanDay[] = " + JSON.stringify(data, null, 2)
 );
 writeFileSync("lib/plan.ts", out);

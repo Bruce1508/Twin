@@ -21,11 +21,11 @@ export const PLAN: PlanDay[] = [
     "week": 1,
     "theme": "Alphabet + greetings + French sounds",
     "skills": {
-      "vocab": "Learn alphabet A&#8211;Z; greeting words: bonjour, salut, bonsoir, merci, s&#8217;il vous pla&#238;t, au revoir. Add 12 cards to Anki.",
+      "vocab": "Learn alphabet A–Z; greeting words: bonjour, salut, bonsoir, merci, s’il vous plaît, au revoir. Add 12 cards to Anki.",
       "grammar": "Study subject pronouns: je, tu, il/elle, nous, vous, ils/elles. Learn basic sound pairs: ou, on, an/en, eu, u. Read them aloud 3 times each.",
       "listening": "Watch a beginner video on French alphabet and greetings. Pause and repeat every greeting aloud.",
       "reading": "Read a 1-page beginner dialogue with greetings. Underline every greeting and pronoun.",
-      "speaking": "Introduce yourself with 5 spoken lines: Bonjour, je m&#8217;appelle&#8230;, je suis&#8230;, etc.",
+      "speaking": "Introduce yourself with 5 spoken lines: Bonjour, je m’appelle…, je suis…, etc.",
       "writing": "Write 8 lines: alphabet practice + 5 greeting sentences + your name in French spelling."
     },
     "isReview": false
@@ -35,23 +35,23 @@ export const PLAN: PlanDay[] = [
     "week": 1,
     "theme": "Introduce yourself",
     "skills": {
-      "vocab": "Words: nom, pr&#233;nom, &#226;ge, pays, ville, &#233;tudiant, travail, langue, nationalit&#233;, adresse.",
-      "grammar": "Conjugate &#234;tre in present. Build patterns: Je suis&#8230;, Tu es&#8230;, Il/Elle est&#8230;",
+      "vocab": "Words: nom, prénom, âge, pays, ville, étudiant, travail, langue, nationalité, adresse.",
+      "grammar": "Conjugate être in present. Build patterns: Je suis…, Tu es…, Il/Elle est…",
       "listening": "Listen to 2 short self-introduction clips. Note 5 phrases you hear.",
       "reading": "Read a short profile card of 3 people. Extract name, age, nationality.",
       "speaking": "Say your self-introduction twice without notes (name, nationality, student/job, where you live).",
-      "writing": "Write 8&#8211;10 sentences introducing yourself."
+      "writing": "Write 8–10 sentences introducing yourself."
     },
     "isReview": false
   },
   {
     "day": 3,
     "week": 1,
-    "theme": "Numbers 0&#8211;20 + age + asking simple questions",
+    "theme": "Numbers 0–20 + age + asking simple questions",
     "skills": {
-      "vocab": "Learn numbers 0&#8211;20 and words: quel &#226;ge, combien, num&#233;ro, t&#233;l&#233;phone.",
-      "grammar": "Question patterns: Comment tu t&#8217;appelles ? Tu as quel &#226;ge ? Tu es d&#8217;o&#249; ? Practice inversion only as recognition, not production.",
-      "listening": "Listen to numbers dictation 0&#8211;20. Replay until you can catch at least 15 correctly.",
+      "vocab": "Learn numbers 0–20 and words: quel âge, combien, numéro, téléphone.",
+      "grammar": "Question patterns: Comment tu t’appelles ? Tu as quel âge ? Tu es d’où ? Practice inversion only as recognition, not production.",
+      "listening": "Listen to numbers dictation 0–20. Replay until you can catch at least 15 correctly.",
       "reading": "Read a mini dialogue where two people exchange personal info. Highlight all questions.",
       "speaking": "Ask and answer 6 questions aloud as both people in the dialogue.",
       "writing": "Write your phone number, age, student ID or any fake number in French words. Then write 6 Q&A pairs."
@@ -63,12 +63,12 @@ export const PLAN: PlanDay[] = [
     "week": 1,
     "theme": "Avoir + personal belongings",
     "skills": {
-      "vocab": "Words: livre, cahier, sac, stylo, ordinateur, t&#233;l&#233;phone, cl&#233;, portefeuille, eau, caf&#233;.",
+      "vocab": "Words: livre, cahier, sac, stylo, ordinateur, téléphone, clé, portefeuille, eau, café.",
       "grammar": "Conjugate avoir in present. Build affirmative and negative sentences with classroom objects.",
       "listening": "Listen to a clip where people describe what they have. Catch every form of avoir.",
       "reading": "Read 10 simple sentences using avoir and circle the noun after it.",
-      "speaking": "Say 10 lines about what you have / don&#8217;t have in your bag or room.",
-      "writing": "Write a paragraph: &#8216;Dans mon sac, j&#8217;ai&#8230; / je n&#8217;ai pas&#8230;&#8217; (8&#8211;10 lines)."
+      "speaking": "Say 10 lines about what you have / don’t have in your bag or room.",
+      "writing": "Write a paragraph: ‘Dans mon sac, j’ai… / je n’ai pas…’ (8–10 lines)."
     },
     "isReview": false
   },
@@ -78,8 +78,8 @@ export const PLAN: PlanDay[] = [
     "theme": "Gender + articles",
     "skills": {
       "vocab": "Make two columns of 20 nouns: masculine/feminine. Learn article set: un/une/des and le/la/les.",
-      "grammar": "Study noun gender basics and definite/indefinite articles. No need to memorize every rule&#8212;focus on exposure + patterns.",
-      "listening": "Listen to noun+article pairs and repeat aloud. Pay attention to liaison in les amis, des &#233;tudiants.",
+      "grammar": "Study noun gender basics and definite/indefinite articles. No need to memorize every rule—focus on exposure + patterns.",
+      "listening": "Listen to noun+article pairs and repeat aloud. Pay attention to liaison in les amis, des étudiants.",
       "reading": "Read a room description and label every noun with article + gender.",
       "speaking": "Look around your room and say 15 noun phrases: une table, un lit, la porte, etc.",
       "writing": "Write 20 noun phrases with the correct article."
@@ -91,12 +91,12 @@ export const PLAN: PlanDay[] = [
     "week": 1,
     "theme": "Negation + family basics",
     "skills": {
-      "vocab": "Words: p&#232;re, m&#232;re, fr&#232;re, s&#339;ur, ami, amie, famille, parent, enfant, cousin.",
-      "grammar": "Study ne&#8230;pas with &#234;tre and avoir. Practice contractions: je n&#8217;ai pas, il n&#8217;est pas.",
+      "vocab": "Words: père, mère, frère, sœur, ami, amie, famille, parent, enfant, cousin.",
+      "grammar": "Study ne…pas with être and avoir. Practice contractions: je n’ai pas, il n’est pas.",
       "listening": "Listen to a family introduction clip and note family vocabulary.",
       "reading": "Read a short family paragraph. Mark every negative sentence.",
-      "speaking": "Speak 8 lines about your family or a fictional family using &#8216;c&#8217;est / il est / elle a&#8217;.",
-      "writing": "Write 8&#8211;10 lines introducing your family with at least 3 negative sentences."
+      "speaking": "Speak 8 lines about your family or a fictional family using ‘c’est / il est / elle a’.",
+      "writing": "Write 8–10 lines introducing your family with at least 3 negative sentences."
     },
     "isReview": false
   },
@@ -106,11 +106,11 @@ export const PLAN: PlanDay[] = [
     "theme": "Weekly review 1",
     "skills": {
       "vocab": "Review all Week 1 words with Anki; keep only words you still miss.",
-      "grammar": "Re-test &#234;tre, avoir, pronouns, numbers 0&#8211;20, articles, negation.",
+      "grammar": "Re-test être, avoir, pronouns, numbers 0–20, articles, negation.",
       "listening": "Re-listen to the Week 1 self-intro/family clips at 1x speed. No subtitles first, then check.",
       "reading": "Reread all Week 1 texts and translate key lines into Vietnamese or English.",
       "speaking": "Speak 90 seconds: introduce yourself + family + what you have in your bag.",
-      "writing": "Write a mini test: 12 sentences covering &#234;tre, avoir, numbers, articles, negation."
+      "writing": "Write a mini test: 12 sentences covering être, avoir, numbers, articles, negation."
     },
     "isReview": true
   },
@@ -119,8 +119,8 @@ export const PLAN: PlanDay[] = [
     "week": 2,
     "theme": "Regular -ER verbs",
     "skills": {
-      "vocab": "Core verbs: parler, habiter, aimer, travailler, &#233;tudier, regarder, &#233;couter, chercher, visiter, arriver.",
-      "grammar": "Learn present tense endings for -ER verbs. Notice spelling in j&#8217;habite, nous parlons, etc.",
+      "vocab": "Core verbs: parler, habiter, aimer, travailler, étudier, regarder, écouter, chercher, visiter, arriver.",
+      "grammar": "Learn present tense endings for -ER verbs. Notice spelling in j’habite, nous parlons, etc.",
       "listening": "Listen to 10 short example sentences with -ER verbs. Shadow them aloud.",
       "reading": "Read a table of 5 -ER verbs and then a short routine paragraph using them.",
       "speaking": "Say 10 sentences about your life using 5 different -ER verbs.",
@@ -133,12 +133,12 @@ export const PLAN: PlanDay[] = [
     "week": 2,
     "theme": "Daily routine basics",
     "skills": {
-      "vocab": "Words: se lever, se laver, manger, &#233;tudier, travailler, rentrer, dormir, commencer, finir, d&#233;jeuner.",
+      "vocab": "Words: se lever, se laver, manger, étudier, travailler, rentrer, dormir, commencer, finir, déjeuner.",
       "grammar": "Build a daily routine using present tense. For now use reflexive verbs as chunks if needed.",
-      "listening": "Listen to &#8216;Une journ&#233;e typique&#8217; for beginners and list activities in order.",
+      "listening": "Listen to ‘Une journée typique’ for beginners and list activities in order.",
       "reading": "Read a simple routine text and reorder events by time.",
-      "speaking": "Describe your day from morning to night in 8&#8211;10 lines aloud.",
-      "writing": "Write &#8216;Ma journ&#233;e typique&#8217; in 10&#8211;12 sentences."
+      "speaking": "Describe your day from morning to night in 8–10 lines aloud.",
+      "writing": "Write ‘Ma journée typique’ in 10–12 sentences."
     },
     "isReview": false
   },
@@ -147,8 +147,8 @@ export const PLAN: PlanDay[] = [
     "week": 2,
     "theme": "Days of week + time",
     "skills": {
-      "vocab": "Learn lundi&#8211;dimanche, matin, midi, apr&#232;s-midi, soir, nuit, heure, minute.",
-      "grammar": "Learn time patterns: Il est&#8230;; &#224; + time; de&#8230;&#224;&#8230;. Practice 7:00, 8:30, 12:15, 18:45.",
+      "vocab": "Learn lundi–dimanche, matin, midi, après-midi, soir, nuit, heure, minute.",
+      "grammar": "Learn time patterns: Il est…; à + time; de…à…. Practice 7:00, 8:30, 12:15, 18:45.",
       "listening": "Listen to time dictation. Write down 10 times you hear.",
       "reading": "Read a class schedule or timetable and answer 5 questions about it.",
       "speaking": "Say your weekly study schedule aloud using days + times.",
@@ -161,11 +161,11 @@ export const PLAN: PlanDay[] = [
     "week": 2,
     "theme": "Likes, dislikes, preferences",
     "skills": {
-      "vocab": "Words: musique, sport, cin&#233;ma, lecture, cuisine, jeux, caf&#233;, voyage, danse, s&#233;rie.",
-      "grammar": "Use aimer, adorer, pr&#233;f&#233;rer, d&#233;tester + nouns / infinitives.",
+      "vocab": "Words: musique, sport, cinéma, lecture, cuisine, jeux, café, voyage, danse, série.",
+      "grammar": "Use aimer, adorer, préférer, détester + nouns / infinitives.",
       "listening": "Listen to people talking about hobbies and mark what they like/dislike.",
       "reading": "Read 3 short hobby profiles and match each person to hobbies.",
-      "speaking": "Talk for 1 minute about your hobbies and what you don&#8217;t like.",
+      "speaking": "Talk for 1 minute about your hobbies and what you don’t like.",
       "writing": "Write 10 sentences about preferences; include parce que in at least 2."
     },
     "isReview": false
@@ -175,7 +175,7 @@ export const PLAN: PlanDay[] = [
     "week": 2,
     "theme": "Question words and question forms",
     "skills": {
-      "vocab": "Learn qui, que/qu&#8217;est-ce que, o&#249;, quand, comment, pourquoi, combien.",
+      "vocab": "Learn qui, que/qu’est-ce que, où, quand, comment, pourquoi, combien.",
       "grammar": "Build questions with intonation and est-ce que. Recognition only for inversion.",
       "listening": "Listen to a question-answer dialogue and pause after each question to repeat it.",
       "reading": "Read 12 questions and match them with answers.",
@@ -189,7 +189,7 @@ export const PLAN: PlanDay[] = [
     "week": 2,
     "theme": "Describing people with adjectives",
     "skills": {
-      "vocab": "Words: grand, petit, sympathique, s&#233;rieux, dr&#244;le, intelligent, calme, timide, beau/belle, jeune.",
+      "vocab": "Words: grand, petit, sympathique, sérieux, drôle, intelligent, calme, timide, beau/belle, jeune.",
       "grammar": "Study adjective agreement basics and position of common adjectives.",
       "listening": "Listen to a person-description clip and note every adjective.",
       "reading": "Read a dating-profile style text or character card and underline adjective agreements.",
@@ -208,7 +208,7 @@ export const PLAN: PlanDay[] = [
       "listening": "Replay one routine video and one hobbies video without subtitles.",
       "reading": "Reread Week 2 texts; summarize each in 2 French sentences.",
       "speaking": "Speak 2 minutes: who you are, your routine, hobbies, and schedule.",
-      "writing": "Write 80&#8211;100 words: &#8216;Je me pr&#233;sente et ma routine&#8217;."
+      "writing": "Write 80–100 words: ‘Je me présente et ma routine’."
     },
     "isReview": true
   },
@@ -217,12 +217,12 @@ export const PLAN: PlanDay[] = [
     "week": 3,
     "theme": "Home and furniture",
     "skills": {
-      "vocab": "Words: maison, appartement, chambre, cuisine, salle de bain, salon, fen&#234;tre, porte, lit, table, chaise.",
-      "grammar": "Learn il y a and c&#8217;est / ce sont.",
+      "vocab": "Words: maison, appartement, chambre, cuisine, salle de bain, salon, fenêtre, porte, lit, table, chaise.",
+      "grammar": "Learn il y a and c’est / ce sont.",
       "listening": "Listen to a room-tour beginner clip and list furniture items.",
       "reading": "Read a room description and draw a quick sketch from it.",
       "speaking": "Describe your room aloud using il y a at least 8 times.",
-      "writing": "Write 10&#8211;12 lines about your room or apartment."
+      "writing": "Write 10–12 lines about your room or apartment."
     },
     "isReview": false
   },
@@ -231,10 +231,10 @@ export const PLAN: PlanDay[] = [
     "week": 3,
     "theme": "Location prepositions",
     "skills": {
-      "vocab": "Words/phrases: dans, sur, sous, devant, derri&#232;re, entre, &#224; c&#244;t&#233; de, en face de, pr&#232;s de, loin de.",
+      "vocab": "Words/phrases: dans, sur, sous, devant, derrière, entre, à côté de, en face de, près de, loin de.",
       "grammar": "Practice prepositions with room objects and locations in a picture.",
       "listening": "Listen to object-location sentences and point to locations on a picture or imagine them.",
-      "reading": "Read a picture-description exercise and answer &#8216;o&#249; est&#8230;?&#8217; questions.",
+      "reading": "Read a picture-description exercise and answer ‘où est…?’ questions.",
       "speaking": "Use a room photo and say 12 location sentences.",
       "writing": "Write 12 sentences locating objects in your room."
     },
@@ -245,11 +245,11 @@ export const PLAN: PlanDay[] = [
     "week": 3,
     "theme": "City places + aller",
     "skills": {
-      "vocab": "Words: &#233;cole, gare, station, banque, restaurant, pharmacie, supermarch&#233;, biblioth&#232;que, parc, m&#233;tro.",
-      "grammar": "Conjugate aller. Learn &#224; + city / au / &#224; la / aux.",
+      "vocab": "Words: école, gare, station, banque, restaurant, pharmacie, supermarché, bibliothèque, parc, métro.",
+      "grammar": "Conjugate aller. Learn à + city / au / à la / aux.",
       "listening": "Listen to a dialogue about going around town and note every place mentioned.",
       "reading": "Read a city map task and identify where each person goes.",
-      "speaking": "Say 10 sentences with aller: Je vais au&#8230;, &#224; la&#8230;, aux&#8230;",
+      "speaking": "Say 10 sentences with aller: Je vais au…, à la…, aux…",
       "writing": "Write a short text about where you go during a normal week."
     },
     "isReview": false
@@ -259,8 +259,8 @@ export const PLAN: PlanDay[] = [
     "week": 3,
     "theme": "Asking for and giving directions",
     "skills": {
-      "vocab": "Direction words: gauche, droite, tout droit, pr&#232;s, loin, tourner, continuer, traverser.",
-      "grammar": "Learn structures: O&#249; est&#8230; ? Comment aller &#224;&#8230; ? C&#8217;est loin ? Tournez &#224; gauche&#8230;",
+      "vocab": "Direction words: gauche, droite, tout droit, près, loin, tourner, continuer, traverser.",
+      "grammar": "Learn structures: Où est… ? Comment aller à… ? C’est loin ? Tournez à gauche…",
       "listening": "Listen to a simple direction dialogue twice and draw the route.",
       "reading": "Read a city map + route instructions and answer 5 questions.",
       "speaking": "Role-play tourist and local for 2 minutes.",
@@ -271,14 +271,14 @@ export const PLAN: PlanDay[] = [
   {
     "day": 19,
     "week": 3,
-    "theme": "Shopping + numbers 20&#8211;100",
+    "theme": "Shopping + numbers 20–100",
     "skills": {
-      "vocab": "Learn numbers 20&#8211;100, price phrases, and shopping words: magasin, taille, prix, argent, carte, caisse.",
-      "grammar": "Practice saying prices, quantities, and &#8216;Je voudrais / &#199;a co&#251;te combien ?&#8217;",
+      "vocab": "Learn numbers 20–100, price phrases, and shopping words: magasin, taille, prix, argent, carte, caisse.",
+      "grammar": "Practice saying prices, quantities, and ‘Je voudrais / Ça coûte combien ?’",
       "listening": "Listen to prices and write them in digits.",
       "reading": "Read a small store dialogue and identify what is bought and for how much.",
       "speaking": "Role-play buying 3 items with prices.",
-      "writing": "Write a shopping dialogue of 10&#8211;12 lines."
+      "writing": "Write a shopping dialogue of 10–12 lines."
     },
     "isReview": false
   },
@@ -287,12 +287,12 @@ export const PLAN: PlanDay[] = [
     "week": 3,
     "theme": "Food + partitive articles",
     "skills": {
-      "vocab": "Food words: pain, riz, p&#226;tes, poulet, poisson, l&#233;gumes, fruit, eau, caf&#233;, lait.",
-      "grammar": "Study du / de la / de l&#8217; / des with food and drink.",
+      "vocab": "Food words: pain, riz, pâtes, poulet, poisson, légumes, fruit, eau, café, lait.",
+      "grammar": "Study du / de la / de l’ / des with food and drink.",
       "listening": "Listen to a breakfast/lunch description and note foods + articles.",
       "reading": "Read a weekly menu and mark all partitive articles.",
       "speaking": "Say what you eat/drink in a normal day using partitives.",
-      "writing": "Write 10 sentences beginning with Je mange / Je bois / J&#8217;ach&#232;te."
+      "writing": "Write 10 sentences beginning with Je mange / Je bois / J’achète."
     },
     "isReview": false
   },
@@ -320,7 +320,7 @@ export const PLAN: PlanDay[] = [
       "listening": "Listen to a beginner food vlog or dialogue and list all meal items.",
       "reading": "Read a one-day food diary and answer comprehension questions.",
       "speaking": "Describe what you eat in a typical day.",
-      "writing": "Write a one-day food diary in 10&#8211;12 sentences."
+      "writing": "Write a one-day food diary in 10–12 sentences."
     },
     "isReview": false
   },
@@ -329,8 +329,8 @@ export const PLAN: PlanDay[] = [
     "week": 4,
     "theme": "At the restaurant",
     "skills": {
-      "vocab": "Words: menu, plat, boisson, dessert, serveur, addition, commander, r&#233;server.",
-      "grammar": "Structures: Je voudrais&#8230;, Pour moi&#8230;, L&#8217;addition s&#8217;il vous pla&#238;t.",
+      "vocab": "Words: menu, plat, boisson, dessert, serveur, addition, commander, réserver.",
+      "grammar": "Structures: Je voudrais…, Pour moi…, L’addition s’il vous plaît.",
       "listening": "Listen to a restaurant order dialogue and repeat each line.",
       "reading": "Read a menu and choose a meal in French.",
       "speaking": "Role-play waiter/customer for 2 minutes.",
@@ -357,12 +357,12 @@ export const PLAN: PlanDay[] = [
     "week": 4,
     "theme": "Reflexive verbs in daily routine",
     "skills": {
-      "vocab": "Reflexive verbs: se lever, se coucher, se laver, s&#8217;habiller, se reposer, s&#8217;appeler.",
+      "vocab": "Reflexive verbs: se lever, se coucher, se laver, s’habiller, se reposer, s’appeler.",
       "grammar": "Conjugate reflexive verbs in present. Focus on je/tu/il/nous.",
       "listening": "Listen to a routine clip containing reflexive verbs; repeat sentence by sentence.",
       "reading": "Read a routine text and highlight every reflexive verb.",
       "speaking": "Say your routine using at least 6 reflexive verbs.",
-      "writing": "Write &#8216;Ma routine&#8217; again, now including reflexive verbs."
+      "writing": "Write ‘Ma routine’ again, now including reflexive verbs."
     },
     "isReview": false
   },
@@ -371,7 +371,7 @@ export const PLAN: PlanDay[] = [
     "week": 4,
     "theme": "Frequency adverbs",
     "skills": {
-      "vocab": "Words: toujours, souvent, parfois, rarement, jamais, normalement, d&#8217;habitude.",
+      "vocab": "Words: toujours, souvent, parfois, rarement, jamais, normalement, d’habitude.",
       "grammar": "Place adverbs correctly in simple sentences.",
       "listening": "Listen to habit statements and mark frequency words.",
       "reading": "Read 15 short sentences and choose the correct frequency adverb.",
@@ -386,7 +386,7 @@ export const PLAN: PlanDay[] = [
     "theme": "A1 consolidation day",
     "skills": {
       "vocab": "Review all A1 vocabulary categories: self, family, routine, city, home, food.",
-      "grammar": "Make a one-page A1 grammar cheat sheet: &#234;tre, avoir, aller, -ER verbs, articles, negation, questions, il y a, possessives, reflexives.",
+      "grammar": "Make a one-page A1 grammar cheat sheet: être, avoir, aller, -ER verbs, articles, negation, questions, il y a, possessives, reflexives.",
       "listening": "Listen to one A1 review video and note all structures you recognize.",
       "reading": "Reread every weekly paragraph you wrote so far and correct grammar.",
       "speaking": "Speak 3 minutes: self-introduction + routine + family + room + neighborhood.",
@@ -399,26 +399,26 @@ export const PLAN: PlanDay[] = [
     "week": 4,
     "theme": "A1 mini test",
     "skills": {
-      "vocab": "Quick vocab review only&#8212;do not learn new words today.",
+      "vocab": "Quick vocab review only—do not learn new words today.",
       "grammar": "Grammar test: 20 mixed sentences (articles, negation, verb forms, questions, possessives).",
-      "listening": "Listen to a 2&#8211;3 minute A1 clip and write a 5-line summary.",
+      "listening": "Listen to a 2–3 minute A1 clip and write a 5-line summary.",
       "reading": "Read a short A1 article and answer 8 comprehension questions.",
-      "speaking": "Record yourself speaking 2&#8211;3 minutes about your life.",
-      "writing": "Write 100&#8211;120 words: &#8216;Ma vie quotidienne&#8217;."
+      "speaking": "Record yourself speaking 2–3 minutes about your life.",
+      "writing": "Write 100–120 words: ‘Ma vie quotidienne’."
     },
     "isReview": false
   },
   {
     "day": 29,
     "week": 5,
-    "theme": "Pass&#233; r&#233;cent",
+    "theme": "Passé récent",
     "skills": {
       "vocab": "Trigger phrases: venir de + infinitif. Learn 8 activity verbs to use with it.",
-      "grammar": "Form pass&#233; r&#233;cent in affirmative and negative: Je viens de manger / Je ne viens pas de finir.",
+      "grammar": "Form passé récent in affirmative and negative: Je viens de manger / Je ne viens pas de finir.",
       "listening": "Listen to 10 examples and identify what has just happened.",
-      "reading": "Read 12 short situation cards and choose the correct pass&#233; r&#233;cent sentence.",
+      "reading": "Read 12 short situation cards and choose the correct passé récent sentence.",
       "speaking": "Say 10 lines about what you just did today.",
-      "writing": "Write 10 original pass&#233; r&#233;cent sentences."
+      "writing": "Write 10 original passé récent sentences."
     },
     "isReview": false
   },
@@ -427,7 +427,7 @@ export const PLAN: PlanDay[] = [
     "week": 5,
     "theme": "Futur proche",
     "skills": {
-      "vocab": "Activity verbs: &#233;tudier, sortir, travailler, acheter, voir, visiter, cuisiner, dormir.",
+      "vocab": "Activity verbs: étudier, sortir, travailler, acheter, voir, visiter, cuisiner, dormir.",
       "grammar": "Study aller + infinitif for near future. Contrast with present.",
       "listening": "Listen to people describing weekend plans and note future actions.",
       "reading": "Read a weekend plan message exchange and identify all futur proche forms.",
@@ -455,9 +455,9 @@ export const PLAN: PlanDay[] = [
     "week": 5,
     "theme": "Weekend plans and invitations",
     "skills": {
-      "vocab": "Words: sortir, rester, visiter, rencontrer, r&#233;server, aller au cin&#233;ma, se promener.",
+      "vocab": "Words: sortir, rester, visiter, rencontrer, réserver, aller au cinéma, se promener.",
       "grammar": "Use futur proche + vouloir/pouvoir to invite or accept/refuse.",
-      "listening": "Listen to a &#8216;weekend invitation&#8217; dialogue and note invitation phrases.",
+      "listening": "Listen to a ‘weekend invitation’ dialogue and note invitation phrases.",
       "reading": "Read 2 chat exchanges about weekend plans and compare them.",
       "speaking": "Role-play inviting a friend out and discussing plans.",
       "writing": "Write a 12-line chat conversation arranging the weekend."
@@ -469,8 +469,8 @@ export const PLAN: PlanDay[] = [
     "week": 5,
     "theme": "Comparisons",
     "skills": {
-      "vocab": "Adjectives and adverbs to compare: grand, cher, rapide, int&#233;ressant, bien.",
-      "grammar": "Study plus&#8230;que / moins&#8230;que / aussi&#8230;que. Add meilleur(e) as recognition.",
+      "vocab": "Adjectives and adverbs to compare: grand, cher, rapide, intéressant, bien.",
+      "grammar": "Study plus…que / moins…que / aussi…que. Add meilleur(e) as recognition.",
       "listening": "Listen to comparison sentences and identify which thing is better/bigger/cheaper.",
       "reading": "Read 10 comparison statements and answer true/false questions.",
       "speaking": "Compare 2 cities, 2 foods, or 2 apps aloud in 10 lines.",
@@ -483,7 +483,7 @@ export const PLAN: PlanDay[] = [
     "week": 5,
     "theme": "Connectors and paragraph building",
     "skills": {
-      "vocab": "Connectors: et, mais, ou, parce que, donc, puis, ensuite, d&#8217;abord, enfin.",
+      "vocab": "Connectors: et, mais, ou, parce que, donc, puis, ensuite, d’abord, enfin.",
       "grammar": "Learn how to combine simple sentences into a paragraph.",
       "listening": "Listen to a story and identify sequence words.",
       "reading": "Read a short paragraph and highlight every connector.",
@@ -497,40 +497,40 @@ export const PLAN: PlanDay[] = [
     "week": 5,
     "theme": "Weekly review 5",
     "skills": {
-      "vocab": "Review futur proche, pass&#233; r&#233;cent, irregular verbs, comparisons, connectors.",
+      "vocab": "Review futur proche, passé récent, irregular verbs, comparisons, connectors.",
       "grammar": "Retest all forms in a mixed exercise.",
       "listening": "Replay one invitation dialogue and one plan monologue without subtitles.",
       "reading": "Read your weekend chat + comparison text and self-correct.",
       "speaking": "Speak 2 minutes: what you just did, what you will do, and what you prefer.",
-      "writing": "Write 120 words: &#8216;Mon week-end prochain&#8217;."
+      "writing": "Write 120 words: ‘Mon week-end prochain’."
     },
     "isReview": true
   },
   {
     "day": 36,
     "week": 6,
-    "theme": "Pass&#233; compos&#233; with avoir",
+    "theme": "Passé composé with avoir",
     "skills": {
-      "vocab": "Learn 12 common past participles: parl&#233;, mang&#233;, regard&#233;, &#233;tudi&#233;, travaill&#233;, fini, pris, vu, lu, eu, fait, bu.",
-      "grammar": "Form pass&#233; compos&#233; with avoir. Practice time markers: hier, ce matin, la semaine derni&#232;re.",
+      "vocab": "Learn 12 common past participles: parlé, mangé, regardé, étudié, travaillé, fini, pris, vu, lu, eu, fait, bu.",
+      "grammar": "Form passé composé with avoir. Practice time markers: hier, ce matin, la semaine dernière.",
       "listening": "Listen to a yesterday-routine clip and list all past actions.",
-      "reading": "Read a short diary entry in pass&#233; compos&#233; and underline verb phrases.",
+      "reading": "Read a short diary entry in passé composé and underline verb phrases.",
       "speaking": "Say 10 lines about what you did yesterday.",
-      "writing": "Write 10&#8211;12 sentences about yesterday."
+      "writing": "Write 10–12 sentences about yesterday."
     },
     "isReview": false
   },
   {
     "day": 37,
     "week": 6,
-    "theme": "Pass&#233; compos&#233; with &#234;tre",
+    "theme": "Passé composé with être",
     "skills": {
       "vocab": "Motion verbs: aller, venir, arriver, partir, entrer, sortir, monter, descendre, rester, tomber, retourner.",
-      "grammar": "Study &#234;tre as auxiliary and agreement basics in the past.",
-      "listening": "Listen to a travel/day-out story and note all &#234;tre verbs.",
-      "reading": "Read a sequence of events and convert it into pass&#233; compos&#233; with &#234;tre.",
+      "grammar": "Study être as auxiliary and agreement basics in the past.",
+      "listening": "Listen to a travel/day-out story and note all être verbs.",
+      "reading": "Read a sequence of events and convert it into passé composé with être.",
       "speaking": "Describe a trip to school / store / downtown using 8 past sentences.",
-      "writing": "Write 8&#8211;10 sentences about where you went and when you returned."
+      "writing": "Write 8–10 sentences about where you went and when you returned."
     },
     "isReview": false
   },
@@ -539,8 +539,8 @@ export const PLAN: PlanDay[] = [
     "week": 6,
     "theme": "Past time expressions",
     "skills": {
-      "vocab": "Learn hier, avant-hier, la semaine derni&#232;re, l&#8217;ann&#233;e derni&#232;re, ce matin, hier soir, dimanche dernier.",
-      "grammar": "Mix past time expressions with pass&#233; compos&#233; sentences.",
+      "vocab": "Learn hier, avant-hier, la semaine dernière, l’année dernière, ce matin, hier soir, dimanche dernier.",
+      "grammar": "Mix past time expressions with passé composé sentences.",
       "listening": "Listen to 12 short statements and match them to the right time expression.",
       "reading": "Read a weekly diary and sort events into a timeline.",
       "speaking": "Tell a short story of your last weekend in chronological order.",
@@ -553,12 +553,12 @@ export const PLAN: PlanDay[] = [
     "week": 6,
     "theme": "Talking about experiences",
     "skills": {
-      "vocab": "Words: voyage, restaurant, amis, film, examen, f&#234;te, travail, promenade.",
-      "grammar": "Use pass&#233; compos&#233; to tell a simple experience: where, when, with whom, what happened, opinion.",
+      "vocab": "Words: voyage, restaurant, amis, film, examen, fête, travail, promenade.",
+      "grammar": "Use passé composé to tell a simple experience: where, when, with whom, what happened, opinion.",
       "listening": "Listen to a speaker describing a weekend experience and fill in missing details.",
       "reading": "Read a 120-word story about a small trip and answer 6 questions.",
       "speaking": "Speak for 90 seconds about a recent outing or meal.",
-      "writing": "Write 120 words: &#8216;Le week-end dernier, j&#8217;ai&#8230;&#8217;"
+      "writing": "Write 120 words: ‘Le week-end dernier, j’ai…’"
     },
     "isReview": false
   },
@@ -567,11 +567,11 @@ export const PLAN: PlanDay[] = [
     "week": 6,
     "theme": "Past listening drill",
     "skills": {
-      "vocab": "Review all past-tense verbs from Days 36&#8211;39.",
-      "grammar": "No new grammar. Focus on recognizing pass&#233; compos&#233; in speech.",
+      "vocab": "Review all past-tense verbs from Days 36–39.",
+      "grammar": "No new grammar. Focus on recognizing passé composé in speech.",
       "listening": "Do 2 beginner/A2 listening clips in the past tense. First listen without transcript, second with transcript. Write 8 verbs you hear.",
       "reading": "Read the transcripts and mark auxiliary + participle combinations.",
-      "speaking": "Retell one clip aloud in 6&#8211;8 sentences.",
+      "speaking": "Retell one clip aloud in 6–8 sentences.",
       "writing": "Write a short summary of one listening clip."
     },
     "isReview": false
@@ -582,7 +582,7 @@ export const PLAN: PlanDay[] = [
     "theme": "Past + present + near future mix",
     "skills": {
       "vocab": "Review daily activity verbs across three time frames.",
-      "grammar": "Practice switching: Hier j&#8217;ai&#8230;, Aujourd&#8217;hui je&#8230;, Demain je vais&#8230;",
+      "grammar": "Practice switching: Hier j’ai…, Aujourd’hui je…, Demain je vais…",
       "listening": "Listen to a monologue covering yesterday/today/tomorrow and label each sentence by time.",
       "reading": "Read 15 mixed-tense sentences and categorize them.",
       "speaking": "Speak 12 lines using all three time frames.",
@@ -595,12 +595,12 @@ export const PLAN: PlanDay[] = [
     "week": 6,
     "theme": "Weekly review 6",
     "skills": {
-      "vocab": "Review pass&#233; compos&#233; with avoir/&#234;tre, time markers, mixed tenses.",
+      "vocab": "Review passé composé with avoir/être, time markers, mixed tenses.",
       "grammar": "Retest past participles and auxiliary choice.",
       "listening": "Replay one past-story audio without subtitles and summarize orally.",
       "reading": "Reread all Week 6 writings and correct verb forms.",
-      "speaking": "Speak 2 minutes: &#8216;Mon week-end dernier et mes plans pour demain&#8217;.",
-      "writing": "Write 120&#8211;150 words on the same topic."
+      "speaking": "Speak 2 minutes: ‘Mon week-end dernier et mes plans pour demain’.",
+      "writing": "Write 120–150 words on the same topic."
     },
     "isReview": true
   },
@@ -609,8 +609,8 @@ export const PLAN: PlanDay[] = [
     "week": 7,
     "theme": "Health and pharmacy basics",
     "skills": {
-      "vocab": "Words: t&#234;te, gorge, ventre, fi&#232;vre, toux, mal, malade, m&#233;decin, pharmacie, m&#233;dicament.",
-      "grammar": "Learn patterns: J&#8217;ai mal &#224;&#8230;, Je suis malade, Je voudrais&#8230;, Il faut&#8230; (recognition + basic use).",
+      "vocab": "Words: tête, gorge, ventre, fièvre, toux, mal, malade, médecin, pharmacie, médicament.",
+      "grammar": "Learn patterns: J’ai mal à…, Je suis malade, Je voudrais…, Il faut… (recognition + basic use).",
       "listening": "Listen to a pharmacy dialogue and note symptoms + medicine words.",
       "reading": "Read a health dialogue and answer what the problem is and what is recommended.",
       "speaking": "Role-play asking for help at a pharmacy.",
@@ -624,10 +624,10 @@ export const PLAN: PlanDay[] = [
     "theme": "Weather",
     "skills": {
       "vocab": "Words: chaud, froid, beau, mauvais, soleil, pluie, neige, vent, nuageux.",
-      "grammar": "Structures: Il fait&#8230;, Il y a&#8230;, Il pleut, Il neige.",
+      "grammar": "Structures: Il fait…, Il y a…, Il pleut, Il neige.",
       "listening": "Listen to a simple weather forecast and note 5 expressions.",
       "reading": "Read a 5-day forecast and answer questions about temperature/weather.",
-      "speaking": "Describe today&#8217;s weather and your ideal weather in 10 lines.",
+      "speaking": "Describe today’s weather and your ideal weather in 10 lines.",
       "writing": "Write a 7-line weather report for this week."
     },
     "isReview": false
@@ -637,8 +637,8 @@ export const PLAN: PlanDay[] = [
     "week": 7,
     "theme": "Travel, transport, hotel",
     "skills": {
-      "vocab": "Words: h&#244;tel, chambre, r&#233;servation, billet, train, avion, bus, d&#233;part, arriv&#233;e, bagage.",
-      "grammar": "Use Je voudrais r&#233;server&#8230;, &#192; quelle heure part&#8230; ?, O&#249; est la gare ?",
+      "vocab": "Words: hôtel, chambre, réservation, billet, train, avion, bus, départ, arrivée, bagage.",
+      "grammar": "Use Je voudrais réserver…, À quelle heure part… ?, Où est la gare ?",
       "listening": "Listen to a train station or hotel booking dialogue and list key phrases.",
       "reading": "Read a booking confirmation / timetable and answer 6 questions.",
       "speaking": "Role-play hotel check-in or buying a train ticket.",
@@ -652,7 +652,7 @@ export const PLAN: PlanDay[] = [
     "theme": "Phone, messages, appointments",
     "skills": {
       "vocab": "Words: appeler, envoyer, message, rendez-vous, disponible, demain, annuler, confirmer.",
-      "grammar": "Patterns: Est-ce que tu es disponible&#8230; ? On se voit &#224;&#8230; ? Je suis d&#233;sol&#233;, je vais &#234;tre en retard.",
+      "grammar": "Patterns: Est-ce que tu es disponible… ? On se voit à… ? Je suis désolé, je vais être en retard.",
       "listening": "Listen to 2 short voice messages and note time/place information.",
       "reading": "Read 3 chat messages and identify appointment details.",
       "speaking": "Speak a 1-minute voice message arranging a meeting.",
@@ -665,12 +665,12 @@ export const PLAN: PlanDay[] = [
     "week": 7,
     "theme": "Describing people: appearance + personality",
     "skills": {
-      "vocab": "Words: cheveux, yeux, taille, mince, grand, gentil, calme, dr&#244;le, timide, s&#233;rieux.",
+      "vocab": "Words: cheveux, yeux, taille, mince, grand, gentil, calme, drôle, timide, sérieux.",
       "grammar": "Review adjective agreement while describing people.",
       "listening": "Listen to a description of two people and note differences.",
       "reading": "Read two short portraits and match them to pictures if available.",
       "speaking": "Describe a friend or celebrity in 12 lines.",
-      "writing": "Write one portrait of 80&#8211;100 words."
+      "writing": "Write one portrait of 80–100 words."
     },
     "isReview": false
   },
@@ -679,7 +679,7 @@ export const PLAN: PlanDay[] = [
     "week": 7,
     "theme": "Giving opinions simply",
     "skills": {
-      "vocab": "Opinion phrases: Je pense que&#8230;, &#192; mon avis&#8230;, Je trouve que&#8230;, Je pr&#233;f&#232;re&#8230;, Je n&#8217;aime pas&#8230;",
+      "vocab": "Opinion phrases: Je pense que…, À mon avis…, Je trouve que…, Je préfère…, Je n’aime pas…",
       "grammar": "Build reasons with parce que and simple comparisons.",
       "listening": "Listen to a short review of a film/restaurant and note opinion phrases.",
       "reading": "Read 3 mini reviews and identify positive/negative opinions.",
@@ -697,8 +697,8 @@ export const PLAN: PlanDay[] = [
       "grammar": "Retest practical phrases for pharmacy/hotel/meeting situations.",
       "listening": "Replay one travel dialogue and one opinion clip without subtitles.",
       "reading": "Reread Week 7 writings and correct adjective agreement and time phrases.",
-      "speaking": "Speak 2&#8211;3 minutes simulating real-life situations.",
-      "writing": "Write 150 words: &#8216;Une sortie / un voyage / un week-end&#8217;."
+      "speaking": "Speak 2–3 minutes simulating real-life situations.",
+      "writing": "Write 150 words: ‘Une sortie / un voyage / un week-end’."
     },
     "isReview": true
   },
@@ -707,9 +707,9 @@ export const PLAN: PlanDay[] = [
     "week": 8,
     "theme": "Direct object pronouns basics",
     "skills": {
-      "vocab": "Pronouns: me, te, le, la, l&#8217;, nous, vous, les. Focus on replacing a direct object in simple sentences.",
-      "grammar": "Practice transformations: Je vois Marie &#8594; Je la vois. J&#8217;aime ce film &#8594; Je l&#8217;aime.",
-      "listening": "Listen to example sentences and identify the pronoun&#8217;s referent.",
+      "vocab": "Pronouns: me, te, le, la, l’, nous, vous, les. Focus on replacing a direct object in simple sentences.",
+      "grammar": "Practice transformations: Je vois Marie → Je la vois. J’aime ce film → Je l’aime.",
+      "listening": "Listen to example sentences and identify the pronoun’s referent.",
       "reading": "Read 15 transformation exercises and solve them.",
       "speaking": "Say 10 transformation pairs aloud.",
       "writing": "Write 12 sentences using direct object pronouns."
@@ -721,7 +721,7 @@ export const PLAN: PlanDay[] = [
     "week": 8,
     "theme": "Imperative basics",
     "skills": {
-      "vocab": "Command verbs: regarde, &#233;coute, prends, va, viens, attendez, mangez, tournez.",
+      "vocab": "Command verbs: regarde, écoute, prends, va, viens, attendez, mangez, tournez.",
       "grammar": "Study imperative for tu/nous/vous and a few practical uses.",
       "listening": "Listen to recipe or direction commands and note the imperative forms.",
       "reading": "Read a short recipe or route instruction text and underline commands.",
@@ -735,7 +735,7 @@ export const PLAN: PlanDay[] = [
     "week": 8,
     "theme": "Emails and messages",
     "skills": {
-      "vocab": "Useful phrases: Bonjour&#8230;, Je vous &#233;cris pour&#8230;, Merci de&#8230;, &#192; bient&#244;t, Cordialement.",
+      "vocab": "Useful phrases: Bonjour…, Je vous écris pour…, Merci de…, À bientôt, Cordialement.",
       "grammar": "Review message/register basics: friendly vs polite.",
       "listening": "Listen to one voicemail / one service message and note structure.",
       "reading": "Read 2 model messages: asking for information and apologizing.",
@@ -751,10 +751,10 @@ export const PLAN: PlanDay[] = [
     "skills": {
       "vocab": "Review all topic vocab lightly; do not learn much new vocabulary.",
       "grammar": "No new grammar. Focus on extracting gist and key details.",
-      "listening": "Do 2&#8211;3 A2 listening clips (self-intro, travel, daily life, or plans). For each: first listen for gist, second for details, third with transcript. Write a 5-line summary of each.",
+      "listening": "Do 2–3 A2 listening clips (self-intro, travel, daily life, or plans). For each: first listen for gist, second for details, third with transcript. Write a 5-line summary of each.",
       "reading": "Read the transcripts and mark any new useful chunks.",
       "speaking": "Retell one clip in your own words for 1 minute.",
-      "writing": "Write 5&#8211;6 useful expressions you want to reuse."
+      "writing": "Write 5–6 useful expressions you want to reuse."
     },
     "isReview": false
   },
@@ -767,7 +767,7 @@ export const PLAN: PlanDay[] = [
       "grammar": "No new grammar. Use what you already know accurately.",
       "listening": "Optional: listen to one sample A2 oral answer before speaking.",
       "reading": "Read your own old paragraphs as speaking prompts.",
-      "speaking": "Record 5 topics, 1&#8211;2 minutes each: self-intro, routine, family, last weekend, next week&#8217;s plan.",
+      "speaking": "Record 5 topics, 1–2 minutes each: self-intro, routine, family, last weekend, next week’s plan.",
       "writing": "After recording, note 5 errors or missing words."
     },
     "isReview": false
@@ -781,7 +781,7 @@ export const PLAN: PlanDay[] = [
       "grammar": "No new grammar. Focus on clean structure and fewer mistakes.",
       "listening": "Optional: listen to your own recordings and borrow phrases for writing.",
       "reading": "Read 2 of your earlier writings and improve them.",
-      "speaking": "No separate speaking task&#8212;use time for writing revision.",
+      "speaking": "No separate speaking task—use time for writing revision.",
       "writing": "Write 3 texts: (1) Ma routine quotidienne 100 words, (2) Mon week-end dernier 120 words, (3) Mes projets pour le mois prochain 120 words."
     },
     "isReview": false
@@ -792,10 +792,10 @@ export const PLAN: PlanDay[] = [
     "theme": "Final A2 checkpoint",
     "skills": {
       "vocab": "Light vocab review only. No cramming.",
-      "grammar": "Do a final mixed grammar check: present, futur proche, pass&#233; compos&#233;, pronouns, articles, questions.",
-      "listening": "Complete one 15&#8211;20 minute A2 listening piece and summarize it.",
-      "reading": "Read one A2 text and answer 8&#8211;10 questions.",
-      "speaking": "Speak 3&#8211;5 minutes total: self-intro, routine, last weekend, future plans, opinion on a hobby or film.",
+      "grammar": "Do a final mixed grammar check: present, futur proche, passé composé, pronouns, articles, questions.",
+      "listening": "Complete one 15–20 minute A2 listening piece and summarize it.",
+      "reading": "Read one A2 text and answer 8–10 questions.",
+      "speaking": "Speak 3–5 minutes total: self-intro, routine, last weekend, future plans, opinion on a hobby or film.",
       "writing": "Write 150 words on one topic of your choice and compare it to your Day 2 / Day 14 writing."
     },
     "isReview": false
