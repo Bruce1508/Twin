@@ -16,7 +16,19 @@ export default function Home() {
           </p>
         </div>
         <HomeworkBanner />
-        <nav className="space-y-3">
+        <Link
+          href="/today"
+          className="block rounded-xl border-2 border-zinc-900 dark:border-zinc-100 bg-white dark:bg-zinc-900 px-5 py-5 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
+        >
+          <div className="text-xs font-semibold uppercase tracking-widest text-zinc-400">Aujourd&apos;hui</div>
+          <div className="mt-1 text-base font-semibold text-zinc-900 dark:text-zinc-50">Commencer la séance du jour →</div>
+          <div className="mt-0.5 text-xs text-zinc-400">Tout est déjà prêt. Tu n&apos;as rien à choisir.</div>
+        </Link>
+        <details className="group">
+          <summary className="cursor-pointer text-xs text-zinc-400 hover:text-zinc-600 list-none">
+            Luyện tự do (choisir un module) ▾
+          </summary>
+          <nav className="mt-3 space-y-3">
           {[
             { href: "/submit", title: "Écrire", sub: "Soumettre un texte en français" },
             { href: "/read", title: "Lire", sub: "Compréhension écrite — questions style TCF" },
@@ -38,6 +50,7 @@ export default function Home() {
             </Link>
           ))}
         </nav>
+        </details>
         <div className="text-center">
           <Link href="/tutor" className="text-xs text-zinc-300 dark:text-zinc-700 hover:text-zinc-400 dark:hover:text-zinc-500 transition-colors">
             Mode tuteur
