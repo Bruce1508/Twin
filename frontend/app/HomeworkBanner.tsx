@@ -6,10 +6,10 @@ export default function HomeworkBanner() {
   const [homework, setHomework] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("/api/tutor/notes")
+    fetch("/api/tutor/homework")
       .then((r) => r.json())
       .then((data) => {
-        const hw = data.note?.homework?.trim();
+        const hw = data.homework?.trim();
         if (hw) setHomework(hw);
       })
       .catch(() => {/* show nothing on error */});
