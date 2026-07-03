@@ -30,7 +30,8 @@ export default function PracticePage() {
         sessionStorage.setItem(`drill_${drill.drillId}`, JSON.stringify({
           errorTag: drill.errorTag, topic: drill.topic, sentences: drill.sentences,
         }));
-        router.push(`/drill/${drill.drillId}`);
+        const isSession = new URLSearchParams(window.location.search).get("session") === "1";
+        router.push(`/drill/${drill.drillId}${isSession ? "?session=1" : ""}`);
       } catch {
         setErrorMsg("Impossible de contacter le serveur.");
         setStatus("error");

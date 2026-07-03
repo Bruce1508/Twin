@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
+import SessionStepButton from "@/app/SessionStepButton";
 
 type CardError = {
   errorTag: string;
@@ -128,6 +129,7 @@ export default function FlashcardsPage() {
             ) : (
               <p className="text-xs text-zinc-400">Toutes les cartes sont à jour.</p>
             )}
+            <Suspense fallback={null}><SessionStepButton /></Suspense>
             <div className="flex justify-center gap-3 pt-2">
               <a href="/dashboard" className="rounded-full border border-zinc-200 dark:border-zinc-700 px-5 py-2 text-sm text-zinc-700 dark:text-zinc-300">
                 Mon profil

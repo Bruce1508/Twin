@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { TASK_TYPES, type TaskType, type ExtractionResult, type RubricResult, type RubricCriterionKey } from "@/lib/extractor";
+import SessionStepButton from "@/app/SessionStepButton";
 
 const CATEGORY_COLORS: Record<string, string> = {
   grammaire: "bg-red-100 text-red-800 border-red-200",
@@ -316,6 +317,7 @@ export default function SubmitPage() {
                 ))}
               </div>
             </section>
+            <Suspense fallback={null}><SessionStepButton /></Suspense>
           </div>
         )}
       </div>
