@@ -36,6 +36,7 @@ export default function Home() {
             { href: "/listen", title: "Écouter", sub: "Compréhension orale — QCM style TCF" },
             { href: "/flashcards", title: "Réviser", sub: "Flashcards SRS sur tes erreurs passées" },
             { href: "/practice", title: "Pratiquer", sub: "Exercice Reverse Tutor sur ton point faible" },
+            { href: "/drill", title: "Historique", sub: "Revoir tes anciens drills" },
             { href: "/dashboard", title: "Profil", sub: "Voir tes erreurs accumulées" },
           ].map(({ href, title, sub }) => (
             <Link key={href} href={href} className="flex items-center justify-between w-full rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-5 py-4 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
