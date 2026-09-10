@@ -2,6 +2,29 @@ import { db } from "@/lib/db";
 import { type ErrorTag } from "@/lib/taxonomy";
 import { canRouteToDrill } from "@/lib/generator";
 
+export type MasterySignal = "improving" | "mixed" | "still_struggling";
+
+// Fixed spaced-repetition ladder, in days, indexed by consecutiveImproving.
+export const LADDER_DAYS = [1, 3, 7, 14, 30] as const;
+
+export function nextSchedule(
+  currentStreak: number,
+  signal: MasterySignal,
+  now: Date
+): { consecutiveImproving: number; dueAt: Date } {
+  let consecutiveImproving: number;
+  if (signal === "improving") {
+    consecutiveImproving = Math.min(currentStreak + 1, LADDER_DAYS.length - 1);
+  } else if (signal === "still_struggling") {
+    consecutiveImproving = 0;
+  } else {
+    consecutiveImproving = currentStreak;
+  }
+  const days = LADDER_DAYS[consecutiveImproving];
+  const dueAt = new Date(now.getTime() + days * 24 * 60 * 60 * 1000);
+  return { consecutiveImproving, dueAt };
+}
+
 // Explicit, deterministic targeting rule (M5 — NOT an agent).
 // Selects the highest-frequency error_tag that:
 //   1. Is not a whole-text-only tag (Reverse Tutor cannot handle those)
