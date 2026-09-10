@@ -65,7 +65,7 @@ export async function updateMasterySignal(
   drillId: string,
   userId: string,
   errorTag: string,
-  signal: "improving" | "mixed" | "still_struggling"
+  signal: MasterySignal
 ): Promise<void> {
   // Store signal on this drill's payload
   const current = await db.drill.findUnique({ where: { id: drillId } });
@@ -76,6 +76,21 @@ export async function updateMasterySignal(
       data: { payload: { ...payload, last_mastery_signal: signal } },
     });
   }
+
+  const now = new Date();
+  const existing = await db.tagSchedule.findUnique({
+    where: { userId_errorTag: { userId, errorTag } },
+  });
+  const { consecutiveImproving, dueAt } = nextSchedule(
+    existing?.consecutiveImproving ?? 0,
+    signal,
+    now
+  );
+  await db.tagSchedule.upsert({
+    where: { userId_errorTag: { userId, errorTag } },
+    create: { userId, errorTag, consecutiveImproving, dueAt, lastDrilledAt: now },
+    update: { consecutiveImproving, dueAt, lastDrilledAt: now },
+  });
 
   if (signal !== "improving") return;
 
