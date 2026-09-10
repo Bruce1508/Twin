@@ -51,19 +51,10 @@ export async function getNextTarget(userId: string): Promise<ErrorTag | null> {
 
   const freq = (profile.errorFrequencies as Record<string, number>) ?? {};
 
-  const resolvedDrills = await db.drill.findMany({
-    where: { userId, resolved: true },
-    select: { sourceError: { select: { errorTag: true } } },
-  });
-  const resolvedTags = new Set(
-    resolvedDrills.map((d: any) => d.sourceError?.errorTag).filter(Boolean)
-  );
+  const schedules = await db.tagSchedule.findMany({ where: { userId } });
+  const dueMap = new Map(schedules.map((s) => [s.errorTag, s.dueAt]));
 
-  const candidate = Object.entries(freq)
-    .filter(([tag]) => canRouteToDrill(tag) && !resolvedTags.has(tag) && tag !== "uncategorized")
-    .sort(([, a], [, b]) => b - a)[0];
-
-  return (candidate?.[0] as ErrorTag) ?? null;
+  return selectDueCandidate(freq, dueMap, new Date());
 }
 
 // N consecutive "improving" signals required before a tag is marked resolved.
