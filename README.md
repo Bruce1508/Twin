@@ -160,9 +160,9 @@ Three layers (full detail in `.claude/PRD-linguistic-twin-en.md`):
 
 ### Error taxonomy
 
-41 normalized `error_tag` codes across 5 categories (grammaire, lexique,
-orthographe, syntaxe, registre), defined in `frontend/lib/taxonomy.ts` and injected
-into every LLM prompt — never hardcoded elsewhere.
+57 normalized `error_tag` codes across 6 categories (grammaire, lexique,
+orthographe, syntaxe, registre, comprehension), defined in `frontend/lib/taxonomy.ts`
+and injected into every LLM prompt — never hardcoded elsewhere.
 
 ### Key invariants
 

@@ -75,7 +75,7 @@ Compréhension orale ✅   → /listen
 | Milestone | Status | Notes |
 |---|---|---|
 | M0 — Scaffold + taxonomy | ✅ Verified | **57** error tags across 6 categories |
-| M1 — Schema + DB | ✅ Verified | **9** models (see below) |
+| M1 — Schema + DB | ✅ Verified | **11** models (see below) |
 | M2 — Ingestion + extraction | ✅ Verified in browser | 10 errors extracted + persisted |
 | M3 — Profile inference + dashboard | ✅ Verified | dashboard counts match DB exactly |
 | M4 — Reverse Tutor generator | ✅ Verified | `/practice` generates real drills |
@@ -106,13 +106,12 @@ Compréhension orale ✅   → /listen
 
 | Category | Count | Notes |
 |---|---|---|
-| grammaire | 15 | Standard grammar errors |
+| grammaire | 16 | Standard grammar errors, incl. the `uncategorized` fallback tag |
 | syntaxe | 10 | 7 original + 3 added |
 | lexique | 9 | 7 original + 2 added |
 | orthographe | 6 | Spelling/accents |
-| registre | 3 | Register/style |
+| registre | 4 | Register/style |
 | comprehension | 12 | 6 reading + 5 listening + 1 general |
-| uncategorized | 1 | |
 
 **Flags:** `wholeTextOnly`, `readingOnly`, `speakingOnly`, `listeningOnly`
 
@@ -283,11 +282,11 @@ docker compose exec db psql -U twin twin_dev -c 'SELECT COUNT(*) FROM "Flashcard
 
 ---
 
-## Candidate next features (user picks — none started)
+## Candidate next features (user picks — B2 rubric shipped, rest not started)
 
 Ranked by leverage for the TCF goal (all 4 TCF skills already built):
 
-1. **B2 rubric writing score** — structured breakdown (range, complexity, register), NOT a CEFR verdict (PRD forbids verdicts). Enhances the writing loop without a new skill.
+1. ~~**B2 rubric writing score**~~ — ✅ **Shipped.** `scoreRubric` in `lib/extractor.ts`, called from `POST /api/submissions`, rendered on `/submit`. Structured breakdown (coherence, vocabulaire, grammaire, registre), NOT a CEFR verdict (PRD forbids verdicts); not persisted to DB.
 2. **Drill history / review past drills** — `/drill` index page showing past drills and whether they were resolved.
 3. **Spaced repetition for drills** — surface unresolved drill tags on a schedule (analogous to flashcards but for active recall of grammar rules).
 4. **Adaptive difficulty** — track B1/B2 level per tag from reading/listening exercises, adjust generation difficulty based on profile.
