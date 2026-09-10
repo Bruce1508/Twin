@@ -25,6 +25,22 @@ export function nextSchedule(
   return { consecutiveImproving, dueAt };
 }
 
+export function selectDueCandidate(
+  freq: Record<string, number>,
+  dueMap: Map<string, Date>,
+  now: Date
+): ErrorTag | null {
+  const candidate = Object.entries(freq)
+    .filter(([tag]) => {
+      if (!canRouteToDrill(tag) || tag === "uncategorized") return false;
+      const dueAt = dueMap.get(tag);
+      return !dueAt || dueAt <= now;
+    })
+    .sort(([, a], [, b]) => b - a)[0];
+
+  return (candidate?.[0] as ErrorTag) ?? null;
+}
+
 // Explicit, deterministic targeting rule (M5 — NOT an agent).
 // Selects the highest-frequency error_tag that:
 //   1. Is not a whole-text-only tag (Reverse Tutor cannot handle those)
