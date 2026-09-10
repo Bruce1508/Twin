@@ -1,10 +1,8 @@
 import { describe, it, expect } from "vitest";
-import { nextSchedule, LADDER_DAYS } from "@/lib/targeting";
+import { nextSchedule, LADDER_DAYS, selectDueCandidate } from "@/lib/targeting";
 
 const NOW = new Date("2026-09-10T00:00:00.000Z");
 const DAY_MS = 24 * 60 * 60 * 1000;
-
-import { selectDueCandidate } from "@/lib/targeting";
 
 describe("nextSchedule", () => {
   it("advances the streak by one step on improving", () => {
