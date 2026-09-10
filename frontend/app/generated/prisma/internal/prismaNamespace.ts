@@ -391,6 +391,7 @@ export const ModelName = {
   SessionProgress: 'SessionProgress',
   Drill: 'Drill',
   Flashcard: 'Flashcard',
+  TagSchedule: 'TagSchedule',
   SpeakingExercise: 'SpeakingExercise',
   ListeningExercise: 'ListeningExercise',
   TutorNote: 'TutorNote',
@@ -410,7 +411,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "submission" | "errorEvent" | "profile" | "sessionProgress" | "drill" | "flashcard" | "speakingExercise" | "listeningExercise" | "tutorNote" | "readingExercise"
+    modelProps: "user" | "submission" | "errorEvent" | "profile" | "sessionProgress" | "drill" | "flashcard" | "tagSchedule" | "speakingExercise" | "listeningExercise" | "tutorNote" | "readingExercise"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -932,6 +933,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    TagSchedule: {
+      payload: Prisma.$TagSchedulePayload<ExtArgs>
+      fields: Prisma.TagScheduleFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TagScheduleFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagSchedulePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TagScheduleFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagSchedulePayload>
+        }
+        findFirst: {
+          args: Prisma.TagScheduleFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagSchedulePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TagScheduleFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagSchedulePayload>
+        }
+        findMany: {
+          args: Prisma.TagScheduleFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagSchedulePayload>[]
+        }
+        create: {
+          args: Prisma.TagScheduleCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagSchedulePayload>
+        }
+        createMany: {
+          args: Prisma.TagScheduleCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TagScheduleCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagSchedulePayload>[]
+        }
+        delete: {
+          args: Prisma.TagScheduleDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagSchedulePayload>
+        }
+        update: {
+          args: Prisma.TagScheduleUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagSchedulePayload>
+        }
+        deleteMany: {
+          args: Prisma.TagScheduleDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TagScheduleUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TagScheduleUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagSchedulePayload>[]
+        }
+        upsert: {
+          args: Prisma.TagScheduleUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagSchedulePayload>
+        }
+        aggregate: {
+          args: Prisma.TagScheduleAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTagSchedule>
+        }
+        groupBy: {
+          args: Prisma.TagScheduleGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TagScheduleGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TagScheduleCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TagScheduleCountAggregateOutputType> | number
+        }
+      }
+    }
     SpeakingExercise: {
       payload: Prisma.$SpeakingExercisePayload<ExtArgs>
       fields: Prisma.SpeakingExerciseFieldRefs
@@ -1358,6 +1433,18 @@ export const FlashcardScalarFieldEnum = {
 export type FlashcardScalarFieldEnum = (typeof FlashcardScalarFieldEnum)[keyof typeof FlashcardScalarFieldEnum]
 
 
+export const TagScheduleScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  errorTag: 'errorTag',
+  dueAt: 'dueAt',
+  consecutiveImproving: 'consecutiveImproving',
+  lastDrilledAt: 'lastDrilledAt'
+} as const
+
+export type TagScheduleScalarFieldEnum = (typeof TagScheduleScalarFieldEnum)[keyof typeof TagScheduleScalarFieldEnum]
+
+
 export const SpeakingExerciseScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -1672,6 +1759,7 @@ export type GlobalOmitConfig = {
   sessionProgress?: Prisma.SessionProgressOmit
   drill?: Prisma.DrillOmit
   flashcard?: Prisma.FlashcardOmit
+  tagSchedule?: Prisma.TagScheduleOmit
   speakingExercise?: Prisma.SpeakingExerciseOmit
   listeningExercise?: Prisma.ListeningExerciseOmit
   tutorNote?: Prisma.TutorNoteOmit

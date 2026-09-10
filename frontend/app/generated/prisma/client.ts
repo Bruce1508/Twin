@@ -77,6 +77,11 @@ export type Drill = Prisma.DrillModel
  */
 export type Flashcard = Prisma.FlashcardModel
 /**
+ * Model TagSchedule
+ * 
+ */
+export type TagSchedule = Prisma.TagScheduleModel
+/**
  * Model SpeakingExercise
  * 
  */

@@ -58,6 +58,7 @@ export const ModelName = {
   SessionProgress: 'SessionProgress',
   Drill: 'Drill',
   Flashcard: 'Flashcard',
+  TagSchedule: 'TagSchedule',
   SpeakingExercise: 'SpeakingExercise',
   ListeningExercise: 'ListeningExercise',
   TutorNote: 'TutorNote',
@@ -169,6 +170,18 @@ export const FlashcardScalarFieldEnum = {
 } as const
 
 export type FlashcardScalarFieldEnum = (typeof FlashcardScalarFieldEnum)[keyof typeof FlashcardScalarFieldEnum]
+
+
+export const TagScheduleScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  errorTag: 'errorTag',
+  dueAt: 'dueAt',
+  consecutiveImproving: 'consecutiveImproving',
+  lastDrilledAt: 'lastDrilledAt'
+} as const
+
+export type TagScheduleScalarFieldEnum = (typeof TagScheduleScalarFieldEnum)[keyof typeof TagScheduleScalarFieldEnum]
 
 
 export const SpeakingExerciseScalarFieldEnum = {

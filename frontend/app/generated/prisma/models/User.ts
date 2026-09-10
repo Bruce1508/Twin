@@ -190,6 +190,7 @@ export type UserWhereInput = {
   flashcards?: Prisma.FlashcardListRelationFilter
   listeningExercises?: Prisma.ListeningExerciseListRelationFilter
   sessionProgress?: Prisma.XOR<Prisma.SessionProgressNullableScalarRelationFilter, Prisma.SessionProgressWhereInput> | null
+  tagSchedules?: Prisma.TagScheduleListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -206,6 +207,7 @@ export type UserOrderByWithRelationInput = {
   flashcards?: Prisma.FlashcardOrderByRelationAggregateInput
   listeningExercises?: Prisma.ListeningExerciseOrderByRelationAggregateInput
   sessionProgress?: Prisma.SessionProgressOrderByWithRelationInput
+  tagSchedules?: Prisma.TagScheduleOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -225,6 +227,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   flashcards?: Prisma.FlashcardListRelationFilter
   listeningExercises?: Prisma.ListeningExerciseListRelationFilter
   sessionProgress?: Prisma.XOR<Prisma.SessionProgressNullableScalarRelationFilter, Prisma.SessionProgressWhereInput> | null
+  tagSchedules?: Prisma.TagScheduleListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -263,6 +266,7 @@ export type UserCreateInput = {
   flashcards?: Prisma.FlashcardCreateNestedManyWithoutUserInput
   listeningExercises?: Prisma.ListeningExerciseCreateNestedManyWithoutUserInput
   sessionProgress?: Prisma.SessionProgressCreateNestedOneWithoutUserInput
+  tagSchedules?: Prisma.TagScheduleCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -279,6 +283,7 @@ export type UserUncheckedCreateInput = {
   flashcards?: Prisma.FlashcardUncheckedCreateNestedManyWithoutUserInput
   listeningExercises?: Prisma.ListeningExerciseUncheckedCreateNestedManyWithoutUserInput
   sessionProgress?: Prisma.SessionProgressUncheckedCreateNestedOneWithoutUserInput
+  tagSchedules?: Prisma.TagScheduleUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -295,6 +300,7 @@ export type UserUpdateInput = {
   flashcards?: Prisma.FlashcardUpdateManyWithoutUserNestedInput
   listeningExercises?: Prisma.ListeningExerciseUpdateManyWithoutUserNestedInput
   sessionProgress?: Prisma.SessionProgressUpdateOneWithoutUserNestedInput
+  tagSchedules?: Prisma.TagScheduleUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -311,6 +317,7 @@ export type UserUncheckedUpdateInput = {
   flashcards?: Prisma.FlashcardUncheckedUpdateManyWithoutUserNestedInput
   listeningExercises?: Prisma.ListeningExerciseUncheckedUpdateManyWithoutUserNestedInput
   sessionProgress?: Prisma.SessionProgressUncheckedUpdateOneWithoutUserNestedInput
+  tagSchedules?: Prisma.TagScheduleUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -448,6 +455,20 @@ export type UserUpdateOneRequiredWithoutFlashcardsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFlashcardsInput, Prisma.UserUpdateWithoutFlashcardsInput>, Prisma.UserUncheckedUpdateWithoutFlashcardsInput>
 }
 
+export type UserCreateNestedOneWithoutTagSchedulesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTagSchedulesInput, Prisma.UserUncheckedCreateWithoutTagSchedulesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTagSchedulesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutTagSchedulesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTagSchedulesInput, Prisma.UserUncheckedCreateWithoutTagSchedulesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTagSchedulesInput
+  upsert?: Prisma.UserUpsertWithoutTagSchedulesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTagSchedulesInput, Prisma.UserUpdateWithoutTagSchedulesInput>, Prisma.UserUncheckedUpdateWithoutTagSchedulesInput>
+}
+
 export type UserCreateNestedOneWithoutSpeakingExercisesInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutSpeakingExercisesInput, Prisma.UserUncheckedCreateWithoutSpeakingExercisesInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutSpeakingExercisesInput
@@ -503,6 +524,7 @@ export type UserCreateWithoutSubmissionsInput = {
   flashcards?: Prisma.FlashcardCreateNestedManyWithoutUserInput
   listeningExercises?: Prisma.ListeningExerciseCreateNestedManyWithoutUserInput
   sessionProgress?: Prisma.SessionProgressCreateNestedOneWithoutUserInput
+  tagSchedules?: Prisma.TagScheduleCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSubmissionsInput = {
@@ -518,6 +540,7 @@ export type UserUncheckedCreateWithoutSubmissionsInput = {
   flashcards?: Prisma.FlashcardUncheckedCreateNestedManyWithoutUserInput
   listeningExercises?: Prisma.ListeningExerciseUncheckedCreateNestedManyWithoutUserInput
   sessionProgress?: Prisma.SessionProgressUncheckedCreateNestedOneWithoutUserInput
+  tagSchedules?: Prisma.TagScheduleUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSubmissionsInput = {
@@ -549,6 +572,7 @@ export type UserUpdateWithoutSubmissionsInput = {
   flashcards?: Prisma.FlashcardUpdateManyWithoutUserNestedInput
   listeningExercises?: Prisma.ListeningExerciseUpdateManyWithoutUserNestedInput
   sessionProgress?: Prisma.SessionProgressUpdateOneWithoutUserNestedInput
+  tagSchedules?: Prisma.TagScheduleUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSubmissionsInput = {
@@ -564,6 +588,7 @@ export type UserUncheckedUpdateWithoutSubmissionsInput = {
   flashcards?: Prisma.FlashcardUncheckedUpdateManyWithoutUserNestedInput
   listeningExercises?: Prisma.ListeningExerciseUncheckedUpdateManyWithoutUserNestedInput
   sessionProgress?: Prisma.SessionProgressUncheckedUpdateOneWithoutUserNestedInput
+  tagSchedules?: Prisma.TagScheduleUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProfileInput = {
@@ -579,6 +604,7 @@ export type UserCreateWithoutProfileInput = {
   flashcards?: Prisma.FlashcardCreateNestedManyWithoutUserInput
   listeningExercises?: Prisma.ListeningExerciseCreateNestedManyWithoutUserInput
   sessionProgress?: Prisma.SessionProgressCreateNestedOneWithoutUserInput
+  tagSchedules?: Prisma.TagScheduleCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProfileInput = {
@@ -594,6 +620,7 @@ export type UserUncheckedCreateWithoutProfileInput = {
   flashcards?: Prisma.FlashcardUncheckedCreateNestedManyWithoutUserInput
   listeningExercises?: Prisma.ListeningExerciseUncheckedCreateNestedManyWithoutUserInput
   sessionProgress?: Prisma.SessionProgressUncheckedCreateNestedOneWithoutUserInput
+  tagSchedules?: Prisma.TagScheduleUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProfileInput = {
@@ -625,6 +652,7 @@ export type UserUpdateWithoutProfileInput = {
   flashcards?: Prisma.FlashcardUpdateManyWithoutUserNestedInput
   listeningExercises?: Prisma.ListeningExerciseUpdateManyWithoutUserNestedInput
   sessionProgress?: Prisma.SessionProgressUpdateOneWithoutUserNestedInput
+  tagSchedules?: Prisma.TagScheduleUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProfileInput = {
@@ -640,6 +668,7 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   flashcards?: Prisma.FlashcardUncheckedUpdateManyWithoutUserNestedInput
   listeningExercises?: Prisma.ListeningExerciseUncheckedUpdateManyWithoutUserNestedInput
   sessionProgress?: Prisma.SessionProgressUncheckedUpdateOneWithoutUserNestedInput
+  tagSchedules?: Prisma.TagScheduleUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSessionProgressInput = {
@@ -655,6 +684,7 @@ export type UserCreateWithoutSessionProgressInput = {
   speakingExercises?: Prisma.SpeakingExerciseCreateNestedManyWithoutUserInput
   flashcards?: Prisma.FlashcardCreateNestedManyWithoutUserInput
   listeningExercises?: Prisma.ListeningExerciseCreateNestedManyWithoutUserInput
+  tagSchedules?: Prisma.TagScheduleCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionProgressInput = {
@@ -670,6 +700,7 @@ export type UserUncheckedCreateWithoutSessionProgressInput = {
   speakingExercises?: Prisma.SpeakingExerciseUncheckedCreateNestedManyWithoutUserInput
   flashcards?: Prisma.FlashcardUncheckedCreateNestedManyWithoutUserInput
   listeningExercises?: Prisma.ListeningExerciseUncheckedCreateNestedManyWithoutUserInput
+  tagSchedules?: Prisma.TagScheduleUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionProgressInput = {
@@ -701,6 +732,7 @@ export type UserUpdateWithoutSessionProgressInput = {
   speakingExercises?: Prisma.SpeakingExerciseUpdateManyWithoutUserNestedInput
   flashcards?: Prisma.FlashcardUpdateManyWithoutUserNestedInput
   listeningExercises?: Prisma.ListeningExerciseUpdateManyWithoutUserNestedInput
+  tagSchedules?: Prisma.TagScheduleUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionProgressInput = {
@@ -716,6 +748,7 @@ export type UserUncheckedUpdateWithoutSessionProgressInput = {
   speakingExercises?: Prisma.SpeakingExerciseUncheckedUpdateManyWithoutUserNestedInput
   flashcards?: Prisma.FlashcardUncheckedUpdateManyWithoutUserNestedInput
   listeningExercises?: Prisma.ListeningExerciseUncheckedUpdateManyWithoutUserNestedInput
+  tagSchedules?: Prisma.TagScheduleUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDrillsInput = {
@@ -731,6 +764,7 @@ export type UserCreateWithoutDrillsInput = {
   flashcards?: Prisma.FlashcardCreateNestedManyWithoutUserInput
   listeningExercises?: Prisma.ListeningExerciseCreateNestedManyWithoutUserInput
   sessionProgress?: Prisma.SessionProgressCreateNestedOneWithoutUserInput
+  tagSchedules?: Prisma.TagScheduleCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDrillsInput = {
@@ -746,6 +780,7 @@ export type UserUncheckedCreateWithoutDrillsInput = {
   flashcards?: Prisma.FlashcardUncheckedCreateNestedManyWithoutUserInput
   listeningExercises?: Prisma.ListeningExerciseUncheckedCreateNestedManyWithoutUserInput
   sessionProgress?: Prisma.SessionProgressUncheckedCreateNestedOneWithoutUserInput
+  tagSchedules?: Prisma.TagScheduleUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDrillsInput = {
@@ -777,6 +812,7 @@ export type UserUpdateWithoutDrillsInput = {
   flashcards?: Prisma.FlashcardUpdateManyWithoutUserNestedInput
   listeningExercises?: Prisma.ListeningExerciseUpdateManyWithoutUserNestedInput
   sessionProgress?: Prisma.SessionProgressUpdateOneWithoutUserNestedInput
+  tagSchedules?: Prisma.TagScheduleUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDrillsInput = {
@@ -792,6 +828,7 @@ export type UserUncheckedUpdateWithoutDrillsInput = {
   flashcards?: Prisma.FlashcardUncheckedUpdateManyWithoutUserNestedInput
   listeningExercises?: Prisma.ListeningExerciseUncheckedUpdateManyWithoutUserNestedInput
   sessionProgress?: Prisma.SessionProgressUncheckedUpdateOneWithoutUserNestedInput
+  tagSchedules?: Prisma.TagScheduleUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutFlashcardsInput = {
@@ -807,6 +844,7 @@ export type UserCreateWithoutFlashcardsInput = {
   speakingExercises?: Prisma.SpeakingExerciseCreateNestedManyWithoutUserInput
   listeningExercises?: Prisma.ListeningExerciseCreateNestedManyWithoutUserInput
   sessionProgress?: Prisma.SessionProgressCreateNestedOneWithoutUserInput
+  tagSchedules?: Prisma.TagScheduleCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFlashcardsInput = {
@@ -822,6 +860,7 @@ export type UserUncheckedCreateWithoutFlashcardsInput = {
   speakingExercises?: Prisma.SpeakingExerciseUncheckedCreateNestedManyWithoutUserInput
   listeningExercises?: Prisma.ListeningExerciseUncheckedCreateNestedManyWithoutUserInput
   sessionProgress?: Prisma.SessionProgressUncheckedCreateNestedOneWithoutUserInput
+  tagSchedules?: Prisma.TagScheduleUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFlashcardsInput = {
@@ -853,6 +892,7 @@ export type UserUpdateWithoutFlashcardsInput = {
   speakingExercises?: Prisma.SpeakingExerciseUpdateManyWithoutUserNestedInput
   listeningExercises?: Prisma.ListeningExerciseUpdateManyWithoutUserNestedInput
   sessionProgress?: Prisma.SessionProgressUpdateOneWithoutUserNestedInput
+  tagSchedules?: Prisma.TagScheduleUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFlashcardsInput = {
@@ -866,6 +906,87 @@ export type UserUncheckedUpdateWithoutFlashcardsInput = {
   drills?: Prisma.DrillUncheckedUpdateManyWithoutUserNestedInput
   readingExercises?: Prisma.ReadingExerciseUncheckedUpdateManyWithoutUserNestedInput
   speakingExercises?: Prisma.SpeakingExerciseUncheckedUpdateManyWithoutUserNestedInput
+  listeningExercises?: Prisma.ListeningExerciseUncheckedUpdateManyWithoutUserNestedInput
+  sessionProgress?: Prisma.SessionProgressUncheckedUpdateOneWithoutUserNestedInput
+  tagSchedules?: Prisma.TagScheduleUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutTagSchedulesInput = {
+  id?: string
+  email: string
+  name?: string | null
+  targetLevel?: string
+  createdAt?: Date | string
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutUserInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  drills?: Prisma.DrillCreateNestedManyWithoutUserInput
+  readingExercises?: Prisma.ReadingExerciseCreateNestedManyWithoutUserInput
+  speakingExercises?: Prisma.SpeakingExerciseCreateNestedManyWithoutUserInput
+  flashcards?: Prisma.FlashcardCreateNestedManyWithoutUserInput
+  listeningExercises?: Prisma.ListeningExerciseCreateNestedManyWithoutUserInput
+  sessionProgress?: Prisma.SessionProgressCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutTagSchedulesInput = {
+  id?: string
+  email: string
+  name?: string | null
+  targetLevel?: string
+  createdAt?: Date | string
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutUserInput
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  drills?: Prisma.DrillUncheckedCreateNestedManyWithoutUserInput
+  readingExercises?: Prisma.ReadingExerciseUncheckedCreateNestedManyWithoutUserInput
+  speakingExercises?: Prisma.SpeakingExerciseUncheckedCreateNestedManyWithoutUserInput
+  flashcards?: Prisma.FlashcardUncheckedCreateNestedManyWithoutUserInput
+  listeningExercises?: Prisma.ListeningExerciseUncheckedCreateNestedManyWithoutUserInput
+  sessionProgress?: Prisma.SessionProgressUncheckedCreateNestedOneWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutTagSchedulesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutTagSchedulesInput, Prisma.UserUncheckedCreateWithoutTagSchedulesInput>
+}
+
+export type UserUpsertWithoutTagSchedulesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutTagSchedulesInput, Prisma.UserUncheckedUpdateWithoutTagSchedulesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutTagSchedulesInput, Prisma.UserUncheckedCreateWithoutTagSchedulesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutTagSchedulesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutTagSchedulesInput, Prisma.UserUncheckedUpdateWithoutTagSchedulesInput>
+}
+
+export type UserUpdateWithoutTagSchedulesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetLevel?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submissions?: Prisma.SubmissionUpdateManyWithoutUserNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  drills?: Prisma.DrillUpdateManyWithoutUserNestedInput
+  readingExercises?: Prisma.ReadingExerciseUpdateManyWithoutUserNestedInput
+  speakingExercises?: Prisma.SpeakingExerciseUpdateManyWithoutUserNestedInput
+  flashcards?: Prisma.FlashcardUpdateManyWithoutUserNestedInput
+  listeningExercises?: Prisma.ListeningExerciseUpdateManyWithoutUserNestedInput
+  sessionProgress?: Prisma.SessionProgressUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutTagSchedulesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetLevel?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutUserNestedInput
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  drills?: Prisma.DrillUncheckedUpdateManyWithoutUserNestedInput
+  readingExercises?: Prisma.ReadingExerciseUncheckedUpdateManyWithoutUserNestedInput
+  speakingExercises?: Prisma.SpeakingExerciseUncheckedUpdateManyWithoutUserNestedInput
+  flashcards?: Prisma.FlashcardUncheckedUpdateManyWithoutUserNestedInput
   listeningExercises?: Prisma.ListeningExerciseUncheckedUpdateManyWithoutUserNestedInput
   sessionProgress?: Prisma.SessionProgressUncheckedUpdateOneWithoutUserNestedInput
 }
@@ -883,6 +1004,7 @@ export type UserCreateWithoutSpeakingExercisesInput = {
   flashcards?: Prisma.FlashcardCreateNestedManyWithoutUserInput
   listeningExercises?: Prisma.ListeningExerciseCreateNestedManyWithoutUserInput
   sessionProgress?: Prisma.SessionProgressCreateNestedOneWithoutUserInput
+  tagSchedules?: Prisma.TagScheduleCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSpeakingExercisesInput = {
@@ -898,6 +1020,7 @@ export type UserUncheckedCreateWithoutSpeakingExercisesInput = {
   flashcards?: Prisma.FlashcardUncheckedCreateNestedManyWithoutUserInput
   listeningExercises?: Prisma.ListeningExerciseUncheckedCreateNestedManyWithoutUserInput
   sessionProgress?: Prisma.SessionProgressUncheckedCreateNestedOneWithoutUserInput
+  tagSchedules?: Prisma.TagScheduleUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSpeakingExercisesInput = {
@@ -929,6 +1052,7 @@ export type UserUpdateWithoutSpeakingExercisesInput = {
   flashcards?: Prisma.FlashcardUpdateManyWithoutUserNestedInput
   listeningExercises?: Prisma.ListeningExerciseUpdateManyWithoutUserNestedInput
   sessionProgress?: Prisma.SessionProgressUpdateOneWithoutUserNestedInput
+  tagSchedules?: Prisma.TagScheduleUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSpeakingExercisesInput = {
@@ -944,6 +1068,7 @@ export type UserUncheckedUpdateWithoutSpeakingExercisesInput = {
   flashcards?: Prisma.FlashcardUncheckedUpdateManyWithoutUserNestedInput
   listeningExercises?: Prisma.ListeningExerciseUncheckedUpdateManyWithoutUserNestedInput
   sessionProgress?: Prisma.SessionProgressUncheckedUpdateOneWithoutUserNestedInput
+  tagSchedules?: Prisma.TagScheduleUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutListeningExercisesInput = {
@@ -959,6 +1084,7 @@ export type UserCreateWithoutListeningExercisesInput = {
   speakingExercises?: Prisma.SpeakingExerciseCreateNestedManyWithoutUserInput
   flashcards?: Prisma.FlashcardCreateNestedManyWithoutUserInput
   sessionProgress?: Prisma.SessionProgressCreateNestedOneWithoutUserInput
+  tagSchedules?: Prisma.TagScheduleCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutListeningExercisesInput = {
@@ -974,6 +1100,7 @@ export type UserUncheckedCreateWithoutListeningExercisesInput = {
   speakingExercises?: Prisma.SpeakingExerciseUncheckedCreateNestedManyWithoutUserInput
   flashcards?: Prisma.FlashcardUncheckedCreateNestedManyWithoutUserInput
   sessionProgress?: Prisma.SessionProgressUncheckedCreateNestedOneWithoutUserInput
+  tagSchedules?: Prisma.TagScheduleUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutListeningExercisesInput = {
@@ -1005,6 +1132,7 @@ export type UserUpdateWithoutListeningExercisesInput = {
   speakingExercises?: Prisma.SpeakingExerciseUpdateManyWithoutUserNestedInput
   flashcards?: Prisma.FlashcardUpdateManyWithoutUserNestedInput
   sessionProgress?: Prisma.SessionProgressUpdateOneWithoutUserNestedInput
+  tagSchedules?: Prisma.TagScheduleUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutListeningExercisesInput = {
@@ -1020,6 +1148,7 @@ export type UserUncheckedUpdateWithoutListeningExercisesInput = {
   speakingExercises?: Prisma.SpeakingExerciseUncheckedUpdateManyWithoutUserNestedInput
   flashcards?: Prisma.FlashcardUncheckedUpdateManyWithoutUserNestedInput
   sessionProgress?: Prisma.SessionProgressUncheckedUpdateOneWithoutUserNestedInput
+  tagSchedules?: Prisma.TagScheduleUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReadingExercisesInput = {
@@ -1035,6 +1164,7 @@ export type UserCreateWithoutReadingExercisesInput = {
   flashcards?: Prisma.FlashcardCreateNestedManyWithoutUserInput
   listeningExercises?: Prisma.ListeningExerciseCreateNestedManyWithoutUserInput
   sessionProgress?: Prisma.SessionProgressCreateNestedOneWithoutUserInput
+  tagSchedules?: Prisma.TagScheduleCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReadingExercisesInput = {
@@ -1050,6 +1180,7 @@ export type UserUncheckedCreateWithoutReadingExercisesInput = {
   flashcards?: Prisma.FlashcardUncheckedCreateNestedManyWithoutUserInput
   listeningExercises?: Prisma.ListeningExerciseUncheckedCreateNestedManyWithoutUserInput
   sessionProgress?: Prisma.SessionProgressUncheckedCreateNestedOneWithoutUserInput
+  tagSchedules?: Prisma.TagScheduleUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReadingExercisesInput = {
@@ -1081,6 +1212,7 @@ export type UserUpdateWithoutReadingExercisesInput = {
   flashcards?: Prisma.FlashcardUpdateManyWithoutUserNestedInput
   listeningExercises?: Prisma.ListeningExerciseUpdateManyWithoutUserNestedInput
   sessionProgress?: Prisma.SessionProgressUpdateOneWithoutUserNestedInput
+  tagSchedules?: Prisma.TagScheduleUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReadingExercisesInput = {
@@ -1096,6 +1228,7 @@ export type UserUncheckedUpdateWithoutReadingExercisesInput = {
   flashcards?: Prisma.FlashcardUncheckedUpdateManyWithoutUserNestedInput
   listeningExercises?: Prisma.ListeningExerciseUncheckedUpdateManyWithoutUserNestedInput
   sessionProgress?: Prisma.SessionProgressUncheckedUpdateOneWithoutUserNestedInput
+  tagSchedules?: Prisma.TagScheduleUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -1110,6 +1243,7 @@ export type UserCountOutputType = {
   speakingExercises: number
   flashcards: number
   listeningExercises: number
+  tagSchedules: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1119,6 +1253,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   speakingExercises?: boolean | UserCountOutputTypeCountSpeakingExercisesArgs
   flashcards?: boolean | UserCountOutputTypeCountFlashcardsArgs
   listeningExercises?: boolean | UserCountOutputTypeCountListeningExercisesArgs
+  tagSchedules?: boolean | UserCountOutputTypeCountTagSchedulesArgs
 }
 
 /**
@@ -1173,6 +1308,13 @@ export type UserCountOutputTypeCountListeningExercisesArgs<ExtArgs extends runti
   where?: Prisma.ListeningExerciseWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountTagSchedulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TagScheduleWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1188,6 +1330,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   flashcards?: boolean | Prisma.User$flashcardsArgs<ExtArgs>
   listeningExercises?: boolean | Prisma.User$listeningExercisesArgs<ExtArgs>
   sessionProgress?: boolean | Prisma.User$sessionProgressArgs<ExtArgs>
+  tagSchedules?: boolean | Prisma.User$tagSchedulesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1225,6 +1368,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   flashcards?: boolean | Prisma.User$flashcardsArgs<ExtArgs>
   listeningExercises?: boolean | Prisma.User$listeningExercisesArgs<ExtArgs>
   sessionProgress?: boolean | Prisma.User$sessionProgressArgs<ExtArgs>
+  tagSchedules?: boolean | Prisma.User$tagSchedulesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1241,6 +1385,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     flashcards: Prisma.$FlashcardPayload<ExtArgs>[]
     listeningExercises: Prisma.$ListeningExercisePayload<ExtArgs>[]
     sessionProgress: Prisma.$SessionProgressPayload<ExtArgs> | null
+    tagSchedules: Prisma.$TagSchedulePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1650,6 +1795,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   flashcards<T extends Prisma.User$flashcardsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$flashcardsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FlashcardPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   listeningExercises<T extends Prisma.User$listeningExercisesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$listeningExercisesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListeningExercisePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sessionProgress<T extends Prisma.User$sessionProgressArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionProgressArgs<ExtArgs>>): Prisma.Prisma__SessionProgressClient<runtime.Types.Result.GetResult<Prisma.$SessionProgressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  tagSchedules<T extends Prisma.User$tagSchedulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$tagSchedulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TagSchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2256,6 +2402,30 @@ export type User$sessionProgressArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   include?: Prisma.SessionProgressInclude<ExtArgs> | null
   where?: Prisma.SessionProgressWhereInput
+}
+
+/**
+ * User.tagSchedules
+ */
+export type User$tagSchedulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TagSchedule
+   */
+  select?: Prisma.TagScheduleSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TagSchedule
+   */
+  omit?: Prisma.TagScheduleOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TagScheduleInclude<ExtArgs> | null
+  where?: Prisma.TagScheduleWhereInput
+  orderBy?: Prisma.TagScheduleOrderByWithRelationInput | Prisma.TagScheduleOrderByWithRelationInput[]
+  cursor?: Prisma.TagScheduleWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TagScheduleScalarFieldEnum | Prisma.TagScheduleScalarFieldEnum[]
 }
 
 /**
