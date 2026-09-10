@@ -29,17 +29,20 @@ export function buildSession(input: {
   planDay: PlanDay;
   weakTag: string | null;
   hasDueCards: boolean;
+  hasDueTags: boolean;
   mode: SessionMode;
 }): SessionStep[] {
-  const { planDay, hasDueCards, mode } = input;
+  const { planDay, hasDueCards, hasDueTags, mode } = input;
 
   // Which kinds are active today: any skill present on the plan day,
-  // plus vocab whenever SRS cards are due (review always earns its place).
+  // plus vocab whenever SRS cards are due and grammar whenever a drill
+  // tag is due (review always earns its place).
   const active = new Set<StepKind>();
   for (const k of CANONICAL) {
     if (planDay.skills[k]) active.add(k);
   }
   if (hasDueCards) active.add("vocab");
+  if (hasDueTags) active.add("grammar");
 
   let kinds = CANONICAL.filter((k) => active.has(k));
 

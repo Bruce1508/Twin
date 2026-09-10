@@ -9,7 +9,7 @@ const day: PlanDay = {
 
 describe("buildSession", () => {
   it("full mode emits one step per present skill in canonical order, with routes", () => {
-    const steps = buildSession({ planDay: day, weakTag: "accord_adjectif", hasDueCards: true, mode: "full" });
+    const steps = buildSession({ planDay: day, weakTag: "accord_adjectif", hasDueCards: true, hasDueTags: false, mode: "full" });
     expect(steps.map((s) => s.kind)).toEqual(["vocab", "grammar", "listening", "reading", "speaking", "writing"]);
     expect(steps[0].route).toBe("/flashcards");
     expect(steps[1].route).toBe("/practice");
@@ -19,24 +19,36 @@ describe("buildSession", () => {
 
   it("omits vocab step when no due cards and plan day has no vocab", () => {
     const d = { ...day, skills: { grammar: "g" } } as PlanDay;
-    const steps = buildSession({ planDay: d, weakTag: null, hasDueCards: false, mode: "full" });
+    const steps = buildSession({ planDay: d, weakTag: null, hasDueCards: false, hasDueTags: false, mode: "full" });
     expect(steps.map((s) => s.kind)).toEqual(["grammar"]);
   });
 
   it("includes vocab when cards are due even if plan day omits vocab", () => {
     const d = { ...day, skills: { reading: "r" } } as PlanDay;
-    const steps = buildSession({ planDay: d, weakTag: null, hasDueCards: true, mode: "full" });
+    const steps = buildSession({ planDay: d, weakTag: null, hasDueCards: true, hasDueTags: false, mode: "full" });
     expect(steps.map((s) => s.kind)).toEqual(["vocab", "reading"]);
   });
 
+  it("includes grammar when a tag is due even if plan day omits grammar", () => {
+    const d = { ...day, skills: { reading: "r" } } as PlanDay;
+    const steps = buildSession({ planDay: d, weakTag: "accord_adjectif", hasDueCards: false, hasDueTags: true, mode: "full" });
+    expect(steps.map((s) => s.kind)).toEqual(["grammar", "reading"]);
+  });
+
+  it("omits grammar when no tag is due and plan day has no grammar", () => {
+    const d = { ...day, skills: { reading: "r" } } as PlanDay;
+    const steps = buildSession({ planDay: d, weakTag: null, hasDueCards: false, hasDueTags: false, mode: "full" });
+    expect(steps.map((s) => s.kind)).toEqual(["reading"]);
+  });
+
   it("min mode keeps only vocab + grammar", () => {
-    const steps = buildSession({ planDay: day, weakTag: "x", hasDueCards: true, mode: "min" });
+    const steps = buildSession({ planDay: day, weakTag: "x", hasDueCards: true, hasDueTags: false, mode: "min" });
     expect(steps.map((s) => s.kind)).toEqual(["vocab", "grammar"]);
   });
 
   it("never returns an empty session — falls back to first available skill", () => {
     const d = { ...day, skills: { reading: "r" } } as PlanDay;
-    const steps = buildSession({ planDay: d, weakTag: null, hasDueCards: false, mode: "min" });
+    const steps = buildSession({ planDay: d, weakTag: null, hasDueCards: false, hasDueTags: false, mode: "min" });
     expect(steps.length).toBeGreaterThan(0);
     expect(steps[0].kind).toBe("reading");
   });

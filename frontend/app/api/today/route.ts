@@ -25,8 +25,9 @@ export async function GET(req: Request) {
     if (!steps || !hasPending) {
       // No live session: build a fresh one for the current queue position.
       const weakTag = await getNextTarget(userId);
+      const hasDueTags = weakTag !== null;
       const dueCount = await db.flashcard.count({ where: { userId, dueAt: { lte: new Date() } } });
-      steps = buildSession({ planDay, weakTag, hasDueCards: dueCount > 0, mode });
+      steps = buildSession({ planDay, weakTag, hasDueCards: dueCount > 0, hasDueTags, mode });
       await db.sessionProgress.update({
         where: { userId },
         data: { activeSession: steps, startedAt: new Date() },
