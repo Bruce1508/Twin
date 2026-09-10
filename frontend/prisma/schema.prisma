@@ -38,6 +38,7 @@ model User {
   flashcards         Flashcard[]
   listeningExercises ListeningExercise[]
   sessionProgress   SessionProgress?
+  tagSchedules       TagSchedule[]
 }
 
 // A single unit of language production — immutable after creation.
@@ -144,6 +145,23 @@ model Flashcard {
 
   user       User       @relation(fields: [userId], references: [id])
   errorEvent ErrorEvent @relation(fields: [errorEventId], references: [id])
+}
+
+// Spaced-repetition schedule for one (userId, errorTag) pair. Created lazily
+// by updateMasterySignal on first grade for that tag. Absence of a row means
+// the tag has never been scheduled and is always eligible for selection.
+// consecutiveImproving doubles as the index into targeting.ts's LADDER_DAYS.
+model TagSchedule {
+  id                   String   @id @default(cuid())
+  userId               String
+  errorTag             String
+  dueAt                DateTime @default(now())
+  consecutiveImproving Int      @default(0)
+  lastDrilledAt        DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@unique([userId, errorTag])
 }
 
 // Stores a speaking exercise: generated prompt + transcript + grading results.
