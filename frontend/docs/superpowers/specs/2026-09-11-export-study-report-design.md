@@ -164,9 +164,15 @@ Every read of a `metrics` key must tolerate the key being absent and exclude tha
 
 | Group | Condition | Label on page |
 |---|---|---|
-| `dueNow` | `dueAt <= now` | **À revoir** |
-| `consolidating` | `consecutiveImproving >= 3` and `dueAt > now` | **En consolidation** |
-| `active` | `consecutiveImproving` is 1–2 and `dueAt > now` | **En cours** |
+| `dueNow` | `dueAt <= now` | **Cần ôn lại** |
+| `consolidating` | `consecutiveImproving >= 3` and `dueAt > now` | **Đang củng cố** |
+| `active` | `consecutiveImproving` is 1–2 and `dueAt > now` | **Đang học** |
+
+### UI language
+
+Page chrome — headings, labels, status text — is **Vietnamese**, matching `/tutor` (`app/tutor/page.tsx`), which is the surface the in-person tutor actually reads. (`/dashboard` is French; that inconsistency predates this feature and is not changed here.)
+
+**Always French, never translated:** error tag names from `lib/taxonomy.ts` (e.g. `accord_adjectif`), and every `excerpt` / `correction` string, which are the learner's own French text and its correction. Translating either would destroy the evidence the report exists to show.
 
 A tag with no `TagSchedule` row has never been drilled and appears in none of the three groups.
 
