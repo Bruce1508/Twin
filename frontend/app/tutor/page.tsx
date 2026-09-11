@@ -149,6 +149,9 @@ export default function TutorPage() {
             <h1 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">Tableau de bord</h1>
           </div>
           <div className="flex items-center gap-4">
+            <a href="/report" target="_blank" rel="noopener noreferrer" className="text-xs text-amber-600 hover:text-amber-700 transition-colors">
+              Báo cáo in được ↗
+            </a>
             <a href="/" className="text-xs text-zinc-400 hover:text-zinc-600 transition-colors">← Accueil</a>
             <button onClick={() => { localStorage.removeItem("tutor_auth"); setToken(null); setAuthStatus("locked"); setPasscodeInput(""); }}
               className="text-xs text-zinc-400 hover:text-zinc-600 transition-colors">Déconnexion</button>

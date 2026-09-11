@@ -187,6 +187,7 @@ Bruce's tutor teaches in person on a separate MacBook; `/tutor` gives them a rea
 - `profile.ts` — Layer 2: pure recompute of profile from immutable events. `topSpanTags(freq, n)` helper.
 - `generator.ts` — Layer 3 (writing): Reverse Tutor drill gen + grading + verification pass. `canRouteToDrill` excludes whole-text, reading, speaking, and listening tags.
 - `targeting.ts` — deterministic rule: highest-frequency unresolved span tag.
+- `report.ts` — weekly study report aggregation (pure): rolling 7-day vs prior-7-day deltas, per-skill metric averages, focus tags, TagSchedule mastery grouping. No DB, no LLM.
 - `reading.ts` — Gemini article gen, question gen, answer grading (3 funcs).
 - `speaking.ts` — `generateSpeakingPrompt`, `transcribeSpeech` (Gemini multimodal audio), `gradeSpeech` (5 criteria /20).
 - `listening.ts` — `generatePassage`, `generateQuestions`, `generateAudio` (TTS → raw PCM → WAV header), `gradeAnswers` (pure TypeScript, no extra LLM call).
@@ -291,4 +292,4 @@ Ranked by leverage for the TCF goal (all 4 TCF skills already built):
 3. **Spaced repetition for drills** — surface unresolved drill tags on a schedule (analogous to flashcards but for active recall of grammar rules).
 4. **Adaptive difficulty** — track B1/B2 level per tag from reading/listening exercises, adjust generation difficulty based on profile.
 5. **Multi-user** — auth (Clerk/NextAuth) + BYOK or Stripe billing. Only worth it after the user has used it solo for weeks.
-6. **Export / study report** — weekly PDF/markdown summary of errors, resolved vs unresolved, progress over time.
+6. ~~**Export / study report**~~ — ✅ **Shipped.** `/report` renders a printable weekly report (rolling 7 days vs the prior 7). Aggregation lives in `lib/report.ts` (pure, Vitest-covered) and is shared with `/api/tutor/report`. No PDF library and no new Prisma model — the report is recomputed live from the immutable event store. Design + plan: `frontend/docs/superpowers/specs/2026-09-11-export-study-report-design.md`, `.../plans/2026-09-11-export-study-report.md`.
