@@ -56,6 +56,9 @@ export default async function DashboardPage() {
             <p className="mt-1 text-sm text-zinc-500">Tes patterns d'erreurs accumulés au fil du temps.</p>
           </div>
           <div className="flex gap-2">
+            <Link href="/report" className="rounded-full border border-zinc-200 dark:border-zinc-700 px-4 py-2 text-sm text-zinc-700 dark:text-zinc-300">
+              Rapport
+            </Link>
             <Link href="/submit" className="rounded-full border border-zinc-200 dark:border-zinc-700 px-4 py-2 text-sm text-zinc-700 dark:text-zinc-300">
               Écrire
             </Link>
