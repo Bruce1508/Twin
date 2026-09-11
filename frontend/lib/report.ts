@@ -220,3 +220,29 @@ export function computeMastery(schedules: ReportSchedule[], now: Date): MasteryG
 
   return groups;
 }
+
+export interface ReportInput {
+  submissions: ReportSubmission[];
+  errors: ReportError[];
+  schedules: ReportSchedule[];
+  now: Date;
+}
+
+export interface WeeklyReport {
+  window: ReportWindow;
+  activity: ActivityTotals;
+  skills: SkillBreakdown;
+  focusTags: FocusTag[];
+  mastery: MasteryGroups;
+}
+
+export function buildWeeklyReport(input: ReportInput): WeeklyReport {
+  const window = computeWindow(input.now);
+  return {
+    window,
+    activity: computeActivity(input.submissions, input.errors, window),
+    skills: computeSkills(input.submissions, window),
+    focusTags: computeFocusTags(input.errors, window),
+    mastery: computeMastery(input.schedules, input.now),
+  };
+}

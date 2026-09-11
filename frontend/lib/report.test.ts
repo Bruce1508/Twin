@@ -248,3 +248,30 @@ describe("computeMastery", () => {
     expect(m.consolidating).toHaveLength(0);
   });
 });
+
+import { buildWeeklyReport } from "@/lib/report";
+
+describe("buildWeeklyReport", () => {
+  it("assembles every section from one pass of input", () => {
+    const r = buildWeeklyReport({
+      submissions: [sub(1, { source: "reading_exercise", metrics: { accuracy: 0.9 } })],
+      errors: [err(1)],
+      schedules: [sched({ dueAt: ago(1) })],
+      now: NOW,
+    });
+    expect(r.window.generatedAt.getTime()).toBe(NOW.getTime());
+    expect(r.activity.submissions.current).toBe(1);
+    expect(r.skills.reading.avgAccuracy.current).toBeCloseTo(0.9);
+    expect(r.focusTags[0].tag).toBe("accord_adjectif");
+    expect(r.mastery.dueNow).toHaveLength(1);
+  });
+
+  it("survives completely empty input", () => {
+    const r = buildWeeklyReport({ submissions: [], errors: [], schedules: [], now: NOW });
+    expect(r.activity.submissions).toEqual({ current: 0, previous: null, change: null });
+    expect(r.activity.errorsPer100Words.current).toBe(0);
+    expect(r.focusTags).toEqual([]);
+    expect(r.mastery.dueNow).toEqual([]);
+    expect(r.skills.speaking.avgScore.current).toBe(0);
+  });
+});
