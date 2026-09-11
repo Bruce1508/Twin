@@ -108,3 +108,58 @@ export function computeActivity(
     ),
   };
 }
+
+export interface SkillBreakdown {
+  writing: { count: Delta; avgSentenceLength: Delta; lexicalDiversity: Delta };
+  reading: { count: Delta; avgAccuracy: Delta };
+  listening: { count: Delta; avgAccuracy: Delta };
+  speaking: { count: Delta; avgScore: Delta };
+}
+
+/** Reads one numeric key out of the untyped `metrics` Json blob.
+ *  Returns null — not 0 — when absent, so the row is excluded from averages. */
+function metricValue(metrics: unknown, key: string): number | null {
+  if (typeof metrics !== "object" || metrics === null) return null;
+  const v = (metrics as Record<string, unknown>)[key];
+  return typeof v === "number" && Number.isFinite(v) ? v : null;
+}
+
+/** Mean of the rows that actually carry the key. 0 when none do. */
+function meanOf(rows: ReportSubmission[], key: string): number {
+  const values = rows.map((r) => metricValue(r.metrics, key)).filter((v): v is number => v !== null);
+  if (values.length === 0) return 0;
+  return values.reduce((s, v) => s + v, 0) / values.length;
+}
+
+export function computeSkills(subs: ReportSubmission[], w: ReportWindow): SkillBreakdown {
+  const { current, previous } = splitByWindow(subs, w);
+  const hadPrevious = previous.length > 0;
+
+  const bySource = (rows: ReportSubmission[], source: string) => rows.filter((r) => r.source === source);
+
+  const pair = (source: string, key: string) => {
+    const cur = bySource(current, source);
+    const prv = bySource(previous, source);
+    return {
+      count: makeDelta(cur.length, hadPrevious ? prv.length : null),
+      value: makeDelta(meanOf(cur, key), hadPrevious ? meanOf(prv, key) : null),
+    };
+  };
+
+  const writingLen = pair("free_practice", "avg_sentence_length");
+  const writingDiv = pair("free_practice", "lexical_diversity");
+  const reading = pair("reading_exercise", "accuracy");
+  const listening = pair("listening_exercise", "accuracy");
+  const speaking = pair("speaking_exercise", "total_score");
+
+  return {
+    writing: {
+      count: writingLen.count,
+      avgSentenceLength: writingLen.value,
+      lexicalDiversity: writingDiv.value,
+    },
+    reading: { count: reading.count, avgAccuracy: reading.value },
+    listening: { count: listening.count, avgAccuracy: listening.value },
+    speaking: { count: speaking.count, avgScore: speaking.value },
+  };
+}

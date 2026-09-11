@@ -104,3 +104,66 @@ describe("computeActivity", () => {
     expect(a.errorsPer100Words.previous).toBeNull();
   });
 });
+
+import { computeSkills } from "@/lib/report";
+
+describe("computeSkills", () => {
+  it("averages each source using only its own metric key", () => {
+    const s = computeSkills(
+      [
+        sub(1, { source: "free_practice", metrics: { avg_sentence_length: 10, lexical_diversity: 0.5 } }),
+        sub(1, { source: "free_practice", metrics: { avg_sentence_length: 20, lexical_diversity: 0.7 } }),
+        sub(1, { source: "reading_exercise", metrics: { accuracy: 0.8 } }),
+        sub(1, { source: "listening_exercise", metrics: { accuracy: 0.6 } }),
+        sub(1, { source: "speaking_exercise", metrics: { total_score: 14 } }),
+      ],
+      computeWindow(NOW),
+    );
+    expect(s.writing.count.current).toBe(2);
+    expect(s.writing.avgSentenceLength.current).toBe(15);
+    expect(s.writing.lexicalDiversity.current).toBeCloseTo(0.6);
+    expect(s.reading.avgAccuracy.current).toBeCloseTo(0.8);
+    expect(s.listening.avgAccuracy.current).toBeCloseTo(0.6);
+    expect(s.speaking.avgScore.current).toBe(14);
+  });
+
+  it("excludes rows whose metric key is missing instead of counting them as zero", () => {
+    const s = computeSkills(
+      [
+        sub(1, { source: "reading_exercise", metrics: { accuracy: 1 } }),
+        sub(1, { source: "reading_exercise", metrics: {} }),
+      ],
+      computeWindow(NOW),
+    );
+    expect(s.reading.count.current).toBe(2);
+    expect(s.reading.avgAccuracy.current).toBe(1);
+  });
+
+  it("tolerates a null or non-object metrics value", () => {
+    const s = computeSkills(
+      [sub(1, { source: "reading_exercise", metrics: null })],
+      computeWindow(NOW),
+    );
+    expect(s.reading.avgAccuracy.current).toBe(0);
+  });
+
+  it("ignores drill_response entirely", () => {
+    const s = computeSkills(
+      [sub(1, { source: "drill_response", metrics: { accuracy: 0.1 } })],
+      computeWindow(NOW),
+    );
+    expect(s.reading.count.current).toBe(0);
+    expect(s.writing.count.current).toBe(0);
+  });
+
+  it("compares against the previous window", () => {
+    const s = computeSkills(
+      [
+        sub(1, { source: "speaking_exercise", metrics: { total_score: 16 } }),
+        sub(9, { source: "speaking_exercise", metrics: { total_score: 12 } }),
+      ],
+      computeWindow(NOW),
+    );
+    expect(s.speaking.avgScore).toEqual({ current: 16, previous: 12, change: 4 });
+  });
+});
