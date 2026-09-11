@@ -163,3 +163,60 @@ export function computeSkills(subs: ReportSubmission[], w: ReportWindow): SkillB
     speaking: { count: speaking.count, avgScore: speaking.value },
   };
 }
+
+export interface FocusTag {
+  tag: string;
+  category: string;
+  count: number;
+  examples: { excerpt: string; correction: string }[];
+}
+
+const MAX_FOCUS_TAGS = 10;
+const MAX_EXAMPLES_PER_TAG = 2;
+
+export function computeFocusTags(errs: ReportError[], w: ReportWindow): FocusTag[] {
+  const { current } = splitByWindow(errs, w);
+
+  const byTag = new Map<string, FocusTag>();
+  for (const e of current) {
+    let entry = byTag.get(e.errorTag);
+    if (!entry) {
+      entry = { tag: e.errorTag, category: e.category, count: 0, examples: [] };
+      byTag.set(e.errorTag, entry);
+    }
+    entry.count++;
+    // excerpt is null for whole-text observations — they have no span to quote.
+    if (e.excerpt && entry.examples.length < MAX_EXAMPLES_PER_TAG) {
+      entry.examples.push({ excerpt: e.excerpt, correction: e.correction });
+    }
+  }
+
+  return [...byTag.values()].sort((a, b) => b.count - a.count).slice(0, MAX_FOCUS_TAGS);
+}
+
+export interface MasteryGroups {
+  dueNow: { tag: string; dueAt: Date }[];
+  consolidating: { tag: string; streak: number; dueAt: Date }[];
+  active: { tag: string; streak: number; dueAt: Date }[];
+}
+
+const CONSOLIDATING_STREAK = 3;
+
+/** Reports SCHEDULING state, not proven mastery. `Drill.resolved` is
+ *  display-only; `TagSchedule.dueAt` is the real selection filter. */
+export function computeMastery(schedules: ReportSchedule[], now: Date): MasteryGroups {
+  const groups: MasteryGroups = { dueNow: [], consolidating: [], active: [] };
+
+  for (const s of schedules) {
+    if (s.dueAt.getTime() <= now.getTime()) {
+      groups.dueNow.push({ tag: s.errorTag, dueAt: s.dueAt });
+    } else if (s.consecutiveImproving >= CONSOLIDATING_STREAK) {
+      groups.consolidating.push({ tag: s.errorTag, streak: s.consecutiveImproving, dueAt: s.dueAt });
+    } else if (s.consecutiveImproving > 0) {
+      groups.active.push({ tag: s.errorTag, streak: s.consecutiveImproving, dueAt: s.dueAt });
+    }
+    // streak 0 and not yet due: just graded as struggling, awaiting its turn.
+  }
+
+  return groups;
+}

@@ -167,3 +167,84 @@ describe("computeSkills", () => {
     expect(s.speaking.avgScore).toEqual({ current: 16, previous: 12, change: 4 });
   });
 });
+
+import { computeFocusTags, computeMastery, type ReportSchedule } from "@/lib/report";
+
+const sched = (over: Partial<ReportSchedule> = {}): ReportSchedule => ({
+  errorTag: "accord_adjectif",
+  dueAt: ago(-1), // tomorrow
+  consecutiveImproving: 1,
+  ...over,
+});
+
+describe("computeFocusTags", () => {
+  it("ranks this week's tags by count and ignores older errors", () => {
+    const tags = computeFocusTags(
+      [
+        err(1, { errorTag: "a" }),
+        err(2, { errorTag: "a" }),
+        err(3, { errorTag: "b" }),
+        err(9, { errorTag: "c" }),
+      ],
+      computeWindow(NOW),
+    );
+    expect(tags.map((t) => t.tag)).toEqual(["a", "b"]);
+    expect(tags[0].count).toBe(2);
+  });
+
+  it("caps the list at 10 tags", () => {
+    const many = Array.from({ length: 15 }, (_, i) => err(1, { errorTag: `tag${i}` }));
+    expect(computeFocusTags(many, computeWindow(NOW))).toHaveLength(10);
+  });
+
+  it("keeps at most two examples and skips errors with no excerpt", () => {
+    const tags = computeFocusTags(
+      [
+        err(1, { excerpt: "un" }),
+        err(1, { excerpt: "deux" }),
+        err(1, { excerpt: "trois" }),
+        err(1, { excerpt: null }),
+      ],
+      computeWindow(NOW),
+    );
+    expect(tags[0].count).toBe(4);
+    expect(tags[0].examples).toHaveLength(2);
+    expect(tags[0].examples[0]).toEqual({ excerpt: "un", correction: "un homme grand" });
+  });
+
+  it("returns an empty list when nothing happened this week", () => {
+    expect(computeFocusTags([err(9)], computeWindow(NOW))).toEqual([]);
+  });
+});
+
+describe("computeMastery", () => {
+  it("puts a due schedule in dueNow regardless of streak", () => {
+    const m = computeMastery([sched({ dueAt: ago(1), consecutiveImproving: 4 })], NOW);
+    expect(m.dueNow.map((x) => x.tag)).toEqual(["accord_adjectif"]);
+    expect(m.consolidating).toHaveLength(0);
+  });
+
+  it("treats dueAt exactly at now as due", () => {
+    const m = computeMastery([sched({ dueAt: new Date(NOW) })], NOW);
+    expect(m.dueNow).toHaveLength(1);
+  });
+
+  it("splits not-yet-due schedules at a streak of 3", () => {
+    const m = computeMastery(
+      [
+        sched({ errorTag: "two", consecutiveImproving: 2 }),
+        sched({ errorTag: "three", consecutiveImproving: 3 }),
+      ],
+      NOW,
+    );
+    expect(m.active.map((x) => x.tag)).toEqual(["two"]);
+    expect(m.consolidating.map((x) => x.tag)).toEqual(["three"]);
+  });
+
+  it("leaves a zero-streak not-yet-due schedule out of every group", () => {
+    const m = computeMastery([sched({ consecutiveImproving: 0 })], NOW);
+    expect(m.dueNow).toHaveLength(0);
+    expect(m.active).toHaveLength(0);
+    expect(m.consolidating).toHaveLength(0);
+  });
+});
