@@ -14,7 +14,7 @@ describe("buildSession", () => {
     expect(steps[0].route).toBe("/flashcards");
     expect(steps[1].route).toBe("/practice");
     expect(steps.every((s) => s.status === "pending")).toBe(true);
-    expect(steps[2].topic).toBe("Routine quotidienne"); // theme threaded as topic
+    expect(steps[2].topic).toBe("Routine quotidienne"); 
   });
 
   it("omits vocab step when no due cards and plan day has no vocab", () => {
