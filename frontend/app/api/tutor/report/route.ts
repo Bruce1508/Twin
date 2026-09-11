@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { verifyToken, extractBearer } from "@/lib/tutor-auth";
+import { buildWeeklyReport } from "@/lib/report";
 
 export async function GET(request: Request) {
   const passcode = process.env.TUTOR_PASSCODE;
@@ -10,23 +11,30 @@ export async function GET(request: Request) {
   if (!userId) return Response.json({ error: "DEV_USER_ID not configured" }, { status: 503 });
 
   try {
-    const oneWeekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
-
-    const [submissions, errors] = await Promise.all([
-      db.submission.findMany({ where: { userId }, select: { id: true, wordCount: true, source: true, metrics: true, createdAt: true } }),
-      db.errorEvent.findMany({ where: { submission: { userId } }, select: { errorTag: true, category: true, excerpt: true, createdAt: true } }),
+    const [submissions, errors, schedules] = await Promise.all([
+      db.submission.findMany({
+        where: { userId },
+        select: { source: true, wordCount: true, metrics: true, createdAt: true },
+      }),
+      db.errorEvent.findMany({
+        where: { submission: { userId } },
+        select: { errorTag: true, category: true, excerpt: true, correction: true, createdAt: true },
+      }),
+      db.tagSchedule.findMany({
+        where: { userId },
+        select: { errorTag: true, dueAt: true, consecutiveImproving: true },
+      }),
     ]);
 
-    const weekSubmissions = submissions.filter((s) => s.createdAt >= oneWeekAgo);
-    const weekErrors = errors.filter((e) => e.createdAt >= oneWeekAgo);
+    const report = buildWeeklyReport({
+      submissions,
+      errors,
+      schedules,
+      now: new Date(),
+    });
 
-    const readingSubs = submissions.filter((s) => s.source === "reading_exercise");
-    const speakingSubs = submissions.filter((s) => s.source === "speaking_exercise");
-    const listeningSubs = submissions.filter((s) => s.source === "listening_exercise");
-
-    const avg = (arr: any[], key: string) =>
-      arr.length ? arr.reduce((s, r) => s + ((r.metrics as any)?.[key] ?? 0), 0) / arr.length : null;
-
+    // topErrors stays ALL-TIME — the tutor view has always shown it that way.
+    // focusTags (this week only) is a different thing and is not substituted here.
     const tagFreq: Record<string, { count: number; category: string; excerpts: string[] }> = {};
     for (const e of errors) {
       if (!tagFreq[e.errorTag]) tagFreq[e.errorTag] = { count: 0, category: e.category, excerpts: [] };
@@ -38,28 +46,26 @@ export async function GET(request: Request) {
       .slice(0, 10)
       .map(([tag, data]) => ({ tag, ...data }));
 
-    const writingTrend = submissions
-      .filter((s) => s.source === "free_practice")
-      .slice(-10)
-      .map((s) => ({ date: s.createdAt, avgSentenceLength: (s.metrics as any)?.avg_sentence_length ?? 0 }));
-
     return Response.json({
       summary: {
         totalSubmissions: submissions.length,
         totalErrors: errors.length,
         totalWords: submissions.reduce((s, r) => s + r.wordCount, 0),
-        weekSubmissions: weekSubmissions.length,
-        weekErrors: weekErrors.length,
-        weekWords: weekSubmissions.reduce((s, r) => s + r.wordCount, 0),
+        weekSubmissions: report.activity.submissions.current,
+        weekErrors: report.activity.errors.current,
+        weekWords: report.activity.words.current,
       },
       skillAccuracy: {
-        reading: avg(readingSubs, "accuracy"),
-        speakingScore: avg(speakingSubs, "total_score"),
-        listening: avg(listeningSubs, "accuracy"),
+        reading: report.skills.reading.count.current > 0 ? report.skills.reading.avgAccuracy.current : null,
+        speakingScore: report.skills.speaking.count.current > 0 ? report.skills.speaking.avgScore.current : null,
+        listening: report.skills.listening.count.current > 0 ? report.skills.listening.avgAccuracy.current : null,
         writingCount: submissions.filter((s) => s.source === "free_practice").length,
       },
       topErrors,
-      writingTrend,
+      writingTrend: submissions
+        .filter((s) => s.source === "free_practice")
+        .slice(-10)
+        .map((s) => ({ date: s.createdAt, avgSentenceLength: (s.metrics as any)?.avg_sentence_length ?? 0 })),
     });
   } catch (err) {
     console.error("Report fetch failed:", err);
