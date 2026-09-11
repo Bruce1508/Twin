@@ -22,6 +22,7 @@ export interface ReportError {
   excerpt: string | null;
   correction: string;
   createdAt: Date;
+  source: string;
 }
 
 export interface ReportSchedule {
@@ -83,6 +84,16 @@ const sumWords = (rows: ReportSubmission[]) => rows.reduce((s, r) => s + r.wordC
  *  errors. Normalising by volume is the number that answers "am I improving?". */
 const per100 = (errors: number, words: number) => (words === 0 ? 0 : (errors / words) * 100);
 
+// Sources whose `wordCount` is NOT a real word count — listening stores the number
+// of quiz answers there instead. Named as a set (not a one-off string check) so a
+// future quiz-like source is excluded here too, rather than reproducing this bug.
+// Both the word denominator AND the error numerator of errorsPer100Words must
+// exclude the same sources, or the ratio's two halves disagree about what "this
+// week" means. The plain `words`/`errors` totals below stay all-source — they're
+// legitimate volume counts, not inputs to a per-word rate.
+const NON_PROSE_SOURCES = new Set(["listening_exercise"]);
+const isProseSource = (source: string) => !NON_PROSE_SOURCES.has(source);
+
 export function computeActivity(
   subs: ReportSubmission[],
   errs: ReportError[],
@@ -98,22 +109,18 @@ export function computeActivity(
   const curWords = sumWords(s.current);
   const prevWords = sumWords(s.previous);
 
-  // listening_exercise submissions store an ANSWER COUNT in wordCount, not a word
-  // count, so they're excluded from errorsPer100Words's denominator specifically —
-  // otherwise a handful of wrong quiz answers spikes a ratio that's supposed to
-  // measure writing quality. The plain `words` total above stays all-source: it's a
-  // legitimate volume count, not a per-word rate.
-  const notListening = (r: ReportSubmission) => r.source !== "listening_exercise";
-  const curErrorWords = sumWords(s.current.filter(notListening));
-  const prevErrorWords = sumWords(s.previous.filter(notListening));
+  const curErrorWords = sumWords(s.current.filter((r) => isProseSource(r.source)));
+  const prevErrorWords = sumWords(s.previous.filter((r) => isProseSource(r.source)));
+  const curProseErrors = e.current.filter((err) => isProseSource(err.source)).length;
+  const prevProseErrors = e.previous.filter((err) => isProseSource(err.source)).length;
 
   return {
     submissions: makeDelta(s.current.length, prev(s.previous.length)),
     words: makeDelta(curWords, prev(prevWords)),
     errors: makeDelta(e.current.length, prev(e.previous.length)),
     errorsPer100Words: makeDelta(
-      per100(e.current.length, curErrorWords),
-      prev(per100(e.previous.length, prevErrorWords)),
+      per100(curProseErrors, curErrorWords),
+      prev(per100(prevProseErrors, prevErrorWords)),
     ),
   };
 }
@@ -133,10 +140,18 @@ function metricValue(metrics: unknown, key: string): number | null {
   return typeof v === "number" && Number.isFinite(v) ? v : null;
 }
 
-/** Mean of the rows that actually carry the key. 0 when none do. */
+/** Mean of the rows that actually carry the key. 0 when none do — used for
+ *  `current`, which Delta always types as a plain number. */
 function meanOf(rows: ReportSubmission[], key: string): number {
+  return meanOrNull(rows, key) ?? 0;
+}
+
+/** Same mean, but null when no row carries the key — distinct from a real
+ *  measured 0. Used for `previous`: a prior window with rows of this source
+ *  but all-malformed/empty metrics must read as "no data", not "scored 0". */
+function meanOrNull(rows: ReportSubmission[], key: string): number | null {
   const values = rows.map((r) => metricValue(r.metrics, key)).filter((v): v is number => v !== null);
-  if (values.length === 0) return 0;
+  if (values.length === 0) return null;
   return values.reduce((s, v) => s + v, 0) / values.length;
 }
 
@@ -151,12 +166,13 @@ export function computeSkills(subs: ReportSubmission[], w: ReportWindow): SkillB
     const prv = bySource(previous, source);
     // count's "no data" check is the broad hadPrevious (0 previous submissions of this
     // source, in a window that had activity elsewhere, is a legitimate measured zero).
-    // value's "no data" check must be per-source: with zero previous submissions of
-    // THIS source, meanOf([], key) returns 0, which is not a real measured average —
-    // it must read as null even when hadPrevious is true for some other source.
+    // value's "no data" check is per-source and metric-aware via meanOrNull: it reads
+    // as null both when there are zero previous submissions of THIS source, and when
+    // there are some but none carry a valid `key` (e.g. malformed/empty metrics) —
+    // neither case is a real measured average, even when hadPrevious is true overall.
     return {
       count: makeDelta(cur.length, hadPrevious ? prv.length : null),
-      value: makeDelta(meanOf(cur, key), prv.length > 0 ? meanOf(prv, key) : null),
+      value: makeDelta(meanOf(cur, key), meanOrNull(prv, key)),
     };
   };
 

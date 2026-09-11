@@ -11,20 +11,31 @@ export async function GET(request: Request) {
   if (!userId) return Response.json({ error: "DEV_USER_ID not configured" }, { status: 503 });
 
   try {
-    const [submissions, errors, schedules] = await Promise.all([
+    const [submissions, rawErrors, schedules] = await Promise.all([
       db.submission.findMany({
         where: { userId },
         select: { source: true, wordCount: true, metrics: true, createdAt: true },
       }),
       db.errorEvent.findMany({
         where: { submission: { userId } },
-        select: { errorTag: true, category: true, excerpt: true, correction: true, createdAt: true },
+        select: {
+          errorTag: true,
+          category: true,
+          excerpt: true,
+          correction: true,
+          createdAt: true,
+          submission: { select: { source: true } },
+        },
       }),
       db.tagSchedule.findMany({
         where: { userId },
         select: { errorTag: true, dueAt: true, consecutiveImproving: true },
       }),
     ]);
+
+    // Flatten submission.source onto each error so buildWeeklyReport can tell
+    // a listening-quiz error apart from a real writing/reading/speaking error.
+    const errors = rawErrors.map(({ submission, ...e }) => ({ ...e, source: submission.source }));
 
     const report = buildWeeklyReport({
       submissions,

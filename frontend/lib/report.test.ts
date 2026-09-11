@@ -26,6 +26,7 @@ const err = (days: number, over: Partial<ReportError> = {}): ReportError => ({
   excerpt: "une homme grand",
   correction: "un homme grand",
   createdAt: ago(days),
+  source: "free_practice",
   ...over,
 });
 
@@ -118,6 +119,36 @@ describe("computeActivity", () => {
     // The plain words total keeps counting every source, unchanged.
     expect(a.words.current).toBe(105);
   });
+
+  it("also excludes listening-sourced errors from errorsPer100Words's numerator, matching the denominator", () => {
+    const a = computeActivity(
+      [sub(1, { source: "free_practice", wordCount: 100 })],
+      [
+        err(1, { source: "free_practice" }),
+        // 3 wrong quiz answers — comprehension errors, not writing errors.
+        err(1, { source: "listening_exercise" }),
+        err(1, { source: "listening_exercise" }),
+        err(1, { source: "listening_exercise" }),
+      ],
+      computeWindow(NOW),
+    );
+    // If listening errors leaked into the numerator this would be 4/100 = 4.
+    expect(a.errorsPer100Words.current).toBe(1);
+    // The plain errors total still counts every source, unchanged.
+    expect(a.errors.current).toBe(4);
+  });
+
+  it("does not hide listening-only errors by zeroing both sides of the ratio", () => {
+    const a = computeActivity(
+      [sub(1, { source: "listening_exercise", wordCount: 5 })],
+      [err(1, { source: "listening_exercise" }), err(1, { source: "listening_exercise" })],
+      computeWindow(NOW),
+    );
+    // No prose words this week -> the ratio is 0 (see the "no words" test above),
+    // but the plain errors total must still surface the 2 real errors.
+    expect(a.errorsPer100Words.current).toBe(0);
+    expect(a.errors.current).toBe(2);
+  });
 });
 
 import { computeSkills } from "@/lib/report";
@@ -195,6 +226,23 @@ describe("computeSkills", () => {
     expect(s.speaking.avgScore.change).toBeNull();
     // count's previous stays a measured zero, since the window did have activity.
     expect(s.speaking.count.previous).toBe(0);
+  });
+
+  it("does not fabricate a previous average of 0 when previous rows exist but none carry a valid metric", () => {
+    const s = computeSkills(
+      [
+        // Previous window HAS 2 speaking submissions — but a failed grading write
+        // left both with empty metrics, so there is no real score to compare against.
+        sub(9, { source: "speaking_exercise", metrics: {} }),
+        sub(9, { source: "speaking_exercise", metrics: {} }),
+        sub(1, { source: "speaking_exercise", metrics: { total_score: 15.5 } }),
+      ],
+      computeWindow(NOW),
+    );
+    expect(s.speaking.avgScore.previous).toBeNull();
+    expect(s.speaking.avgScore.change).toBeNull();
+    // count is unaffected by this fix — 2 rows really were submitted last week.
+    expect(s.speaking.count.previous).toBe(2);
   });
 });
 
