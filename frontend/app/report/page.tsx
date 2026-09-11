@@ -39,12 +39,24 @@ function Stat({ label, delta, digits = 0, suffix = "", invert = false }: {
   label: string; delta: Delta; digits?: number; suffix?: string; invert?: boolean;
 }) {
   return (
-    <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-5 py-4 print:border-zinc-300">
-      <div className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
+    <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-5 py-4 print:border-zinc-300 print:bg-white">
+      <div className="text-2xl font-bold text-zinc-900 dark:text-zinc-50 print:text-black">
         {delta.current.toFixed(digits)}{suffix}
       </div>
-      <div className="text-xs font-medium text-zinc-600 dark:text-zinc-400 mt-0.5">{label}</div>
+      <div className="text-xs font-medium text-zinc-600 dark:text-zinc-400 mt-0.5 print:text-zinc-700">{label}</div>
       <div className="mt-1"><Trend delta={delta} digits={digits} suffix={suffix} invert={invert} /></div>
+    </div>
+  );
+}
+
+/** A skill nobody practised this window must render as "no data", never as a
+ *  hard 0.00 — that's indistinguishable from a genuinely poor score. */
+function NoDataStat({ label }: { label: string }) {
+  return (
+    <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-5 py-4 print:border-zinc-300 print:bg-white">
+      <div className="text-2xl font-bold text-zinc-300 dark:text-zinc-700 print:text-zinc-400">—</div>
+      <div className="text-xs font-medium text-zinc-600 dark:text-zinc-400 mt-0.5 print:text-zinc-700">{label}</div>
+      <div className="mt-1 text-xs text-zinc-400">chưa luyện tuần này</div>
     </div>
   );
 }
@@ -123,17 +135,33 @@ export default async function ReportPage() {
               </p>
             </section>
 
-            <section className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 space-y-3 print:break-inside-avoid print:border-zinc-300">
+            <section className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 space-y-3 print:break-inside-avoid print:border-zinc-300 print:bg-white">
               <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">Kỹ năng</h2>
               <div className="grid grid-cols-2 gap-3">
-                <Stat label="Viết — độ dài câu TB" delta={report.skills.writing.avgSentenceLength} digits={1} />
-                <Stat label="Đọc — chính xác" delta={report.skills.reading.avgAccuracy} digits={2} />
-                <Stat label="Nghe — chính xác" delta={report.skills.listening.avgAccuracy} digits={2} />
-                <Stat label="Nói — điểm /20" delta={report.skills.speaking.avgScore} digits={1} />
+                {report.skills.writing.count.current > 0 ? (
+                  <Stat label="Viết — độ dài câu TB" delta={report.skills.writing.avgSentenceLength} digits={1} />
+                ) : (
+                  <NoDataStat label="Viết — độ dài câu TB" />
+                )}
+                {report.skills.reading.count.current > 0 ? (
+                  <Stat label="Đọc — chính xác" delta={report.skills.reading.avgAccuracy} digits={2} />
+                ) : (
+                  <NoDataStat label="Đọc — chính xác" />
+                )}
+                {report.skills.listening.count.current > 0 ? (
+                  <Stat label="Nghe — chính xác" delta={report.skills.listening.avgAccuracy} digits={2} />
+                ) : (
+                  <NoDataStat label="Nghe — chính xác" />
+                )}
+                {report.skills.speaking.count.current > 0 ? (
+                  <Stat label="Nói — điểm /20" delta={report.skills.speaking.avgScore} digits={1} />
+                ) : (
+                  <NoDataStat label="Nói — điểm /20" />
+                )}
               </div>
             </section>
 
-            <section className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 space-y-3 print:break-inside-avoid print:border-zinc-300">
+            <section className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 space-y-3 print:break-inside-avoid print:border-zinc-300 print:bg-white">
               <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">Lỗi nổi bật tuần này</h2>
               {report.focusTags.length === 0 && (
                 <p className="text-sm text-zinc-400">Không có lỗi nào được ghi nhận trong tuần.</p>
@@ -159,7 +187,7 @@ export default async function ReportPage() {
               </div>
             </section>
 
-            <section className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 space-y-3 print:break-inside-avoid print:border-zinc-300">
+            <section className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 space-y-3 print:break-inside-avoid print:border-zinc-300 print:bg-white">
               <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">Lịch ôn tập</h2>
               <div className="grid grid-cols-3 gap-3 text-sm">
                 {([
@@ -168,10 +196,10 @@ export default async function ReportPage() {
                   ["Đang học", report.mastery.active.map((x) => x.tag)],
                 ] as [string, string[]][]).map(([label, tags]) => (
                   <div key={label} className="space-y-1.5">
-                    <div className="text-xs font-medium text-zinc-600 dark:text-zinc-400">{label}</div>
+                    <div className="text-xs font-medium text-zinc-600 dark:text-zinc-400 print:text-zinc-700">{label}</div>
                     {tags.length === 0 && <div className="text-xs text-zinc-400">—</div>}
                     {tags.map((tag) => (
-                      <div key={tag} className="text-xs text-zinc-700 dark:text-zinc-300 font-mono">{tag}</div>
+                      <div key={tag} className="text-xs text-zinc-700 dark:text-zinc-300 font-mono print:text-zinc-700">{tag}</div>
                     ))}
                   </div>
                 ))}

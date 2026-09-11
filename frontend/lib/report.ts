@@ -98,13 +98,22 @@ export function computeActivity(
   const curWords = sumWords(s.current);
   const prevWords = sumWords(s.previous);
 
+  // listening_exercise submissions store an ANSWER COUNT in wordCount, not a word
+  // count, so they're excluded from errorsPer100Words's denominator specifically —
+  // otherwise a handful of wrong quiz answers spikes a ratio that's supposed to
+  // measure writing quality. The plain `words` total above stays all-source: it's a
+  // legitimate volume count, not a per-word rate.
+  const notListening = (r: ReportSubmission) => r.source !== "listening_exercise";
+  const curErrorWords = sumWords(s.current.filter(notListening));
+  const prevErrorWords = sumWords(s.previous.filter(notListening));
+
   return {
     submissions: makeDelta(s.current.length, prev(s.previous.length)),
     words: makeDelta(curWords, prev(prevWords)),
     errors: makeDelta(e.current.length, prev(e.previous.length)),
     errorsPer100Words: makeDelta(
-      per100(e.current.length, curWords),
-      prev(per100(e.previous.length, prevWords)),
+      per100(e.current.length, curErrorWords),
+      prev(per100(e.previous.length, prevErrorWords)),
     ),
   };
 }
@@ -140,9 +149,14 @@ export function computeSkills(subs: ReportSubmission[], w: ReportWindow): SkillB
   const pair = (source: string, key: string) => {
     const cur = bySource(current, source);
     const prv = bySource(previous, source);
+    // count's "no data" check is the broad hadPrevious (0 previous submissions of this
+    // source, in a window that had activity elsewhere, is a legitimate measured zero).
+    // value's "no data" check must be per-source: with zero previous submissions of
+    // THIS source, meanOf([], key) returns 0, which is not a real measured average —
+    // it must read as null even when hadPrevious is true for some other source.
     return {
       count: makeDelta(cur.length, hadPrevious ? prv.length : null),
-      value: makeDelta(meanOf(cur, key), hadPrevious ? meanOf(prv, key) : null),
+      value: makeDelta(meanOf(cur, key), prv.length > 0 ? meanOf(prv, key) : null),
     };
   };
 

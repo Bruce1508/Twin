@@ -103,6 +103,21 @@ describe("computeActivity", () => {
     expect(a.submissions.previous).toBeNull();
     expect(a.errorsPer100Words.previous).toBeNull();
   });
+
+  it("excludes listening_exercise wordCount (an answer count, not a word count) from errorsPer100Words's denominator", () => {
+    const a = computeActivity(
+      [
+        sub(1, { source: "free_practice", wordCount: 100 }),
+        // 5 "words" here are really 5 quiz answers — must not inflate the denominator.
+        sub(1, { source: "listening_exercise", wordCount: 5 }),
+      ],
+      [err(1), err(1)],
+      computeWindow(NOW),
+    );
+    expect(a.errorsPer100Words.current).toBe(2); // 2 errors / 100 words, not / 105.
+    // The plain words total keeps counting every source, unchanged.
+    expect(a.words.current).toBe(105);
+  });
 });
 
 import { computeSkills } from "@/lib/report";
@@ -165,6 +180,21 @@ describe("computeSkills", () => {
       computeWindow(NOW),
     );
     expect(s.speaking.avgScore).toEqual({ current: 16, previous: 12, change: 4 });
+  });
+
+  it("does not fabricate a previous average for a source untouched last window, even when the window had other activity", () => {
+    const s = computeSkills(
+      [
+        // Previous window had activity — but only free_practice, never speaking_exercise.
+        sub(9, { source: "free_practice", metrics: { avg_sentence_length: 8 } }),
+        sub(1, { source: "speaking_exercise", metrics: { total_score: 15.5 } }),
+      ],
+      computeWindow(NOW),
+    );
+    expect(s.speaking.avgScore.previous).toBeNull();
+    expect(s.speaking.avgScore.change).toBeNull();
+    // count's previous stays a measured zero, since the window did have activity.
+    expect(s.speaking.count.previous).toBe(0);
   });
 });
 

@@ -56,6 +56,8 @@ export async function GET(request: Request) {
         weekWords: report.activity.words.current,
       },
       skillAccuracy: {
+        // reading/speakingScore/listening reflect the last 7 days (from buildWeeklyReport);
+        // writingCount below is all-time — two different windows in one object.
         reading: report.skills.reading.count.current > 0 ? report.skills.reading.avgAccuracy.current : null,
         speakingScore: report.skills.speaking.count.current > 0 ? report.skills.speaking.avgScore.current : null,
         listening: report.skills.listening.count.current > 0 ? report.skills.listening.avgAccuracy.current : null,
