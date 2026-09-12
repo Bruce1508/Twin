@@ -283,13 +283,13 @@ docker compose exec db psql -U twin twin_dev -c 'SELECT COUNT(*) FROM "Flashcard
 
 ---
 
-## Candidate next features (user picks — B2 rubric shipped, rest not started)
+## Candidate next features (user picks)
 
 Ranked by leverage for the TCF goal (all 4 TCF skills already built):
 
 1. ~~**B2 rubric writing score**~~ — ✅ **Shipped.** `scoreRubric` in `lib/extractor.ts`, called from `POST /api/submissions`, rendered on `/submit`. Structured breakdown (coherence, vocabulaire, grammaire, registre), NOT a CEFR verdict (PRD forbids verdicts); not persisted to DB.
-2. **Drill history / review past drills** — `/drill` index page showing past drills and whether they were resolved.
-3. **Spaced repetition for drills** — surface unresolved drill tags on a schedule (analogous to flashcards but for active recall of grammar rules).
+2. ~~**Drill history / review past drills**~~ — ✅ **Shipped.** `/drill` index page showing past drills and whether they were resolved.
+3. ~~**Spaced repetition for drills**~~ — ✅ **Shipped.** `TagSchedule` model; `getNextTarget` selects by due date, `updateMasterySignal` advances the schedule on every grade.
 4. **Adaptive difficulty** — track B1/B2 level per tag from reading/listening exercises, adjust generation difficulty based on profile. ⏸️ **Deferred (2026-09-12).** Cold-start: only days of real usage so far, not enough per-tag submissions to calibrate difficulty adjustments safely. Revisit once there are weeks of regular use across each skill tag. Also needs care to avoid surfacing anything that reads as a CEFR-level verdict (PRD forbids verdicts).
 5. **Multi-user** — auth (Clerk/NextAuth) + BYOK or Stripe billing. Only worth it after the user has used it solo for weeks.
 6. ~~**Export / study report**~~ — ✅ **Shipped.** `/report` renders a printable weekly report (rolling 7 days vs the prior 7). Aggregation lives in `lib/report.ts` (pure, Vitest-covered) and is shared with `/api/tutor/report`. No PDF library and no new Prisma model — the report is recomputed live from the immutable event store. Design + plan: `frontend/docs/superpowers/specs/2026-09-11-export-study-report-design.md`, `.../plans/2026-09-11-export-study-report.md`.
