@@ -196,27 +196,27 @@ export default function SpeakPage() {
   const formatDuration = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
+    <div className="min-h-screen bg-paper">
       <div className="max-w-2xl mx-auto px-4 py-12 space-y-8">
 
         {stage.name === "setup" && (
           <>
             <header>
-              <p className="text-xs text-zinc-400 uppercase tracking-widest mb-1">Expression orale</p>
-              <h1 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">Pratiquer l&apos;oral</h1>
-              <p className="mt-1 text-sm text-zinc-500">Monologue de style TCF Canada — 60 à 120 secondes.</p>
+              <p className="text-xs text-ink-faint uppercase tracking-widest mb-1">Expression orale</p>
+              <h1 className="text-2xl font-semibold text-ink">Pratiquer l&apos;oral</h1>
+              <p className="mt-1 text-sm text-ink-muted">Monologue de style TCF Canada — 60 à 120 secondes.</p>
             </header>
 
             <form onSubmit={handleGenerate} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Thème</label>
+                <label className="block text-sm font-medium text-ink-muted mb-1">Thème</label>
                 <input type="text" value={topic} onChange={(e) => setTopic(e.target.value)}
                   placeholder="ex: l'impact des réseaux sociaux sur la jeunesse"
-                  className="w-full rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-2 text-sm" />
+                  className="w-full rounded-none border border-rule bg-paper-raised px-3 py-2 text-sm" />
               </div>
               {error && <p className="text-sm text-red-600">{error}</p>}
               <button type="submit" disabled={loading || !topic.trim()}
-                className="rounded-full bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 px-6 py-2.5 text-sm font-medium disabled:opacity-40">
+                className="rounded-none bg-ink text-paper-raised px-6 py-2.5 text-sm font-medium disabled:opacity-40">
                 {loading ? "Génération du sujet…" : "Générer le sujet"}
               </button>
             </form>
@@ -226,41 +226,41 @@ export default function SpeakPage() {
         {stage.name === "recording" && (
           <>
             <header>
-              <p className="text-xs text-zinc-400 uppercase tracking-widest mb-1">Expression orale</p>
-              <h1 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">Prépare-toi et enregistre</h1>
+              <p className="text-xs text-ink-faint uppercase tracking-widest mb-1">Expression orale</p>
+              <h1 className="text-xl font-semibold text-ink">Prépare-toi et enregistre</h1>
             </header>
 
-            <div className="rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-5 py-4 space-y-3">
-              <p className="text-xs text-zinc-400 uppercase tracking-widest">Mise en situation</p>
-              <p className="text-sm text-zinc-500 italic">{stage.scenarioContext}</p>
-              <hr className="border-zinc-100 dark:border-zinc-800" />
-              <p className="text-sm font-medium text-zinc-800 dark:text-zinc-200 leading-relaxed">{stage.promptText}</p>
+            <div className="rounded-none border border-rule bg-paper-raised px-5 py-4 space-y-3">
+              <p className="text-xs text-ink-faint uppercase tracking-widest">Mise en situation</p>
+              <p className="text-sm text-ink-muted italic">{stage.scenarioContext}</p>
+              <hr className="border-rule" />
+              <p className="text-sm font-medium text-ink leading-relaxed">{stage.promptText}</p>
             </div>
 
             <div className="flex flex-col items-center gap-4 py-4">
               {recordingState === "idle" && (
                 <button onClick={startRecording}
-                  className="flex items-center gap-2 rounded-full bg-red-600 hover:bg-red-700 text-white px-8 py-3 text-sm font-medium transition-colors">
-                  <span className="w-2.5 h-2.5 rounded-full bg-white" />
+                  className="flex items-center gap-2 rounded-none bg-red-600 hover:bg-red-700 text-white px-8 py-3 text-sm font-medium transition-colors">
+                  <span className="w-2.5 h-2.5 rounded-none bg-white" />
                   Commencer l&apos;enregistrement
                 </button>
               )}
               {recordingState === "recording" && (
                 <>
                   <div className="flex items-center gap-3">
-                    <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" />
-                    <span className="text-lg font-mono text-zinc-700 dark:text-zinc-300">
+                    <span className="w-2.5 h-2.5 rounded-none bg-red-500 animate-pulse" />
+                    <span className="text-lg font-mono text-ink-muted">
                       {formatDuration(durationSeconds)} / 2:00
                     </span>
                   </div>
                   <button onClick={stopRecording}
-                    className="rounded-full border-2 border-zinc-900 dark:border-zinc-100 text-zinc-900 dark:text-zinc-100 px-8 py-3 text-sm font-medium">
+                    className="rounded-none border-2 border-zinc-900 dark:border-zinc-100 text-ink px-8 py-3 text-sm font-medium">
                     Arrêter
                   </button>
                 </>
               )}
               {recordingState === "processing" && (
-                <p className="text-sm text-zinc-500 animate-pulse">Transcription en cours…</p>
+                <p className="text-sm text-ink-muted animate-pulse">Transcription en cours…</p>
               )}
             </div>
 
@@ -271,26 +271,26 @@ export default function SpeakPage() {
         {stage.name === "reviewing" && (
           <>
             <header>
-              <p className="text-xs text-zinc-400 uppercase tracking-widest mb-1">Expression orale</p>
-              <h1 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">Vérifie la transcription</h1>
-              <p className="mt-1 text-sm text-zinc-500">Corrige les erreurs si nécessaire, puis envoie pour évaluation.</p>
+              <p className="text-xs text-ink-faint uppercase tracking-widest mb-1">Expression orale</p>
+              <h1 className="text-xl font-semibold text-ink">Vérifie la transcription</h1>
+              <p className="mt-1 text-sm text-ink-muted">Corrige les erreurs si nécessaire, puis envoie pour évaluation.</p>
             </header>
 
-            <div className="rounded-lg border border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50 px-4 py-3">
-              <p className="text-xs text-zinc-400 mb-1">Sujet</p>
-              <p className="text-sm text-zinc-600 dark:text-zinc-400">{stage.promptText}</p>
+            <div className="rounded-none border border-rule bg-zinc-50 dark:bg-zinc-900/50 px-4 py-3">
+              <p className="text-xs text-ink-faint mb-1">Sujet</p>
+              <p className="text-sm text-ink-muted">{stage.promptText}</p>
             </div>
 
             <form onSubmit={handleGrade} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Transcription</label>
+                <label className="block text-sm font-medium text-ink-muted mb-1">Transcription</label>
                 <textarea value={transcript} onChange={(e) => setTranscript(e.target.value)}
                   rows={8}
-                  className="w-full rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-2 text-sm resize-none leading-relaxed" />
+                  className="w-full rounded-none border border-rule bg-paper-raised px-3 py-2 text-sm resize-none leading-relaxed" />
               </div>
               {error && <p className="text-sm text-red-600">{error}</p>}
               <button type="submit" disabled={loading || !transcript.trim()}
-                className="rounded-full bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 px-6 py-2.5 text-sm font-medium disabled:opacity-40">
+                className="rounded-none bg-ink text-paper-raised px-6 py-2.5 text-sm font-medium disabled:opacity-40">
                 {loading ? "Évaluation en cours…" : "Évaluer mon monologue"}
               </button>
             </form>
@@ -300,34 +300,34 @@ export default function SpeakPage() {
         {stage.name === "results" && (
           <>
             <header>
-              <p className="text-xs text-zinc-400 uppercase tracking-widest mb-1">Résultats</p>
+              <p className="text-xs text-ink-faint uppercase tracking-widest mb-1">Résultats</p>
               <div className="flex items-baseline gap-3">
-                <h1 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">
-                  {stage.totalScore}<span className="text-base text-zinc-400 font-normal">/20</span>
+                <h1 className="text-2xl font-semibold text-ink">
+                  {stage.totalScore}<span className="text-base text-ink-faint font-normal">/20</span>
                 </h1>
                 <span className={`text-sm font-medium ${MASTERY_STYLE[stage.masterySignal]?.class ?? ""}`}>
                   {MASTERY_STYLE[stage.masterySignal]?.label ?? stage.masterySignal}
                 </span>
               </div>
-              <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">{stage.overallFeedback}</p>
+              <p className="mt-2 text-sm text-ink-muted">{stage.overallFeedback}</p>
             </header>
 
             <div className="space-y-3">
               {stage.criteria.map((r) => (
-                <div key={r.criterion} className="rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-3 space-y-2">
+                <div key={r.criterion} className="rounded-none border border-rule bg-paper-raised px-4 py-3 space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-zinc-800 dark:text-zinc-200">
+                    <span className="text-sm font-medium text-ink">
                       {CRITERION_LABELS[r.criterion] ?? r.criterion}
                     </span>
-                    <span className="text-sm font-mono text-zinc-500">{r.score}/4</span>
+                    <span className="text-sm font-mono text-ink-muted">{r.score}/4</span>
                   </div>
                   <div className="flex gap-1">
                     {[0, 1, 2, 3].map((i) => (
-                      <div key={i} className={`h-1.5 flex-1 rounded-full ${i < r.score ? (SCORE_STYLE[r.score] ?? "bg-zinc-300") : "bg-zinc-100 dark:bg-zinc-800"}`} />
+                      <div key={i} className={`h-1.5 flex-1 rounded-none ${i < r.score ? (SCORE_STYLE[r.score] ?? "bg-zinc-300") : "bg-paper-sunken"}`} />
                     ))}
                   </div>
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400">{r.feedback}</p>
-                  {r.excerpt && <p className="text-xs text-zinc-400 italic">« {r.excerpt} »</p>}
+                  <p className="text-sm text-ink-muted">{r.feedback}</p>
+                  {r.excerpt && <p className="text-xs text-ink-faint italic">« {r.excerpt} »</p>}
                 </div>
               ))}
             </div>
@@ -335,11 +335,11 @@ export default function SpeakPage() {
             <Suspense fallback={null}><SessionStepButton /></Suspense>
             <div className="flex gap-3">
               <button onClick={resetExercise}
-                className="rounded-full bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 px-6 py-2.5 text-sm font-medium">
+                className="rounded-none bg-ink text-paper-raised px-6 py-2.5 text-sm font-medium">
                 Nouvel exercice
               </button>
               <a href="/dashboard"
-                className="rounded-full border border-zinc-200 dark:border-zinc-700 px-6 py-2.5 text-sm text-zinc-700 dark:text-zinc-300">
+                className="rounded-none border border-rule px-6 py-2.5 text-sm text-ink-muted">
                 Mon profil
               </a>
             </div>

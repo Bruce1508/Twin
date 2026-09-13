@@ -1,14 +1,15 @@
 import { db } from "@/lib/db";
 import { buildWeeklyReport, type Delta } from "@/lib/report";
 import Link from "next/link";
+import CorrectionMark from "../CorrectionMark";
 
 const CAT_COLORS: Record<string, string> = {
-  grammaire: "bg-red-100 text-red-700",
-  lexique: "bg-blue-100 text-blue-700",
-  orthographe: "bg-yellow-100 text-yellow-700",
-  syntaxe: "bg-purple-100 text-purple-700",
-  registre: "bg-orange-100 text-orange-700",
-  comprehension: "bg-indigo-100 text-indigo-700",
+  grammaire: "bg-correction-red-soft text-correction-red",
+  lexique: "bg-teal-50 dark:bg-teal-950/40 text-teal-700 dark:text-teal-300",
+  orthographe: "bg-yellow-50 dark:bg-yellow-950/40 text-yellow-800 dark:text-yellow-300",
+  syntaxe: "bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300",
+  registre: "bg-orange-50 dark:bg-orange-950/40 text-orange-800 dark:text-orange-300",
+  comprehension: "bg-pen-blue-soft text-pen-blue",
 };
 
 const fmtDate = (d: Date) =>
@@ -20,16 +21,16 @@ function Trend({ delta, invert = false, digits = 0, suffix = "" }: {
   delta: Delta; invert?: boolean; digits?: number; suffix?: string;
 }) {
   if (delta.change === null) {
-    return <span className="text-xs text-zinc-400">— không có tuần trước</span>;
+    return <span className="text-xs text-ink-faint">— không có tuần trước</span>;
   }
   if (Math.abs(delta.change) < 0.005) {
-    return <span className="text-xs text-zinc-400">không đổi</span>;
+    return <span className="text-xs text-ink-faint">không đổi</span>;
   }
   const up = delta.change > 0;
   // For errors, "up" is bad — invert flips which direction is green.
   const good = invert ? !up : up;
   return (
-    <span className={`text-xs font-medium ${good ? "text-emerald-600" : "text-red-600"}`}>
+    <span className={`text-xs font-medium ${good ? "text-correction-green" : "text-correction-red"}`}>
       {up ? "▲" : "▼"} {Math.abs(delta.change).toFixed(digits)}{suffix} so với tuần trước
     </span>
   );
@@ -39,11 +40,11 @@ function Stat({ label, delta, digits = 0, suffix = "", invert = false }: {
   label: string; delta: Delta; digits?: number; suffix?: string; invert?: boolean;
 }) {
   return (
-    <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-5 py-4 print:border-zinc-300 print:bg-white">
-      <div className="text-2xl font-bold text-zinc-900 dark:text-zinc-50 print:text-black">
+    <div className="rounded-sm border border-rule bg-paper-raised px-5 py-4">
+      <div className="text-2xl font-serif font-semibold text-ink">
         {delta.current.toFixed(digits)}{suffix}
       </div>
-      <div className="text-xs font-medium text-zinc-600 dark:text-zinc-400 mt-0.5 print:text-zinc-700">{label}</div>
+      <div className="text-xs font-medium text-ink-muted mt-0.5">{label}</div>
       <div className="mt-1"><Trend delta={delta} digits={digits} suffix={suffix} invert={invert} /></div>
     </div>
   );
@@ -53,10 +54,10 @@ function Stat({ label, delta, digits = 0, suffix = "", invert = false }: {
  *  hard 0.00 — that's indistinguishable from a genuinely poor score. */
 function NoDataStat({ label }: { label: string }) {
   return (
-    <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-5 py-4 print:border-zinc-300 print:bg-white">
-      <div className="text-2xl font-bold text-zinc-300 dark:text-zinc-700 print:text-zinc-400">—</div>
-      <div className="text-xs font-medium text-zinc-600 dark:text-zinc-400 mt-0.5 print:text-zinc-700">{label}</div>
-      <div className="mt-1 text-xs text-zinc-400">chưa luyện tuần này</div>
+    <div className="rounded-sm border border-rule bg-paper-raised px-5 py-4">
+      <div className="text-2xl font-serif font-semibold text-ink-faint">—</div>
+      <div className="text-xs font-medium text-ink-muted mt-0.5">{label}</div>
+      <div className="mt-1 text-xs text-ink-faint">chưa luyện tuần này</div>
     </div>
   );
 }
@@ -99,34 +100,34 @@ export default async function ReportPage() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 print:bg-white">
+    <div className="min-h-screen bg-paper">
       <div className="max-w-3xl mx-auto px-4 py-12 space-y-6 print:py-4 print:max-w-none">
         <header className="flex items-start justify-between">
           <div>
-            <h1 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50 print:text-black">
+            <h1 className="text-2xl font-serif font-semibold text-ink">
               Báo cáo học tập tuần
             </h1>
             {report && (
-              <p className="mt-1 text-sm text-zinc-500 print:text-zinc-700">
+              <p className="mt-1 text-sm text-ink-muted">
                 {fmtDate(report.window.thisWeekStart)} – {fmtDate(report.window.generatedAt)}
               </p>
             )}
           </div>
           <div className="flex gap-2 print:hidden">
-            <Link href="/dashboard" className="rounded-full border border-zinc-200 dark:border-zinc-700 px-4 py-2 text-sm text-zinc-700 dark:text-zinc-300">
+            <Link href="/dashboard" className="rounded-sm border border-rule px-4 py-2 text-sm text-ink-muted">
               Hồ sơ
             </Link>
           </div>
         </header>
 
         {dbError && (
-          <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-700">
+          <div className="rounded-sm border border-amber-300/60 bg-amber-50 px-4 py-3 text-sm text-amber-700">
             Không kết nối được cơ sở dữ liệu — kiểm tra DATABASE_URL và DEV_USER_ID trong .env.
           </div>
         )}
 
         {!dbError && !report && (
-          <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-700">
+          <div className="rounded-sm border border-amber-300/60 bg-amber-50 px-4 py-3 text-sm text-amber-700">
             Chưa cấu hình DEV_USER_ID.
           </div>
         )}
@@ -140,13 +141,13 @@ export default async function ReportPage() {
                 <Stat label="Lỗi ghi nhận" delta={report.activity.errors} invert />
                 <Stat label="Lỗi / 100 từ" delta={report.activity.errorsPer100Words} digits={1} invert />
               </div>
-              <p className="text-xs text-zinc-400 print:text-zinc-600">
+              <p className="text-xs text-ink-faint">
                 “Lỗi / 100 từ” là chỉ số tiến bộ chính — viết nhiều hơn thì số lỗi thô tự nhiên tăng.
               </p>
             </section>
 
-            <section className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 space-y-3 print:break-inside-avoid print:border-zinc-300 print:bg-white">
-              <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">Kỹ năng</h2>
+            <section className="rounded-sm border border-rule bg-paper-raised p-5 space-y-3 print:break-inside-avoid">
+              <h2 className="text-xs font-semibold uppercase tracking-widest text-ink-faint">Kỹ năng</h2>
               <div className="grid grid-cols-2 gap-3">
                 {report.skills.writing.count.current > 0 ? (
                   <Stat label="Viết — độ dài câu TB" delta={report.skills.writing.avgSentenceLength} digits={1} />
@@ -171,25 +172,23 @@ export default async function ReportPage() {
               </div>
             </section>
 
-            <section className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 space-y-3 print:break-inside-avoid print:border-zinc-300 print:bg-white">
-              <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">Lỗi nổi bật tuần này</h2>
+            <section className="rounded-sm border border-rule bg-paper-raised p-5 space-y-3 print:break-inside-avoid">
+              <h2 className="text-xs font-semibold uppercase tracking-widest text-ink-faint">Lỗi nổi bật tuần này</h2>
               {report.focusTags.length === 0 && (
-                <p className="text-sm text-zinc-400">Không có lỗi nào được ghi nhận trong tuần.</p>
+                <p className="text-sm text-ink-faint">Không có lỗi nào được ghi nhận trong tuần.</p>
               )}
               <div className="space-y-3">
                 {report.focusTags.map((t) => (
                   <div key={t.tag} className="space-y-1">
                     <div className="flex items-center justify-between">
-                      <span className={`text-xs rounded-full px-2 py-0.5 font-medium ${CAT_COLORS[t.category] ?? "bg-zinc-100 text-zinc-600"}`}>
+                      <span className={`text-xs rounded-sm px-2 py-0.5 font-mono font-medium ${CAT_COLORS[t.category] ?? "bg-paper-raised text-ink-muted"}`}>
                         {t.tag}
                       </span>
-                      <span className="text-xs text-zinc-500 font-mono">{t.count}×</span>
+                      <span className="text-xs text-ink-muted font-mono">{t.count}×</span>
                     </div>
                     {t.examples.map((ex, i) => (
-                      <div key={i} className="text-xs pl-2 border-l-2 border-zinc-200 dark:border-zinc-700">
-                        <span className="text-red-600 line-through">{ex.excerpt}</span>
-                        {" → "}
-                        <span className="text-emerald-700">{ex.correction}</span>
+                      <div key={i} className="pl-2 border-l-2 border-rule">
+                        <CorrectionMark excerpt={ex.excerpt} correction={ex.correction} />
                       </div>
                     ))}
                   </div>
@@ -197,8 +196,8 @@ export default async function ReportPage() {
               </div>
             </section>
 
-            <section className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 space-y-3 print:break-inside-avoid print:border-zinc-300 print:bg-white">
-              <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">Lịch ôn tập</h2>
+            <section className="rounded-sm border border-rule bg-paper-raised p-5 space-y-3 print:break-inside-avoid">
+              <h2 className="text-xs font-semibold uppercase tracking-widest text-ink-faint">Lịch ôn tập</h2>
               <div className="grid grid-cols-3 gap-3 text-sm">
                 {([
                   ["Cần ôn lại", report.mastery.dueNow.map((x) => x.tag)],
@@ -206,17 +205,17 @@ export default async function ReportPage() {
                   ["Đang học", report.mastery.active.map((x) => x.tag)],
                 ] as [string, string[]][]).map(([label, tags]) => (
                   <div key={label} className="space-y-1.5">
-                    <div className="text-xs font-medium text-zinc-600 dark:text-zinc-400 print:text-zinc-700">{label}</div>
-                    {tags.length === 0 && <div className="text-xs text-zinc-400">—</div>}
+                    <div className="text-xs font-medium text-ink-muted">{label}</div>
+                    {tags.length === 0 && <div className="text-xs text-ink-faint">—</div>}
                     {tags.map((tag) => (
-                      <div key={tag} className="text-xs text-zinc-700 dark:text-zinc-300 font-mono print:text-zinc-700">{tag}</div>
+                      <div key={tag} className="text-xs text-ink-muted font-mono">{tag}</div>
                     ))}
                   </div>
                 ))}
               </div>
             </section>
 
-            <p className="text-xs text-zinc-400 print:text-zinc-600">
+            <p className="text-xs text-ink-faint">
               Tạo lúc {report.window.generatedAt.toLocaleString("vi-VN")}
             </p>
           </>

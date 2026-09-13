@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-13T19:30:00-04:00",
+  "title": "Design System: Linguistic Twin",
+  "extensions": {
+    "colorMeta": {
+      "ink-navy": { "role": "neutral", "displayName": "Ink Navy", "canonical": "#172333", "tonalRamp": ["#0d151f", "#172333", "#314153", "#536274", "#7b8793", "#aeb6bd", "#d9dcde", "#f4f5f3"] },
+      "warm-paper": { "role": "neutral", "displayName": "Warm Paper", "canonical": "#f8f7e9", "tonalRamp": ["#28271f", "#4c4a3c", "#716e5b", "#98947c", "#bdb9a1", "#dcd9c4", "#eeecdc", "#f8f7e9"] },
+      "correction-red": { "role": "primary", "displayName": "Correction Red", "canonical": "#c83f38", "tonalRamp": ["#34100e", "#5b1c19", "#842925", "#a93630", "#c83f38", "#dd7770", "#edb3ad", "#f8e8e5"] },
+      "progress-green": { "role": "secondary", "displayName": "Progress Green", "canonical": "#34725a", "tonalRamp": ["#0e2119", "#17392b", "#23513e", "#34725a", "#60927c", "#93b5a5", "#c4d7ce", "#eaf2ee"] },
+      "action-blue": { "role": "tertiary", "displayName": "Action Blue", "canonical": "#3159a5", "tonalRamp": ["#0e1931", "#17294d", "#233d72", "#3159a5", "#627db7", "#93a5ce", "#c6cfe5", "#edf0f8"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Lesson Display", "purpose": "The current lesson theme and no other competing text." },
+      "body": { "displayName": "Study Text", "purpose": "Instructions, feedback, and learner content." },
+      "label": { "displayName": "Ledger Label", "purpose": "Steps, counts, navigation, and control labels." }
+    },
+    "shadows": [],
+    "motion": [{ "name": "reduced-motion", "value": "0.01ms", "purpose": "Collapse nonessential motion when the operating system requests reduced motion." }],
+    "breakpoints": [{ "name": "mobile-header", "value": "900px" }, { "name": "stacked-form", "value": "560px" }]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The main action on a study surface.",
+      "html": "<button class=\"ds-button-primary\">CONTINUER →</button>",
+      "css": ".ds-button-primary{border:3px solid #172333;border-radius:0;background:#172333;color:#fffef4;padding:13px 20px;font:700 12px 'Space Mono',monospace;letter-spacing:.08em;text-transform:uppercase}.ds-button-primary:hover{background:#fffef4;color:#172333}.ds-button-primary:focus-visible{outline:4px solid #3159a5;outline-offset:3px}"
+    },
+    {
+      "name": "Correction Action",
+      "kind": "button",
+      "description": "The current lesson action with correction-red emphasis.",
+      "html": "<a class=\"ds-correction-action\" href=\"#\">CONTINUER LA SÉANCE →</a>",
+      "css": ".ds-correction-action{display:inline-block;border:3px solid #172333;background:#c83f38;color:#fff;padding:13px 20px;font:700 11px 'Space Mono',monospace;letter-spacing:.08em;text-decoration:none;text-transform:uppercase}.ds-correction-action:hover{background:#172333}.ds-correction-action:focus-visible{outline:4px solid #3159a5;outline-offset:3px}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input-default",
+      "description": "A direct square writing field on raised paper.",
+      "html": "<label class=\"ds-field-label\" for=\"answer\">TA RÉPONSE</label><input class=\"ds-field\" id=\"answer\" placeholder=\"Écris ici…\">",
+      "css": ".ds-field-label{display:block;margin-bottom:4px;color:#172333;font:700 11px 'Space Mono',monospace;letter-spacing:.08em}.ds-field{width:100%;border:2px solid #172333;border-radius:0;background:#fffef4;color:#172333;padding:10px 12px;font:400 16px 'Work Sans',Arial,sans-serif}.ds-field:focus{border-width:4px;outline:4px solid #3159a5;outline-offset:3px}"
+    },
+    {
+      "name": "Ledger Panel",
+      "kind": "card",
+      "description": "A flat content region organized by structural rules.",
+      "html": "<section class=\"ds-ledger-panel\"><h3>SIGNAUX DU TWIN</h3><p>Ton profil se construit à partir de tes productions.</p></section>",
+      "css": ".ds-ledger-panel{border:3px solid #172333;border-radius:0;background:#fffef4;color:#172333;padding:24px}.ds-ledger-panel h3{margin:0 0 18px;font:400 26px 'Archivo Black',Arial,sans-serif;text-transform:uppercase}.ds-ledger-panel p{margin:0;font:400 16px 'Work Sans',Arial,sans-serif;line-height:1.5}"
+    },
+    {
+      "name": "Indexed Navigation",
+      "kind": "nav",
+      "description": "The numbered, inverted route list used in the main shell.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-active\" href=\"#\"><small>01</small>Aujourd'hui</a><a href=\"#\"><small>02</small>Écrire</a></nav>",
+      "css": ".ds-nav{width:220px;border-top:1px solid #68727c;background:#172333}.ds-nav a{display:flex;gap:12px;border-bottom:1px solid #68727c;color:#fffef4;padding:11px 8px;font:650 14px 'Work Sans',Arial,sans-serif;text-decoration:none}.ds-nav small{width:20px;color:#a7b0b9;font:400 9px 'Space Mono',monospace}.ds-nav a:hover,.ds-nav .ds-nav-active{background:#f8f7e9;color:#172333}.ds-nav a:focus-visible{outline:4px solid #3159a5;outline-offset:2px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Correction Ledger",
+    "overview": "Linguistic Twin feels like a workbook that has been actively marked, indexed, and improved over time. RawBlock supplies square geometry, emphatic rules, large typography, and direct controls; warm paper and ink navy make it suitable for daily study.",
+    "keyCharacteristics": ["Type-led hierarchy", "Warm paper and navy structure", "Semantic correction colors", "Square controls and flat layers"],
+    "rules": [
+      { "name": "Semantic Pen Rule", "body": "Red and green describe correction state; they are never general decoration.", "section": "colors" },
+      { "name": "One Loud Voice Rule", "body": "Each screen gets one large display statement; supporting text stays restrained.", "section": "typography" },
+      { "name": "Flat Ledger Rule", "body": "A surface earns attention through structure and scale, never simulated elevation.", "section": "elevation" }
+    ],
+    "dos": ["Do reserve the largest type for the learner's current topic or task.", "Do use border weight to organize related content.", "Do verify every new screen at desktop and 390px mobile widths."],
+    "donts": ["Don't add rounded cards, pill-shaped buttons, shadows, gradients, or glass effects.", "Don't use emoji as interface icons or decoration.", "Don't use correction colors outside their learning meaning."]
+  }
+}

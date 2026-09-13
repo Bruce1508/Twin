@@ -17,7 +17,7 @@ export default function ReviserBadge() {
   if (count === 0) return null;
 
   return (
-    <span className="ml-2 inline-flex items-center justify-center rounded-full bg-amber-500 px-1.5 py-0.5 text-xs font-semibold text-white leading-none">
+    <span className="ml-auto inline-flex min-w-5 items-center justify-center border border-current px-1.5 py-0.5 font-mono text-[9px] font-bold leading-none">
       {count}
     </span>
   );

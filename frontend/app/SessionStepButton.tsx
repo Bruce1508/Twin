@@ -8,7 +8,7 @@ export default function SessionStepButton() {
   return (
     <button
       onClick={completeStep}
-      className="w-full rounded-xl bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 px-5 py-3 text-sm font-medium"
+      className="w-full border-3 border-ink bg-ink px-5 py-3 font-mono text-xs font-bold uppercase tracking-widest text-paper-raised hover:bg-paper-raised hover:text-ink"
     >
       Continuer la séance →
     </button>

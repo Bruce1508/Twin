@@ -18,11 +18,11 @@ export default function HomeworkBanner() {
   if (!homework) return null;
 
   return (
-    <div className="rounded-xl border-2 border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-950/20 px-5 py-4 space-y-1">
-      <div className="text-xs font-semibold uppercase tracking-widest text-amber-600 dark:text-amber-400">
-        📚 Bài tập từ giáo viên
+    <div className="border-2 border-ink bg-paper-raised px-5 py-4 space-y-1">
+      <div className="font-mono text-xs font-bold uppercase tracking-widest text-correction-red">
+        Bài tập từ giáo viên
       </div>
-      <p className="text-sm text-zinc-700 dark:text-zinc-300 whitespace-pre-wrap leading-relaxed">{homework}</p>
+      <p className="text-sm text-ink-muted whitespace-pre-wrap leading-relaxed">{homework}</p>
     </div>
   );
 }

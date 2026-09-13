@@ -65,13 +65,13 @@ export default function SubmitPage() {
     : 0;
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
+    <div className="min-h-screen bg-paper">
       <div className="max-w-3xl mx-auto px-4 py-12 space-y-8">
         <header>
-          <h1 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">
+          <h1 className="text-2xl font-semibold text-ink">
             Linguistic Twin
           </h1>
-          <p className="mt-1 text-sm text-zinc-500">
+          <p className="mt-1 text-sm text-ink-muted">
             Écris en français — tes erreurs sont analysées et mémorisées.
           </p>
         </header>
@@ -80,13 +80,13 @@ export default function SubmitPage() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="flex gap-3">
             <div className="flex-1">
-              <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+              <label className="block text-sm font-medium text-ink-muted mb-1">
                 Type de tâche
               </label>
               <select
                 value={taskType}
                 onChange={(e) => setTaskType(e.target.value as TaskType)}
-                className="w-full rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-2 text-sm text-zinc-900 dark:text-zinc-100"
+                className="w-full rounded-none border border-rule bg-paper-raised px-3 py-2 text-sm text-ink"
               >
                 {TASK_TYPES.map((t) => (
                   <option key={t.value} value={t.value}>
@@ -96,22 +96,22 @@ export default function SubmitPage() {
               </select>
             </div>
             <div className="flex-1">
-              <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+              <label className="block text-sm font-medium text-ink-muted mb-1">
                 Sujet / consigne{" "}
-                <span className="font-normal text-zinc-400">(optionnel)</span>
+                <span className="font-normal text-ink-faint">(optionnel)</span>
               </label>
               <input
                 type="text"
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 placeholder="ex: Décrivez les avantages du télétravail"
-                className="w-full rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-2 text-sm text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400"
+                className="w-full rounded-none border border-rule bg-paper-raised px-3 py-2 text-sm text-ink placeholder:text-ink-faint"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+            <label className="block text-sm font-medium text-ink-muted mb-1">
               Ton texte en français
             </label>
             <textarea
@@ -119,14 +119,14 @@ export default function SubmitPage() {
               onChange={(e) => setContent(e.target.value)}
               rows={8}
               placeholder="Écris ici…"
-              className="w-full rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-2 text-sm text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 resize-none"
+              className="w-full rounded-none border border-rule bg-paper-raised px-3 py-2 text-sm text-ink placeholder:text-ink-faint resize-none"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading || content.trim().length === 0}
-            className="rounded-full bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 px-6 py-2.5 text-sm font-medium disabled:opacity-40 transition-opacity"
+            className="rounded-none bg-ink text-paper-raised px-6 py-2.5 text-sm font-medium disabled:opacity-40 transition-opacity"
           >
             {loading ? "Analyse en cours…" : "Analyser"}
           </button>
@@ -134,7 +134,7 @@ export default function SubmitPage() {
 
         {/* ── Error state ── */}
         {error && (
-          <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          <div className="rounded-none border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
             {error}
           </div>
         )}
@@ -143,18 +143,18 @@ export default function SubmitPage() {
         {result && (
           <div className="space-y-6">
             {/* Summary bar */}
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-3 text-sm">
-              <span className="font-medium text-zinc-900 dark:text-zinc-100">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded-none border border-rule bg-paper-raised px-4 py-3 text-sm">
+              <span className="font-medium text-ink">
                 {totalErrors === 0
                   ? "Aucune erreur détectée"
                   : `${totalErrors} erreur${totalErrors > 1 ? "s" : ""} détectée${totalErrors > 1 ? "s" : ""}`}
               </span>
               <span className="text-zinc-300">·</span>
-              <span className="text-zinc-500">
+              <span className="text-ink-muted">
                 {result.extraction.metrics.word_count} mots
               </span>
               <span className="text-zinc-300">·</span>
-              <span className="text-zinc-500">
+              <span className="text-ink-muted">
                 Diversité lexicale :{" "}
                 {(result.extraction.metrics.lexical_diversity * 100).toFixed(0)}%
               </span>
@@ -171,21 +171,21 @@ export default function SubmitPage() {
             {/* Rubric */}
             {result.rubric && (
               <section>
-                <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400 mb-3">
+                <h2 className="text-xs font-semibold uppercase tracking-widest text-ink-faint mb-3">
                   Évaluation par critères
                 </h2>
-                <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-3">
+                <p className="text-sm text-ink-muted mb-3">
                   {result.rubric.overall_feedback}
                 </p>
                 <div className="grid grid-cols-2 gap-3">
                   {result.rubric.criteria.map((c) => (
                     <div key={c.criterion}
-                      className="rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-3 space-y-2">
+                      className="rounded-none border border-rule bg-paper-raised px-4 py-3 space-y-2">
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-medium text-zinc-700 dark:text-zinc-300">
+                        <span className="text-xs font-medium text-ink-muted">
                           {RUBRIC_LABELS[c.criterion]}
                         </span>
-                        <span className={`text-xs rounded-full px-2 py-0.5 font-medium ${
+                        <span className={`text-xs rounded-none px-2 py-0.5 font-medium ${
                           c.strength
                             ? "bg-green-100 text-green-700 dark:bg-green-950/40 dark:text-green-400"
                             : "bg-orange-100 text-orange-700 dark:bg-orange-950/40 dark:text-orange-400"
@@ -195,12 +195,12 @@ export default function SubmitPage() {
                       </div>
                       <div className="flex gap-1">
                         {[0, 1, 2, 3].map((i) => (
-                          <div key={i} className={`h-1.5 flex-1 rounded-full ${
-                            i < c.score ? "bg-zinc-900 dark:bg-zinc-100" : "bg-zinc-100 dark:bg-zinc-800"
+                          <div key={i} className={`h-1.5 flex-1 rounded-none ${
+                            i < c.score ? "bg-zinc-900 dark:bg-zinc-100" : "bg-paper-sunken"
                           }`} />
                         ))}
                       </div>
-                      <p className="text-xs text-zinc-500 dark:text-zinc-400">{c.feedback}</p>
+                      <p className="text-xs text-ink-muted">{c.feedback}</p>
                     </div>
                   ))}
                 </div>
@@ -210,7 +210,7 @@ export default function SubmitPage() {
             {/* Span errors */}
             {result.extraction.span_errors.length > 0 && (
               <section>
-                <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400 mb-3">
+                <h2 className="text-xs font-semibold uppercase tracking-widest text-ink-faint mb-3">
                   Erreurs dans le texte
                 </h2>
                 <div className="space-y-3">
@@ -221,27 +221,27 @@ export default function SubmitPage() {
                     return (
                       <div
                         key={i}
-                        className="rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 p-4 space-y-2"
+                        className="rounded-none border border-rule bg-paper-raised p-4 space-y-2"
                       >
                         <span
-                          className={`inline-block rounded-full border px-2 py-0.5 text-xs font-medium ${chipColor}`}
+                          className={`inline-block rounded-none border px-2 py-0.5 text-xs font-medium ${chipColor}`}
                         >
                           {err.error_tag}
                         </span>
                         <div className="text-sm space-y-1">
                           <div>
-                            <span className="text-zinc-400 mr-2">Incorrect :</span>
+                            <span className="text-ink-faint mr-2">Incorrect :</span>
                             <span className="line-through text-red-600 dark:text-red-400">
                               {err.excerpt}
                             </span>
                           </div>
                           <div>
-                            <span className="text-zinc-400 mr-2">Correction :</span>
+                            <span className="text-ink-faint mr-2">Correction :</span>
                             <span className="text-green-700 dark:text-green-400 font-medium">
                               {err.correction}
                             </span>
                           </div>
-                          <p className="text-zinc-500 dark:text-zinc-400 text-xs pt-1">
+                          <p className="text-ink-muted text-xs pt-1">
                             {err.explanation}
                           </p>
                         </div>
@@ -255,23 +255,23 @@ export default function SubmitPage() {
             {/* Whole-text observations */}
             {result.extraction.whole_text_observations.length > 0 && (
               <section>
-                <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400 mb-3">
+                <h2 className="text-xs font-semibold uppercase tracking-widest text-ink-faint mb-3">
                   Observations globales
                 </h2>
                 <div className="space-y-3">
                   {result.extraction.whole_text_observations.map((obs, i) => (
                     <div
                       key={i}
-                      className="rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 p-4 space-y-1"
+                      className="rounded-none border border-rule bg-paper-raised p-4 space-y-1"
                     >
-                      <span className="inline-block rounded-full border px-2 py-0.5 text-xs font-medium bg-purple-100 text-purple-800 border-purple-200">
+                      <span className="inline-block rounded-none border px-2 py-0.5 text-xs font-medium bg-purple-100 text-purple-800 border-purple-200">
                         {obs.error_tag}
                       </span>
-                      <p className="text-sm text-zinc-700 dark:text-zinc-300 pt-1">
+                      <p className="text-sm text-ink-muted pt-1">
                         {obs.explanation}
                       </p>
                       {obs.evidence && (
-                        <p className="text-xs text-zinc-400 italic">{obs.evidence}</p>
+                        <p className="text-xs text-ink-faint italic">{obs.evidence}</p>
                       )}
                     </div>
                   ))}
@@ -281,7 +281,7 @@ export default function SubmitPage() {
 
             {/* Metrics grid */}
             <section>
-              <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400 mb-3">
+              <h2 className="text-xs font-semibold uppercase tracking-widest text-ink-faint mb-3">
                 Métriques
               </h2>
               <div className="grid grid-cols-3 gap-3">
@@ -307,12 +307,12 @@ export default function SubmitPage() {
                 ).map(([label, value]) => (
                   <div
                     key={label}
-                    className="rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-3"
+                    className="rounded-none border border-rule bg-paper-raised px-4 py-3"
                   >
-                    <div className="text-xl font-semibold text-zinc-900 dark:text-zinc-100">
+                    <div className="text-xl font-semibold text-ink">
                       {value}
                     </div>
-                    <div className="text-xs text-zinc-500 mt-0.5">{label}</div>
+                    <div className="text-xs text-ink-muted mt-0.5">{label}</div>
                   </div>
                 ))}
               </div>

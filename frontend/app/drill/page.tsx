@@ -28,23 +28,27 @@ export default async function DrillHistoryPage() {
     where: { userId },
     orderBy: { createdAt: "desc" },
     take: 50,
-  });
+  }).catch(() => null);
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
+    <div className="min-h-screen bg-paper">
       <div className="max-w-2xl mx-auto px-4 py-12 space-y-6">
         <header className="flex items-center justify-between">
           <div>
-            <p className="text-xs text-zinc-400 uppercase tracking-widest mb-1">Reverse Tutor</p>
-            <h1 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">Historique des drills</h1>
+            <p className="text-xs text-ink-faint uppercase tracking-widest mb-1">Reverse Tutor</p>
+            <h1 className="text-xl font-semibold text-ink">Historique des drills</h1>
           </div>
-          <Link href="/practice" className="text-sm text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300">
+          <Link href="/practice" className="text-sm text-ink-muted hover:text-zinc-700 dark:hover:text-zinc-300">
             Nouveau drill →
           </Link>
         </header>
 
-        {drills.length === 0 ? (
-          <div className="rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-6 py-8 text-center text-sm text-zinc-400">
+        {drills === null ? (
+          <div className="border-2 border-rule bg-paper-raised px-6 py-8 text-sm text-ink-muted">
+            L&apos;historique sera disponible lorsque la base de données sera connectée.
+          </div>
+        ) : drills.length === 0 ? (
+          <div className="rounded-none border border-rule bg-paper-raised px-6 py-8 text-center text-sm text-ink-faint">
             Aucun drill pour l&apos;instant — <Link href="/practice" className="underline">essaie Pratiquer</Link>.
           </div>
         ) : (
@@ -60,27 +64,27 @@ export default async function DrillHistoryPage() {
               return (
                 <div
                   key={drill.id}
-                  className="rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-3 flex items-center gap-3"
+                  className="rounded-none border border-rule bg-paper-raised px-4 py-3 flex items-center gap-3"
                 >
-                  <span className={`w-2 h-2 rounded-full shrink-0 ${color}`} />
+                  <span className={`w-2 h-2 rounded-none shrink-0 ${color}`} />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-sm font-mono text-zinc-800 dark:text-zinc-200">{tag ?? "—"}</span>
+                      <span className="text-sm font-mono text-ink">{tag ?? "—"}</span>
                       {drill.resolved && (
                         <span className="text-xs text-green-700 dark:text-green-400">✓ maîtrisé</span>
                       )}
                     </div>
-                    <p className="text-xs text-zinc-400 mt-0.5">
+                    <p className="text-xs text-ink-faint mt-0.5">
                       {payload.topic ?? ""} · {drill.createdAt.toLocaleDateString("fr-CA")}
                     </p>
                   </div>
                   <div className="flex items-center gap-2 shrink-0">
                     {signal ? (
-                      <span className={`rounded-full border px-2 py-0.5 text-xs font-medium ${SIGNAL_STYLE[signal] ?? ""}`}>
+                      <span className={`rounded-none border px-2 py-0.5 text-xs font-medium ${SIGNAL_STYLE[signal] ?? ""}`}>
                         {SIGNAL_LABEL[signal] ?? signal}
                       </span>
                     ) : (
-                      <span className="rounded-full border border-zinc-200 dark:border-zinc-700 px-2 py-0.5 text-xs text-zinc-400">
+                      <span className="rounded-none border border-rule px-2 py-0.5 text-xs text-ink-faint">
                         {submitted ? "Corrigé" : "Non soumis"}
                       </span>
                     )}

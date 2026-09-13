@@ -98,28 +98,28 @@ export default function TutorPage() {
 
   // ── Passcode screen ──────────────────────────────────────────────────────
   if (authStatus === "checking") return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 flex items-center justify-center">
-      <div className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+    <div className="min-h-screen bg-paper flex items-center justify-center">
+      <div className="w-2 h-2 rounded-none bg-amber-500 animate-pulse" />
     </div>
   );
 
   if (authStatus === "locked") return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-paper flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
-        <div className="rounded-2xl border-2 border-amber-200 dark:border-amber-900 bg-white dark:bg-zinc-900 px-8 py-10 space-y-6 shadow-sm">
+        <div className="rounded-none border-2 border-amber-200 dark:border-amber-900 bg-paper-raised px-8 py-10 space-y-6 ">
           <div className="text-center space-y-2">
-            <div className="w-12 h-12 rounded-full bg-amber-100 dark:bg-amber-950/60 flex items-center justify-center mx-auto text-2xl">🔑</div>
-            <h1 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">Espace Tuteur</h1>
-            <p className="text-xs text-zinc-400">Entrez le code pour accéder au tableau de bord</p>
+            <div className="mx-auto flex h-12 w-12 items-center justify-center border-2 border-ink bg-paper-sunken font-mono text-xs font-bold">ACCÈS</div>
+            <h1 className="text-lg font-semibold text-ink">Espace Tuteur</h1>
+            <p className="text-xs text-ink-faint">Entrez le code pour accéder au tableau de bord</p>
           </div>
           <form onSubmit={handleAuth} className="space-y-3">
             <input type="password" value={passcodeInput}
               onChange={(e) => { setPasscodeInput(e.target.value); setAuthError(false); }}
               placeholder="••••••" autoFocus
-              className={`w-full rounded-lg border px-4 py-2.5 text-sm text-center tracking-widest bg-white dark:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-amber-400 transition-colors ${authError ? "border-red-400" : "border-zinc-200 dark:border-zinc-700"}`} />
+              className={`w-full rounded-none border px-4 py-2.5 text-sm text-center tracking-widest bg-white dark:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-amber-400 transition-colors ${authError ? "border-red-400" : "border-rule"}`} />
             {authError && <p className="text-xs text-red-500 text-center">Code incorrect — réessaie</p>}
             <button type="submit" disabled={authLoading || !passcodeInput}
-              className="w-full rounded-full bg-amber-500 hover:bg-amber-600 text-white py-2.5 text-sm font-medium transition-colors disabled:opacity-40">
+              className="w-full rounded-none bg-amber-500 hover:bg-amber-600 text-white py-2.5 text-sm font-medium transition-colors disabled:opacity-40">
               {authLoading ? "Vérification…" : "Accéder"}
             </button>
           </form>
@@ -137,34 +137,34 @@ export default function TutorPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
+    <div className="min-h-screen bg-paper">
       <div className="max-w-4xl mx-auto px-4 py-10 space-y-6">
 
         <div className="flex items-center justify-between">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <span className="inline-block w-2 h-2 rounded-full bg-amber-500" />
+              <span className="inline-block w-2 h-2 rounded-none bg-amber-500" />
               <span className="text-xs text-amber-600 dark:text-amber-400 font-medium uppercase tracking-widest">Mode tuteur</span>
             </div>
-            <h1 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">Tableau de bord</h1>
+            <h1 className="text-2xl font-semibold text-ink">Tableau de bord</h1>
           </div>
           <div className="flex items-center gap-4">
             <a href="/report" target="_blank" rel="noopener noreferrer" className="text-xs text-amber-600 hover:text-amber-700 transition-colors">
               Báo cáo in được ↗
             </a>
-            <a href="/" className="text-xs text-zinc-400 hover:text-zinc-600 transition-colors">← Accueil</a>
+            <a href="/" className="text-xs text-ink-faint hover:text-zinc-600 transition-colors">← Accueil</a>
             <button onClick={() => { localStorage.removeItem("tutor_auth"); setToken(null); setAuthStatus("locked"); setPasscodeInput(""); }}
-              className="text-xs text-zinc-400 hover:text-zinc-600 transition-colors">Déconnexion</button>
+              className="text-xs text-ink-faint hover:text-zinc-600 transition-colors">Déconnexion</button>
           </div>
         </div>
 
-        <div className="flex gap-0 border-b border-zinc-200 dark:border-zinc-800">
+        <div className="flex gap-0 border-b border-rule">
           {tabs.map((t) => (
             <button key={t.key} onClick={() => setActiveTab(t.key)}
               className={`flex items-center gap-1.5 px-5 py-3 text-sm font-medium border-b-2 transition-colors ${
                 activeTab === t.key
                   ? "border-amber-500 text-amber-600 dark:text-amber-400"
-                  : "border-transparent text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300"
+                  : "border-transparent text-ink-faint hover:text-zinc-600 dark:hover:text-zinc-300"
               }`}>
               <span>{t.emoji}</span>{t.label}
             </button>
@@ -174,7 +174,7 @@ export default function TutorPage() {
         {dataLoading && (
           <div className="flex items-center justify-center py-20">
             <div className="flex gap-1">
-              {[0,1,2].map(i => <div key={i} className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" style={{ animationDelay: `${i * 150}ms` }} />)}
+              {[0,1,2].map(i => <div key={i} className="w-1.5 h-1.5 rounded-none bg-amber-400 animate-pulse" style={{ animationDelay: `${i * 150}ms` }} />)}
             </div>
           </div>
         )}
@@ -188,16 +188,16 @@ export default function TutorPage() {
                 { label: "Lỗi tuần này", value: report.summary.weekErrors, sub: `/ ${report.summary.totalErrors} tổng` },
                 { label: "Từ tuần này", value: report.summary.weekWords.toLocaleString(), sub: `/ ${report.summary.totalWords.toLocaleString()} tổng` },
               ].map(({ label, value, sub }) => (
-                <div key={label} className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-5 py-4">
-                  <div className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">{value}</div>
-                  <div className="text-xs font-medium text-zinc-600 dark:text-zinc-400 mt-0.5">{label}</div>
-                  <div className="text-xs text-zinc-400 mt-0.5">{sub}</div>
+                <div key={label} className="rounded-none border border-rule bg-paper-raised px-5 py-4">
+                  <div className="text-2xl font-bold text-ink">{value}</div>
+                  <div className="text-xs font-medium text-ink-muted mt-0.5">{label}</div>
+                  <div className="text-xs text-ink-faint mt-0.5">{sub}</div>
                 </div>
               ))}
             </div>
 
-            <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 space-y-3">
-              <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">Kỹ năng</h2>
+            <div className="rounded-none border border-rule bg-paper-raised p-5 space-y-3">
+              <h2 className="text-xs font-semibold uppercase tracking-widest text-ink-faint">Kỹ năng</h2>
               <div className="grid grid-cols-2 gap-3">
                 {[
                   { label: "Viết", value: `${report.skillAccuracy.writingCount} bài`, dot: "bg-zinc-800 dark:bg-zinc-100" },
@@ -205,11 +205,11 @@ export default function TutorPage() {
                   { label: "Nói", value: report.skillAccuracy.speakingScore != null ? `${report.skillAccuracy.speakingScore.toFixed(1)}/20` : "—", dot: "bg-teal-500" },
                   { label: "Nghe", value: report.skillAccuracy.listening != null ? `${Math.round(report.skillAccuracy.listening * 100)}% chính xác` : "—", dot: "bg-amber-500" },
                 ].map(({ label, value, dot }) => (
-                  <div key={label} className="flex items-center gap-3 p-3 rounded-lg bg-zinc-50 dark:bg-zinc-800">
-                    <div className={`w-2 h-8 rounded-full shrink-0 ${dot}`} />
+                  <div key={label} className="flex items-center gap-3 p-3 rounded-none bg-paper-sunken">
+                    <div className={`w-2 h-8 rounded-none shrink-0 ${dot}`} />
                     <div>
-                      <div className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{value}</div>
-                      <div className="text-xs text-zinc-400">{label}</div>
+                      <div className="text-sm font-semibold text-ink">{value}</div>
+                      <div className="text-xs text-ink-faint">{label}</div>
                     </div>
                   </div>
                 ))}
@@ -217,8 +217,8 @@ export default function TutorPage() {
             </div>
 
             {report.topErrors.length > 0 && (
-              <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 space-y-3">
-                <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">Top lỗi (toàn bộ)</h2>
+              <div className="rounded-none border border-rule bg-paper-raised p-5 space-y-3">
+                <h2 className="text-xs font-semibold uppercase tracking-widest text-ink-faint">Top lỗi (toàn bộ)</h2>
                 <div className="space-y-3">
                   {report.topErrors.map((err, i) => {
                     const pct = Math.round((err.count / report.topErrors[0].count) * 100);
@@ -226,15 +226,15 @@ export default function TutorPage() {
                       <div key={err.tag} className="space-y-1">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-2">
-                            <span className="text-xs text-zinc-400 w-4 text-right">{i + 1}.</span>
-                            <span className={`text-xs rounded-full px-2 py-0.5 font-medium ${CAT_COLORS[err.category] ?? "bg-zinc-100 text-zinc-600"}`}>{err.tag}</span>
+                            <span className="text-xs text-ink-faint w-4 text-right">{i + 1}.</span>
+                            <span className={`text-xs rounded-none px-2 py-0.5 font-medium ${CAT_COLORS[err.category] ?? "bg-zinc-100 text-zinc-600"}`}>{err.tag}</span>
                           </div>
-                          <span className="text-xs text-zinc-500 font-mono">{err.count}×</span>
+                          <span className="text-xs text-ink-muted font-mono">{err.count}×</span>
                         </div>
-                        <div className="ml-6 h-1.5 rounded-full bg-zinc-100 dark:bg-zinc-800 overflow-hidden">
-                          <div className="h-full rounded-full bg-amber-400 transition-all" style={{ width: `${pct}%` }} />
+                        <div className="ml-6 h-1.5 rounded-none bg-paper-sunken overflow-hidden">
+                          <div className="h-full rounded-none bg-amber-400 transition-all" style={{ width: `${pct}%` }} />
                         </div>
-                        {err.excerpts[0] && <p className="ml-6 text-xs text-zinc-400 italic">« {err.excerpts[0]} »</p>}
+                        {err.excerpts[0] && <p className="ml-6 text-xs text-ink-faint italic">« {err.excerpts[0]} »</p>}
                       </div>
                     );
                   })}
@@ -247,30 +247,30 @@ export default function TutorPage() {
         {/* ── Lịch sử bài ── */}
         {!dataLoading && activeTab === "history" && (
           <div className="space-y-2">
-            {history.length === 0 && <p className="text-sm text-zinc-400 text-center py-12">Chưa có bài nào.</p>}
+            {history.length === 0 && <p className="text-sm text-ink-faint text-center py-12">Chưa có bài nào.</p>}
             {history.map((s) => (
-              <div key={s.id} className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden">
+              <div key={s.id} className="rounded-none border border-rule bg-paper-raised overflow-hidden">
                 <button onClick={() => setExpandedId(expandedId === s.id ? null : s.id)}
                   className="w-full flex items-center justify-between px-5 py-4 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors text-left">
                   <div className="flex items-center gap-3">
-                    <span className={`text-xs rounded-full px-2.5 py-0.5 font-medium shrink-0 ${SOURCE_COLORS[s.source] ?? "bg-zinc-100 text-zinc-600"}`}>
+                    <span className={`text-xs rounded-none px-2.5 py-0.5 font-medium shrink-0 ${SOURCE_COLORS[s.source] ?? "bg-zinc-100 text-zinc-600"}`}>
                       {SOURCE_LABELS[s.source] ?? s.source}
                     </span>
-                    <span className="text-sm text-zinc-600 dark:text-zinc-400">
+                    <span className="text-sm text-ink-muted">
                       {new Date(s.createdAt).toLocaleDateString("vi-VN", { day: "numeric", month: "numeric", year: "numeric" })}
                     </span>
                   </div>
                   <div className="flex items-center gap-3 shrink-0">
-                    <span className="text-xs text-zinc-400">{s.wordCount} mots</span>
-                    {s.errorCount > 0 && <span className="text-xs bg-red-100 text-red-600 dark:bg-red-950/40 dark:text-red-400 rounded-full px-2 py-0.5">{s.errorCount} lỗi</span>}
+                    <span className="text-xs text-ink-faint">{s.wordCount} mots</span>
+                    {s.errorCount > 0 && <span className="text-xs bg-red-100 text-red-600 dark:bg-red-950/40 dark:text-red-400 rounded-none px-2 py-0.5">{s.errorCount} lỗi</span>}
                     <span className="text-zinc-300 text-xs">{expandedId === s.id ? "▲" : "▼"}</span>
                   </div>
                 </button>
                 {expandedId === s.id && (
-                  <div className="px-5 pb-5 space-y-3 border-t border-zinc-100 dark:border-zinc-800 pt-4">
-                    {s.prompt && <p className="text-xs text-zinc-400"><span className="font-medium">Sujet : </span>{s.prompt}</p>}
+                  <div className="px-5 pb-5 space-y-3 border-t border-rule pt-4">
+                    {s.prompt && <p className="text-xs text-ink-faint"><span className="font-medium">Sujet : </span>{s.prompt}</p>}
                     {s.source === "free_practice" && (
-                      <div className="rounded-lg bg-zinc-50 dark:bg-zinc-800 px-4 py-3 text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed whitespace-pre-wrap max-h-40 overflow-y-auto">
+                      <div className="rounded-none bg-paper-sunken px-4 py-3 text-sm text-ink-muted leading-relaxed whitespace-pre-wrap max-h-40 overflow-y-auto">
                         {s.content}
                       </div>
                     )}
@@ -278,8 +278,8 @@ export default function TutorPage() {
                       <div className="space-y-2">
                         {s.errors.map((e) => (
                           <div key={e.id} className="flex items-start gap-2 text-xs">
-                            <span className={`rounded-full px-2 py-0.5 font-medium shrink-0 ${CAT_COLORS[e.category] ?? "bg-zinc-100 text-zinc-600"}`}>{e.errorTag}</span>
-                            <div className="text-zinc-500 dark:text-zinc-400 leading-relaxed">
+                            <span className={`rounded-none px-2 py-0.5 font-medium shrink-0 ${CAT_COLORS[e.category] ?? "bg-zinc-100 text-zinc-600"}`}>{e.errorTag}</span>
+                            <div className="text-ink-muted leading-relaxed">
                               {e.excerpt && <span className="line-through text-red-500 mr-1">"{e.excerpt}"</span>}
                               → <span className="text-green-600 dark:text-green-400">{e.correction}</span>
                             </div>
@@ -297,23 +297,23 @@ export default function TutorPage() {
         {/* ── Ghi chú & Bài tập ── */}
         {!dataLoading && activeTab === "notes" && (
           <div className="space-y-4">
-            <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 space-y-3">
-              <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">📝 Ghi chú buổi học</h2>
+            <div className="rounded-none border border-rule bg-paper-raised p-5 space-y-3">
+              <h2 className="text-xs font-semibold uppercase tracking-widest text-ink-faint">📝 Ghi chú buổi học</h2>
               <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={5}
                 placeholder="Nhận xét buổi học hôm nay, điểm cần tập trung, quan sát về tiến độ…"
-                className="w-full rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 px-4 py-3 text-sm text-zinc-800 dark:text-zinc-200 resize-none focus:outline-none focus:ring-2 focus:ring-amber-400 leading-relaxed" />
+                className="w-full rounded-none border border-rule bg-paper-sunken px-4 py-3 text-sm text-ink resize-none focus:outline-none focus:ring-2 focus:ring-amber-400 leading-relaxed" />
             </div>
 
-            <div className="rounded-xl border-2 border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-950/20 p-5 space-y-3">
-              <h2 className="text-xs font-semibold uppercase tracking-widest text-amber-600 dark:text-amber-400">📚 Bài tập giao cho buổi sau</h2>
+            <div className="rounded-none border-2 border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-950/20 p-5 space-y-3">
+              <h2 className="text-xs font-semibold uppercase tracking-widest text-amber-600 dark:text-amber-400">Bài tập giao cho buổi sau</h2>
               <textarea value={homework} onChange={(e) => setHomework(e.target.value)} rows={4}
                 placeholder="Viết một đoạn văn về…  /  Luyện nghe chủ đề…  /  Réviser les erreurs de subjonctif…"
-                className="w-full rounded-lg border border-amber-200 dark:border-amber-800 bg-white dark:bg-zinc-900 px-4 py-3 text-sm text-zinc-800 dark:text-zinc-200 resize-none focus:outline-none focus:ring-2 focus:ring-amber-400 leading-relaxed" />
+                className="w-full rounded-none border border-amber-200 dark:border-amber-800 bg-paper-raised px-4 py-3 text-sm text-ink resize-none focus:outline-none focus:ring-2 focus:ring-amber-400 leading-relaxed" />
               <p className="text-xs text-amber-600 dark:text-amber-400">💡 Bài tập sẽ hiện ngay trên trang chủ của học sinh.</p>
             </div>
 
             <button onClick={handleSaveNotes} disabled={saveStatus === "saving"}
-              className={`rounded-full px-6 py-2.5 text-sm font-medium transition-all ${
+              className={`rounded-none px-6 py-2.5 text-sm font-medium transition-all ${
                 saveStatus === "saved" ? "bg-green-500 text-white" : "bg-amber-500 hover:bg-amber-600 text-white disabled:opacity-40"
               }`}>
               {saveStatus === "saving" ? "Đang lưu…" : saveStatus === "saved" ? "✓ Đã lưu" : "Lưu ghi chú & bài tập"}
