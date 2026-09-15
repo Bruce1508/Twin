@@ -13,7 +13,8 @@ const routes = [
   ["/flashcards", "Réviser", "06"],
   ["/practice", "Pratiquer", "07"],
   ["/dashboard", "Profil", "08"],
-  ["/sign-in", "Compte", "09"],
+  ["/classes", "Classes", "09"],
+  ["/sign-in", "Compte", "10"],
 ] as const;
 
 function RouteList({ mobile = false }: { mobile?: boolean }) {

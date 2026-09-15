@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   generateJoinCode,
+  hasClassroomRole,
   normalizeClassroomName,
   normalizeJoinCode,
 } from "@/lib/classroom";
@@ -15,6 +16,12 @@ describe("normalizeClassroomName", () => {
     expect(() => normalizeClassroomName("a".repeat(81))).toThrow(
       "Classroom name must be 80 characters or fewer",
     );
+  });
+
+  it("checks classroom roles without treating them as global user roles", () => {
+    expect(hasClassroomRole("TEACHER", ["TEACHER"])).toBe(true);
+    expect(hasClassroomRole("STUDENT", ["TEACHER"])).toBe(false);
+    expect(hasClassroomRole("STUDENT", ["TEACHER", "STUDENT"])).toBe(true);
   });
 });
 

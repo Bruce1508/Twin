@@ -4,6 +4,9 @@ const JOIN_CODE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 const JOIN_CODE_LENGTH = 10;
 const CLASSROOM_NAME_MAX_LENGTH = 80;
 
+export const CLASSROOM_ROLES = ["TEACHER", "STUDENT"] as const;
+export type ClassroomRoleName = (typeof CLASSROOM_ROLES)[number];
+
 export function normalizeClassroomName(value: unknown): string {
   if (typeof value !== "string") {
     throw new Error("Classroom name is required");
@@ -34,4 +37,11 @@ export function generateJoinCode(): string {
   return [...randomBytes(JOIN_CODE_LENGTH)]
     .map((byte) => JOIN_CODE_ALPHABET[byte % JOIN_CODE_ALPHABET.length])
     .join("");
+}
+
+export function hasClassroomRole(
+  role: ClassroomRoleName,
+  allowedRoles: readonly ClassroomRoleName[],
+): boolean {
+  return allowedRoles.includes(role);
 }
