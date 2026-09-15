@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { getTaxonomyEntry } from "@/lib/taxonomy";
+import { getCurrentUser } from "@/lib/current-user";
 
 // SM-2 quality map
 const QUALITY: Record<string, number> = { again: 0, hard: 3, good: 4, easy: 5 };
@@ -27,8 +28,9 @@ function sm2Update(
 
 // GET — lazy sync then return due cards
 export async function GET() {
-  const userId = process.env.DEV_USER_ID;
-  if (!userId) return Response.json({ error: "DEV_USER_ID not configured" }, { status: 503 });
+  const user = await getCurrentUser();
+  if (!user) return Response.json({ error: "Authentication required" }, { status: 401 });
+  const userId = user.id;
 
   try {
     // Lazy sync: single query finds ErrorEvents with no Flashcard yet
@@ -86,8 +88,9 @@ export async function GET() {
 
 // POST — submit review result and update SM-2 schedule
 export async function POST(request: Request) {
-  const userId = process.env.DEV_USER_ID;
-  if (!userId) return Response.json({ error: "DEV_USER_ID not configured" }, { status: 503 });
+  const user = await getCurrentUser();
+  if (!user) return Response.json({ error: "Authentication required" }, { status: 401 });
+  const userId = user.id;
 
   let body: { cardId?: string; rating?: string };
   try { body = await request.json(); }

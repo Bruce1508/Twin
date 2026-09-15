@@ -3,16 +3,16 @@ import { db } from "@/lib/db";
 import { recomputeProfile } from "@/lib/profile";
 import { updateMasterySignal } from "@/lib/targeting";
 import { extractErrors } from "@/lib/extractor";
+import { getCurrentUser } from "@/lib/current-user";
 
 export async function POST(
   request: Request,
   { params }: { params: Promise<{ drillId: string }> }
 ) {
   const { drillId } = await params;
-  const userId = process.env.DEV_USER_ID;
-  if (!userId) {
-    return Response.json({ error: "DEV_USER_ID not configured" }, { status: 503 });
-  }
+  const user = await getCurrentUser();
+  if (!user) return Response.json({ error: "Authentication required" }, { status: 401 });
+  const userId = user.id;
 
   let body: { answers: LearnerAnswer[]; correctionText?: string };
   try { body = await request.json(); }

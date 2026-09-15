@@ -8,6 +8,9 @@ function authorized(request: Request): boolean {
 }
 
 export async function GET(request: Request) {
+  if (process.env.NODE_ENV !== "development") {
+    return Response.json({ error: "Not found" }, { status: 404 });
+  }
   if (!authorized(request)) return Response.json({ error: "Unauthorized" }, { status: 401 });
   try {
     const note = await db.tutorNote.findFirst({ orderBy: { createdAt: "desc" } });
@@ -19,6 +22,9 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+  if (process.env.NODE_ENV !== "development") {
+    return Response.json({ error: "Not found" }, { status: 404 });
+  }
   if (!authorized(request)) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }

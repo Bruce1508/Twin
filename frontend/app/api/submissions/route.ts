@@ -2,6 +2,7 @@ import { extractErrors, scoreRubric, type TaskType, type RubricResult } from "@/
 import { getTaxonomyEntry } from "@/lib/taxonomy";
 import { db } from "@/lib/db";
 import { recomputeProfile } from "@/lib/profile";
+import { getCurrentUser } from "@/lib/current-user";
 
 export async function POST(request: Request) {
   if (!process.env.GEMINI_API_KEY) {
@@ -11,13 +12,9 @@ export async function POST(request: Request) {
     );
   }
 
-  const userId = process.env.DEV_USER_ID;
-  if (!userId) {
-    return Response.json(
-      { error: "DEV_USER_ID is not configured — run prisma db seed first" },
-      { status: 503 }
-    );
-  }
+  const user = await getCurrentUser();
+  if (!user) return Response.json({ error: "Authentication required" }, { status: 401 });
+  const userId = user.id;
 
   let body: { content?: string; taskType?: string; prompt?: string };
   try {

@@ -1,22 +1,16 @@
 import { getNextTarget } from "@/lib/targeting";
-import { db } from "@/lib/db";
+import { getCurrentUser } from "@/lib/current-user";
 
 export async function GET() {
-  const userId = process.env.DEV_USER_ID;
-  if (!userId) return Response.json({ errorTag: null });
+  const user = await getCurrentUser();
+  if (!user) return Response.json({ error: "Authentication required" }, { status: 401 });
+  const userId = user.id;
 
   try {
     const errorTag = await getNextTarget(userId);
     if (!errorTag) return Response.json({ errorTag: null });
 
-    // Pass the most recent ErrorEvent id for this tag so the drill can set sourceErrorId
-    const sourceError = await db.errorEvent.findFirst({
-      where: { submission: { userId }, errorTag },
-      orderBy: { createdAt: "desc" },
-      select: { id: true },
-    });
-
-    return Response.json({ errorTag, sourceErrorId: sourceError?.id ?? null });
+    return Response.json({ errorTag });
   } catch {
     return Response.json({ errorTag: null });
   }

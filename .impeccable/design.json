@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-13T19:30:00-04:00",
+  "generatedAt": "2026-09-13T19:54:56-04:00",
   "title": "Design System: Linguistic Twin",
   "extensions": {
     "colorMeta": {
@@ -60,14 +60,29 @@
   ],
   "narrative": {
     "northStar": "Correction Ledger",
-    "overview": "Linguistic Twin feels like a workbook that has been actively marked, indexed, and improved over time. RawBlock supplies square geometry, emphatic rules, large typography, and direct controls; warm paper and ink navy make it suitable for daily study.",
-    "keyCharacteristics": ["Type-led hierarchy", "Warm paper and navy structure", "Semantic correction colors", "Square controls and flat layers"],
+    "overview": "Linguistic Twin feels like a workbook that has been actively marked, indexed, and improved over time. RawBlock supplies the structural confidence: square geometry, emphatic rules, large typography, and direct controls. Warm paper and ink navy make that system suitable for daily study instead of an art-site imitation.\n\nThe visual hierarchy follows the learning hierarchy. The current action is dominant, progress is measurable, and corrections carry meaning. Decorative UI is deliberately sparse.",
+    "keyCharacteristics": [
+      "Type-led hierarchy with a single oversized headline per primary surface.",
+      "Warm paper surfaces separated by structural navy rules.",
+      "Correction red and progress green used only for learning semantics.",
+      "Square controls, flat layers, and concise monospaced labels."
+    ],
     "rules": [
       { "name": "Semantic Pen Rule", "body": "Red and green describe correction state; they are never general decoration.", "section": "colors" },
       { "name": "One Loud Voice Rule", "body": "Each screen gets one large display statement; supporting text stays restrained.", "section": "typography" },
       { "name": "Flat Ledger Rule", "body": "A surface earns attention through structure and scale, never simulated elevation.", "section": "elevation" }
     ],
-    "dos": ["Do reserve the largest type for the learner's current topic or task.", "Do use border weight to organize related content.", "Do verify every new screen at desktop and 390px mobile widths."],
-    "donts": ["Don't add rounded cards, pill-shaped buttons, shadows, gradients, or glass effects.", "Don't use emoji as interface icons or decoration.", "Don't use correction colors outside their learning meaning."]
+    "dos": [
+      "Do reserve the largest type for the learner's current topic or task.",
+      "Do use border weight to organize related content.",
+      "Do keep error, success, hover, focus, disabled, loading, and empty states distinct.",
+      "Do verify every new screen at desktop and 390px mobile widths."
+    ],
+    "donts": [
+      "Don't add rounded cards, pill-shaped buttons, shadows, gradients, or glass effects.",
+      "Don't use emoji as interface icons or decoration.",
+      "Don't create a repeated grid of interchangeable marketing cards.",
+      "Don't use correction colors outside their learning meaning."
+    ]
   }
 }

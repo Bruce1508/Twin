@@ -13,6 +13,7 @@ const routes = [
   ["/flashcards", "Réviser", "06"],
   ["/practice", "Pratiquer", "07"],
   ["/dashboard", "Profil", "08"],
+  ["/sign-in", "Compte", "09"],
 ] as const;
 
 function RouteList({ mobile = false }: { mobile?: boolean }) {
@@ -45,7 +46,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         <div className="shell-foot">
           <Link href="/drill">Archive des exercices</Link>
           <Link href="/report">Rapport hebdomadaire</Link>
-          <Link href="/tutor">Mode tuteur</Link>
+          {process.env.NODE_ENV === "development" && <Link href="/tutor">Mode tuteur</Link>}
         </div>
       </aside>
 

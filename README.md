@@ -139,7 +139,7 @@ npm ci
 cp .env.example .env
 ```
 
-Set `GEMINI_API_KEY` in `frontend/.env`; the default `DATABASE_URL` already matches Docker Compose.
+Set `GEMINI_API_KEY` in `frontend/.env`; the default `DATABASE_URL` already matches Docker Compose. For local single-user development, the seeded `DEV_USER_ID` remains available as a development-only fallback.
 
 ### 3. Apply migrations and create the local user
 
@@ -151,7 +151,15 @@ docker compose -f ../docker-compose.yml exec db \
   psql -U twin twin_dev -c 'SELECT id, email FROM "User";'
 ```
 
-Copy the returned user ID into `DEV_USER_ID` in `frontend/.env`. Set `TUTOR_PASSCODE` as well if you plan to use `/tutor`.
+Copy the returned user ID into `DEV_USER_ID` in `frontend/.env`. Set `TUTOR_PASSCODE` as well if you plan to use the legacy local `/tutor` view.
+
+For multi-user development, create a Google OAuth web client and add this callback URL:
+
+```text
+http://localhost:3000/api/auth/callback/google
+```
+
+Then set `BETTER_AUTH_URL`, `BETTER_AUTH_SECRET`, `GOOGLE_CLIENT_ID`, and `GOOGLE_CLIENT_SECRET`. Generate a strong `BETTER_AUTH_SECRET`; never reuse the development fallback in a deployment.
 
 ### 4. Run the app
 
@@ -167,8 +175,12 @@ Open [http://localhost:3000](http://localhost:3000).
 |---|---:|---|
 | `DATABASE_URL` | Yes | PostgreSQL connection string |
 | `GEMINI_API_KEY` | Yes | Extraction, generation, grading, transcription, and TTS |
-| `DEV_USER_ID` | Yes | ID of the single local learner |
-| `TUTOR_PASSCODE` | For tutor mode | Signs access tokens for the `/tutor` dashboard |
+| `BETTER_AUTH_URL` | Production | Public application origin used for OAuth callbacks |
+| `BETTER_AUTH_SECRET` | Production | Signs and protects authentication state |
+| `GOOGLE_CLIENT_ID` | Production auth | Google OAuth web client ID |
+| `GOOGLE_CLIENT_SECRET` | Production auth | Google OAuth client secret |
+| `DEV_USER_ID` | Local development only | Optional seeded learner fallback when no session exists |
+| `TUTOR_PASSCODE` | Legacy local tutor mode | Signs access tokens for the `/tutor` dashboard |
 
 > [!NOTE]
 > Requests sent to Gemini can contain the learner's writing or voice transcript. Review the current Google AI data-use terms before using sensitive material.
@@ -212,7 +224,7 @@ npm run lint
 npm run build
 ```
 
-The current suite contains **57 tests** covering the deterministic session, targeting, study-plan, and report logic.
+The current suite contains **67 tests** covering identity isolation, classroom validation, deterministic sessions, targeting, the study plan, and reporting.
 
 To regenerate `frontend/lib/plan.ts` after editing the spreadsheet:
 
@@ -223,7 +235,7 @@ node scripts/extract-plan.mjs
 
 ## Current scope
 
-Linguistic Twin is intentionally a local, single-user application. It does not provide account registration, multi-tenant isolation, hosted deployment configuration, or an official proficiency score. The tutor passcode is suitable for this local workflow; it is not a replacement for production authentication.
+Linguistic Twin is transitioning from its original local single-user workflow to the Classroom Writing MVP described in [`docs/classroom-mvp/PRD.md`](docs/classroom-mvp/PRD.md). Google session authentication and the classroom membership schema are the first foundation; assignment and teacher-review screens are still under implementation. Twin does not claim an official proficiency score.
 
 ## Resetting local data
 

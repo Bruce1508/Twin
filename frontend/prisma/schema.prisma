@@ -18,27 +18,110 @@ enum ErrorCategory {
   comprehension
 }
 
+enum ClassroomRole {
+  TEACHER
+  STUDENT
+}
+
 // error_tag is a plain String validated against the TS taxonomy at the app layer
 // (keeping it out of the schema avoids duplicating the taxonomy in two places)
 
 // ── Models ────────────────────────────────────────────────────────────────────
 
 model User {
-  id          String   @id @default(cuid())
-  email       String   @unique
-  name        String?
-  targetLevel String   @default("B2")
-  createdAt   DateTime @default(now())
+  id            String   @id @default(cuid())
+  email         String   @unique
+  name          String?
+  emailVerified Boolean  @default(false)
+  image         String?
+  targetLevel   String   @default("B2")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
-  submissions       Submission[]
-  profile           Profile?
-  drills            Drill[]
-  readingExercises  ReadingExercise[]
-  speakingExercises  SpeakingExercise[]
-  flashcards         Flashcard[]
-  listeningExercises ListeningExercise[]
-  sessionProgress   SessionProgress?
-  tagSchedules       TagSchedule[]
+  submissions          Submission[]
+  profile              Profile?
+  drills               Drill[]
+  readingExercises     ReadingExercise[]
+  speakingExercises    SpeakingExercise[]
+  flashcards           Flashcard[]
+  listeningExercises   ListeningExercise[]
+  sessionProgress      SessionProgress?
+  tagSchedules         TagSchedule[]
+  classroomMemberships ClassroomMember[]
+  sessions             Session[]
+  accounts             Account[]
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+}
+
+// A lightweight teaching boundary for the classroom MVP.
+// Teacher/student permissions live on membership, not on User globally.
+model Classroom {
+  id        String   @id @default(cuid())
+  name      String
+  joinCode  String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  memberships ClassroomMember[]
+}
+
+model ClassroomMember {
+  id          String        @id @default(cuid())
+  classroomId String
+  userId      String
+  role        ClassroomRole
+  joinedAt    DateTime      @default(now())
+
+  classroom Classroom @relation(fields: [classroomId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([classroomId, userId])
+  @@index([userId])
 }
 
 // A single unit of language production — immutable after creation.
@@ -53,12 +136,12 @@ model Submission {
   metrics   Json
   createdAt DateTime @default(now())
 
-  user        User         @relation(fields: [userId], references: [id])
-  errorEvents ErrorEvent[]
+  user                    User               @relation(fields: [userId], references: [id])
+  errorEvents             ErrorEvent[]
   // When this submission is the response to a drill, the drill links back here.
-  drillAnswer Drill?       @relation("DrillResponse")
+  drillAnswer             Drill?             @relation("DrillResponse")
   // When this submission is the response to a reading exercise, it links back here.
-  readingExerciseAnswer   ReadingExercise?  @relation("ReadingExerciseResponse")
+  readingExerciseAnswer   ReadingExercise?   @relation("ReadingExerciseResponse")
   // When this submission is the response to a speaking exercise, it links back here.
   speakingExerciseAnswer  SpeakingExercise?  @relation("SpeakingExerciseResponse")
   listeningExerciseAnswer ListeningExercise? @relation("ListeningExerciseResponse")

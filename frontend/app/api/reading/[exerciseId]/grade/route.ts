@@ -1,14 +1,16 @@
 import { gradeAnswers, type LearnerReadingAnswer, type ReadingQuestion } from "@/lib/reading";
 import { db } from "@/lib/db";
 import { recomputeProfile } from "@/lib/profile";
+import { getCurrentUser } from "@/lib/current-user";
 
 export async function POST(
   request: Request,
   { params }: { params: Promise<{ exerciseId: string }> }
 ) {
   const { exerciseId } = await params;
-  const userId = process.env.DEV_USER_ID;
-  if (!userId) return Response.json({ error: "DEV_USER_ID not configured" }, { status: 503 });
+  const user = await getCurrentUser();
+  if (!user) return Response.json({ error: "Authentication required" }, { status: 401 });
+  const userId = user.id;
 
   let body: { answers: LearnerReadingAnswer[] };
   try { body = await request.json(); }

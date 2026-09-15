@@ -3,10 +3,12 @@ import { Prisma } from "@/app/generated/prisma/client";
 import { getPlanDay } from "@/lib/plan";
 import { getNextTarget } from "@/lib/targeting";
 import { buildSession, trimToMin, type SessionStep, type SessionMode } from "@/lib/session";
+import { getCurrentUser } from "@/lib/current-user";
 
 export async function GET(req: Request) {
-  const userId = process.env.DEV_USER_ID;
-  if (!userId) return Response.json({ error: "DEV_USER_ID not configured" }, { status: 503 });
+  const user = await getCurrentUser();
+  if (!user) return Response.json({ error: "Authentication required" }, { status: 401 });
+  const userId = user.id;
 
   const url = new URL(req.url);
   const mode: SessionMode = url.searchParams.get("mode") === "min" ? "min" : "full";

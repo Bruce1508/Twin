@@ -1,7 +1,9 @@
 import { db } from "@/lib/db";
 import { buildWeeklyReport, type Delta } from "@/lib/report";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import CorrectionMark from "../CorrectionMark";
+import { getCurrentUser } from "@/lib/current-user";
 
 const CAT_COLORS: Record<string, string> = {
   grammaire: "bg-correction-red-soft text-correction-red",
@@ -63,13 +65,14 @@ function NoDataStat({ label }: { label: string }) {
 }
 
 export default async function ReportPage() {
-  const userId = process.env.DEV_USER_ID ?? "";
+  const user = await getCurrentUser();
+  if (!user) redirect("/sign-in");
+  const userId = user.id;
   let report = null;
   let dbError = false;
 
   try {
-    if (userId) {
-      const [submissions, rawErrors, schedules] = await Promise.all([
+    const [submissions, rawErrors, schedules] = await Promise.all([
         db.submission.findMany({
           where: { userId },
           select: { source: true, wordCount: true, metrics: true, createdAt: true },
@@ -89,12 +92,11 @@ export default async function ReportPage() {
           where: { userId },
           select: { errorTag: true, dueAt: true, consecutiveImproving: true },
         }),
-      ]);
-      // Flatten submission.source onto each error so buildWeeklyReport can tell
-      // a listening-quiz error apart from a real writing/reading/speaking error.
-      const errors = rawErrors.map(({ submission, ...e }) => ({ ...e, source: submission.source }));
-      report = buildWeeklyReport({ submissions, errors, schedules, now: new Date() });
-    }
+    ]);
+    // Flatten submission.source onto each error so buildWeeklyReport can tell
+    // a listening-quiz error apart from a real writing/reading/speaking error.
+    const errors = rawErrors.map(({ submission, ...e }) => ({ ...e, source: submission.source }));
+    report = buildWeeklyReport({ submissions, errors, schedules, now: new Date() });
   } catch {
     dbError = true;
   }
@@ -122,13 +124,7 @@ export default async function ReportPage() {
 
         {dbError && (
           <div className="rounded-sm border border-amber-300/60 bg-amber-50 px-4 py-3 text-sm text-amber-700">
-            Không kết nối được cơ sở dữ liệu — kiểm tra DATABASE_URL và DEV_USER_ID trong .env.
-          </div>
-        )}
-
-        {!dbError && !report && (
-          <div className="rounded-sm border border-amber-300/60 bg-amber-50 px-4 py-3 text-sm text-amber-700">
-            Chưa cấu hình DEV_USER_ID.
+            Không kết nối được cơ sở dữ liệu — kiểm tra DATABASE_URL.
           </div>
         )}
 

@@ -12,13 +12,13 @@ export default function PracticePage() {
     async function start() {
       try {
         const targetRes = await fetch("/api/practice/next-target");
-        const { errorTag, sourceErrorId } = await targetRes.json();
+        const { errorTag } = await targetRes.json();
         if (!errorTag) { setStatus("no_target"); return; }
 
         const drillRes = await fetch("/api/drills/generate", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ errorTag, sourceErrorId }),
+          body: JSON.stringify({ errorTag }),
         });
         const drill = await drillRes.json();
         if (!drillRes.ok || !drill.drillId) {

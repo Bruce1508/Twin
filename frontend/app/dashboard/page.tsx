@@ -2,6 +2,8 @@ import { getProfile, topSpanTags } from "@/lib/profile";
 import { db } from "@/lib/db";
 import { getTaxonomyEntry, READING_TAGS, SPEAKING_TAGS, LISTENING_TAGS } from "@/lib/taxonomy";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { getCurrentUser } from "@/lib/current-user";
 
 const CATEGORY_COLORS: Record<string, string> = {
   grammaire: "bg-red-500",
@@ -12,7 +14,9 @@ const CATEGORY_COLORS: Record<string, string> = {
 };
 
 export default async function DashboardPage() {
-  const userId = process.env.DEV_USER_ID ?? "";
+  const user = await getCurrentUser();
+  if (!user) redirect("/sign-in");
+  const userId = user.id;
 
   let profile = null;
   let submissionCount = 0;
@@ -22,20 +26,18 @@ export default async function DashboardPage() {
   let dbError = false;
 
   try {
-    profile = userId ? await getProfile(userId) : null;
-    if (userId) {
-      const subs = await db.submission.findMany({
-        where: { userId },
-        select: { wordCount: true },
-      });
-      submissionCount = subs.length;
-      totalWords = subs.reduce((s: number, r: any) => s + r.wordCount, 0);
-      if (profile) {
-        totalErrors = Object.values(profile.errorFrequencies).reduce(
-          (s, n) => s + n, 0
-        );
-        uncategorizedCount = profile.errorFrequencies["uncategorized"] ?? 0;
-      }
+    profile = await getProfile(userId);
+    const subs = await db.submission.findMany({
+      where: { userId },
+      select: { wordCount: true },
+    });
+    submissionCount = subs.length;
+    totalWords = subs.reduce((s: number, r: any) => s + r.wordCount, 0);
+    if (profile) {
+      totalErrors = Object.values(profile.errorFrequencies).reduce(
+        (s, n) => s + n, 0
+      );
+      uncategorizedCount = profile.errorFrequencies["uncategorized"] ?? 0;
     }
   } catch {
     dbError = true;
@@ -70,7 +72,7 @@ export default async function DashboardPage() {
 
         {dbError && (
           <div className="rounded-none border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-700">
-            Base de données non configurée — configure DATABASE_URL et DEV_USER_ID dans .env.
+            Base de données non configurée — vérifie DATABASE_URL.
           </div>
         )}
 

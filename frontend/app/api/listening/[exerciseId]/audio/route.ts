@@ -1,5 +1,6 @@
 import { generateAudio } from "@/lib/listening";
 import { db } from "@/lib/db";
+import { getCurrentUser } from "@/lib/current-user";
 
 export async function GET(
   _request: Request,
@@ -9,8 +10,9 @@ export async function GET(
   if (!process.env.GEMINI_API_KEY) {
     return new Response("GEMINI_API_KEY not configured", { status: 503 });
   }
-  const userId = process.env.DEV_USER_ID;
-  if (!userId) return new Response("DEV_USER_ID not configured", { status: 503 });
+  const user = await getCurrentUser();
+  if (!user) return new Response("Authentication required", { status: 401 });
+  const userId = user.id;
 
   let exercise: any;
   try {

@@ -1,10 +1,10 @@
 import { recomputeProfile } from "@/lib/profile";
+import { getCurrentUser } from "@/lib/current-user";
 
 export async function POST() {
-  const userId = process.env.DEV_USER_ID;
-  if (!userId) {
-    return Response.json({ error: "DEV_USER_ID not configured" }, { status: 503 });
-  }
+  const user = await getCurrentUser();
+  if (!user) return Response.json({ error: "Authentication required" }, { status: 401 });
+  const userId = user.id;
   try {
     await recomputeProfile(userId);
     return Response.json({ ok: true });

@@ -1,5 +1,7 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
+import { getCurrentUser } from "@/lib/current-user";
 import { getTaxonomyEntry } from "@/lib/taxonomy";
 
 const CATEGORY_COLORS: Record<string, string> = {
@@ -22,7 +24,9 @@ const SIGNAL_LABEL: Record<string, string> = {
 };
 
 export default async function DrillHistoryPage() {
-  const userId = process.env.DEV_USER_ID ?? "";
+  const user = await getCurrentUser();
+  if (!user) redirect("/sign-in");
+  const userId = user.id;
 
   const drills = await db.drill.findMany({
     where: { userId },

@@ -1,10 +1,12 @@
 import { db } from "@/lib/db";
 import { Prisma } from "@/app/generated/prisma/client";
 import { advanceSession, type SessionStep } from "@/lib/session";
+import { getCurrentUser } from "@/lib/current-user";
 
 export async function POST() {
-  const userId = process.env.DEV_USER_ID;
-  if (!userId) return Response.json({ error: "DEV_USER_ID not configured" }, { status: 503 });
+  const user = await getCurrentUser();
+  if (!user) return Response.json({ error: "Authentication required" }, { status: 401 });
+  const userId = user.id;
 
   try {
     const progress = await db.sessionProgress.findUnique({ where: { userId } });
