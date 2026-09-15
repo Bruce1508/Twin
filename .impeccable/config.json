@@ -1,0 +1,26 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "frontend/app/globals.css"
+        ],
+        "createdAt": "2026-09-15T15:03:44.893Z",
+        "reason": "Agent: ink borders are structural sidebar, grid, and column dividers required by the documented Correction Ledger design; they are not chromatic card accents"
+      },
+      {
+        "rule": "border-accent-on-rounded",
+        "value": "*",
+        "files": [
+          "frontend/app/globals.css"
+        ],
+        "createdAt": "2026-09-15T15:03:45.160Z",
+        "reason": "Agent: the masthead is square and uses an ink structural bottom rule; global controls explicitly remove border radius"
+      }
+    ]
+  }
+}
