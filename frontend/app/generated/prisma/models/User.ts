@@ -216,6 +216,8 @@ export type UserWhereInput = {
   sessionProgress?: Prisma.XOR<Prisma.SessionProgressNullableScalarRelationFilter, Prisma.SessionProgressWhereInput> | null
   tagSchedules?: Prisma.TagScheduleListRelationFilter
   classroomMemberships?: Prisma.ClassroomMemberListRelationFilter
+  createdAssignments?: Prisma.AssignmentListRelationFilter
+  completedReviews?: Prisma.SubmissionReviewListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
 }
@@ -239,6 +241,8 @@ export type UserOrderByWithRelationInput = {
   sessionProgress?: Prisma.SessionProgressOrderByWithRelationInput
   tagSchedules?: Prisma.TagScheduleOrderByRelationAggregateInput
   classroomMemberships?: Prisma.ClassroomMemberOrderByRelationAggregateInput
+  createdAssignments?: Prisma.AssignmentOrderByRelationAggregateInput
+  completedReviews?: Prisma.SubmissionReviewOrderByRelationAggregateInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   accounts?: Prisma.AccountOrderByRelationAggregateInput
 }
@@ -265,6 +269,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   sessionProgress?: Prisma.XOR<Prisma.SessionProgressNullableScalarRelationFilter, Prisma.SessionProgressWhereInput> | null
   tagSchedules?: Prisma.TagScheduleListRelationFilter
   classroomMemberships?: Prisma.ClassroomMemberListRelationFilter
+  createdAssignments?: Prisma.AssignmentListRelationFilter
+  completedReviews?: Prisma.SubmissionReviewListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
 }, "id" | "email">
@@ -316,6 +322,8 @@ export type UserCreateInput = {
   sessionProgress?: Prisma.SessionProgressCreateNestedOneWithoutUserInput
   tagSchedules?: Prisma.TagScheduleCreateNestedManyWithoutUserInput
   classroomMemberships?: Prisma.ClassroomMemberCreateNestedManyWithoutUserInput
+  createdAssignments?: Prisma.AssignmentCreateNestedManyWithoutCreatedByInput
+  completedReviews?: Prisma.SubmissionReviewCreateNestedManyWithoutReviewedByInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
 }
@@ -339,6 +347,8 @@ export type UserUncheckedCreateInput = {
   sessionProgress?: Prisma.SessionProgressUncheckedCreateNestedOneWithoutUserInput
   tagSchedules?: Prisma.TagScheduleUncheckedCreateNestedManyWithoutUserInput
   classroomMemberships?: Prisma.ClassroomMemberUncheckedCreateNestedManyWithoutUserInput
+  createdAssignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutCreatedByInput
+  completedReviews?: Prisma.SubmissionReviewUncheckedCreateNestedManyWithoutReviewedByInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
 }
@@ -362,6 +372,8 @@ export type UserUpdateInput = {
   sessionProgress?: Prisma.SessionProgressUpdateOneWithoutUserNestedInput
   tagSchedules?: Prisma.TagScheduleUpdateManyWithoutUserNestedInput
   classroomMemberships?: Prisma.ClassroomMemberUpdateManyWithoutUserNestedInput
+  createdAssignments?: Prisma.AssignmentUpdateManyWithoutCreatedByNestedInput
+  completedReviews?: Prisma.SubmissionReviewUpdateManyWithoutReviewedByNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
 }
@@ -385,6 +397,8 @@ export type UserUncheckedUpdateInput = {
   sessionProgress?: Prisma.SessionProgressUncheckedUpdateOneWithoutUserNestedInput
   tagSchedules?: Prisma.TagScheduleUncheckedUpdateManyWithoutUserNestedInput
   classroomMemberships?: Prisma.ClassroomMemberUncheckedUpdateManyWithoutUserNestedInput
+  createdAssignments?: Prisma.AssignmentUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedReviews?: Prisma.SubmissionReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -460,6 +474,11 @@ export type UserScalarRelationFilter = {
   isNot?: Prisma.UserWhereInput
 }
 
+export type UserNullableScalarRelationFilter = {
+  is?: Prisma.UserWhereInput | null
+  isNot?: Prisma.UserWhereInput | null
+}
+
 export type StringFieldUpdateOperationsInput = {
   set?: string
 }
@@ -518,6 +537,20 @@ export type UserUpdateOneRequiredWithoutClassroomMembershipsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutClassroomMembershipsInput, Prisma.UserUpdateWithoutClassroomMembershipsInput>, Prisma.UserUncheckedUpdateWithoutClassroomMembershipsInput>
 }
 
+export type UserCreateNestedOneWithoutCreatedAssignmentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedAssignmentsInput, Prisma.UserUncheckedCreateWithoutCreatedAssignmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedAssignmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCreatedAssignmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedAssignmentsInput, Prisma.UserUncheckedCreateWithoutCreatedAssignmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedAssignmentsInput
+  upsert?: Prisma.UserUpsertWithoutCreatedAssignmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedAssignmentsInput, Prisma.UserUpdateWithoutCreatedAssignmentsInput>, Prisma.UserUncheckedUpdateWithoutCreatedAssignmentsInput>
+}
+
 export type UserCreateNestedOneWithoutSubmissionsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutSubmissionsInput, Prisma.UserUncheckedCreateWithoutSubmissionsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutSubmissionsInput
@@ -530,6 +563,22 @@ export type UserUpdateOneRequiredWithoutSubmissionsNestedInput = {
   upsert?: Prisma.UserUpsertWithoutSubmissionsInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSubmissionsInput, Prisma.UserUpdateWithoutSubmissionsInput>, Prisma.UserUncheckedUpdateWithoutSubmissionsInput>
+}
+
+export type UserCreateNestedOneWithoutCompletedReviewsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCompletedReviewsInput, Prisma.UserUncheckedCreateWithoutCompletedReviewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCompletedReviewsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutCompletedReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCompletedReviewsInput, Prisma.UserUncheckedCreateWithoutCompletedReviewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCompletedReviewsInput
+  upsert?: Prisma.UserUpsertWithoutCompletedReviewsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCompletedReviewsInput, Prisma.UserUpdateWithoutCompletedReviewsInput>, Prisma.UserUncheckedUpdateWithoutCompletedReviewsInput>
 }
 
 export type UserCreateNestedOneWithoutProfileInput = {
@@ -663,6 +712,8 @@ export type UserCreateWithoutSessionsInput = {
   sessionProgress?: Prisma.SessionProgressCreateNestedOneWithoutUserInput
   tagSchedules?: Prisma.TagScheduleCreateNestedManyWithoutUserInput
   classroomMemberships?: Prisma.ClassroomMemberCreateNestedManyWithoutUserInput
+  createdAssignments?: Prisma.AssignmentCreateNestedManyWithoutCreatedByInput
+  completedReviews?: Prisma.SubmissionReviewCreateNestedManyWithoutReviewedByInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
 }
 
@@ -685,6 +736,8 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   sessionProgress?: Prisma.SessionProgressUncheckedCreateNestedOneWithoutUserInput
   tagSchedules?: Prisma.TagScheduleUncheckedCreateNestedManyWithoutUserInput
   classroomMemberships?: Prisma.ClassroomMemberUncheckedCreateNestedManyWithoutUserInput
+  createdAssignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutCreatedByInput
+  completedReviews?: Prisma.SubmissionReviewUncheckedCreateNestedManyWithoutReviewedByInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -723,6 +776,8 @@ export type UserUpdateWithoutSessionsInput = {
   sessionProgress?: Prisma.SessionProgressUpdateOneWithoutUserNestedInput
   tagSchedules?: Prisma.TagScheduleUpdateManyWithoutUserNestedInput
   classroomMemberships?: Prisma.ClassroomMemberUpdateManyWithoutUserNestedInput
+  createdAssignments?: Prisma.AssignmentUpdateManyWithoutCreatedByNestedInput
+  completedReviews?: Prisma.SubmissionReviewUpdateManyWithoutReviewedByNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
 }
 
@@ -745,6 +800,8 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   sessionProgress?: Prisma.SessionProgressUncheckedUpdateOneWithoutUserNestedInput
   tagSchedules?: Prisma.TagScheduleUncheckedUpdateManyWithoutUserNestedInput
   classroomMemberships?: Prisma.ClassroomMemberUncheckedUpdateManyWithoutUserNestedInput
+  createdAssignments?: Prisma.AssignmentUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedReviews?: Prisma.SubmissionReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -767,6 +824,8 @@ export type UserCreateWithoutAccountsInput = {
   sessionProgress?: Prisma.SessionProgressCreateNestedOneWithoutUserInput
   tagSchedules?: Prisma.TagScheduleCreateNestedManyWithoutUserInput
   classroomMemberships?: Prisma.ClassroomMemberCreateNestedManyWithoutUserInput
+  createdAssignments?: Prisma.AssignmentCreateNestedManyWithoutCreatedByInput
+  completedReviews?: Prisma.SubmissionReviewCreateNestedManyWithoutReviewedByInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
 }
 
@@ -789,6 +848,8 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   sessionProgress?: Prisma.SessionProgressUncheckedCreateNestedOneWithoutUserInput
   tagSchedules?: Prisma.TagScheduleUncheckedCreateNestedManyWithoutUserInput
   classroomMemberships?: Prisma.ClassroomMemberUncheckedCreateNestedManyWithoutUserInput
+  createdAssignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutCreatedByInput
+  completedReviews?: Prisma.SubmissionReviewUncheckedCreateNestedManyWithoutReviewedByInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -827,6 +888,8 @@ export type UserUpdateWithoutAccountsInput = {
   sessionProgress?: Prisma.SessionProgressUpdateOneWithoutUserNestedInput
   tagSchedules?: Prisma.TagScheduleUpdateManyWithoutUserNestedInput
   classroomMemberships?: Prisma.ClassroomMemberUpdateManyWithoutUserNestedInput
+  createdAssignments?: Prisma.AssignmentUpdateManyWithoutCreatedByNestedInput
+  completedReviews?: Prisma.SubmissionReviewUpdateManyWithoutReviewedByNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
 }
 
@@ -849,6 +912,8 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   sessionProgress?: Prisma.SessionProgressUncheckedUpdateOneWithoutUserNestedInput
   tagSchedules?: Prisma.TagScheduleUncheckedUpdateManyWithoutUserNestedInput
   classroomMemberships?: Prisma.ClassroomMemberUncheckedUpdateManyWithoutUserNestedInput
+  createdAssignments?: Prisma.AssignmentUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedReviews?: Prisma.SubmissionReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -870,6 +935,8 @@ export type UserCreateWithoutClassroomMembershipsInput = {
   listeningExercises?: Prisma.ListeningExerciseCreateNestedManyWithoutUserInput
   sessionProgress?: Prisma.SessionProgressCreateNestedOneWithoutUserInput
   tagSchedules?: Prisma.TagScheduleCreateNestedManyWithoutUserInput
+  createdAssignments?: Prisma.AssignmentCreateNestedManyWithoutCreatedByInput
+  completedReviews?: Prisma.SubmissionReviewCreateNestedManyWithoutReviewedByInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
 }
@@ -892,6 +959,8 @@ export type UserUncheckedCreateWithoutClassroomMembershipsInput = {
   listeningExercises?: Prisma.ListeningExerciseUncheckedCreateNestedManyWithoutUserInput
   sessionProgress?: Prisma.SessionProgressUncheckedCreateNestedOneWithoutUserInput
   tagSchedules?: Prisma.TagScheduleUncheckedCreateNestedManyWithoutUserInput
+  createdAssignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutCreatedByInput
+  completedReviews?: Prisma.SubmissionReviewUncheckedCreateNestedManyWithoutReviewedByInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
 }
@@ -930,6 +999,8 @@ export type UserUpdateWithoutClassroomMembershipsInput = {
   listeningExercises?: Prisma.ListeningExerciseUpdateManyWithoutUserNestedInput
   sessionProgress?: Prisma.SessionProgressUpdateOneWithoutUserNestedInput
   tagSchedules?: Prisma.TagScheduleUpdateManyWithoutUserNestedInput
+  createdAssignments?: Prisma.AssignmentUpdateManyWithoutCreatedByNestedInput
+  completedReviews?: Prisma.SubmissionReviewUpdateManyWithoutReviewedByNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
 }
@@ -952,6 +1023,120 @@ export type UserUncheckedUpdateWithoutClassroomMembershipsInput = {
   listeningExercises?: Prisma.ListeningExerciseUncheckedUpdateManyWithoutUserNestedInput
   sessionProgress?: Prisma.SessionProgressUncheckedUpdateOneWithoutUserNestedInput
   tagSchedules?: Prisma.TagScheduleUncheckedUpdateManyWithoutUserNestedInput
+  createdAssignments?: Prisma.AssignmentUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedReviews?: Prisma.SubmissionReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutCreatedAssignmentsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  targetLevel?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutUserInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  drills?: Prisma.DrillCreateNestedManyWithoutUserInput
+  readingExercises?: Prisma.ReadingExerciseCreateNestedManyWithoutUserInput
+  speakingExercises?: Prisma.SpeakingExerciseCreateNestedManyWithoutUserInput
+  flashcards?: Prisma.FlashcardCreateNestedManyWithoutUserInput
+  listeningExercises?: Prisma.ListeningExerciseCreateNestedManyWithoutUserInput
+  sessionProgress?: Prisma.SessionProgressCreateNestedOneWithoutUserInput
+  tagSchedules?: Prisma.TagScheduleCreateNestedManyWithoutUserInput
+  classroomMemberships?: Prisma.ClassroomMemberCreateNestedManyWithoutUserInput
+  completedReviews?: Prisma.SubmissionReviewCreateNestedManyWithoutReviewedByInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutCreatedAssignmentsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  targetLevel?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutUserInput
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  drills?: Prisma.DrillUncheckedCreateNestedManyWithoutUserInput
+  readingExercises?: Prisma.ReadingExerciseUncheckedCreateNestedManyWithoutUserInput
+  speakingExercises?: Prisma.SpeakingExerciseUncheckedCreateNestedManyWithoutUserInput
+  flashcards?: Prisma.FlashcardUncheckedCreateNestedManyWithoutUserInput
+  listeningExercises?: Prisma.ListeningExerciseUncheckedCreateNestedManyWithoutUserInput
+  sessionProgress?: Prisma.SessionProgressUncheckedCreateNestedOneWithoutUserInput
+  tagSchedules?: Prisma.TagScheduleUncheckedCreateNestedManyWithoutUserInput
+  classroomMemberships?: Prisma.ClassroomMemberUncheckedCreateNestedManyWithoutUserInput
+  completedReviews?: Prisma.SubmissionReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutCreatedAssignmentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedAssignmentsInput, Prisma.UserUncheckedCreateWithoutCreatedAssignmentsInput>
+}
+
+export type UserUpsertWithoutCreatedAssignmentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedAssignmentsInput, Prisma.UserUncheckedUpdateWithoutCreatedAssignmentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedAssignmentsInput, Prisma.UserUncheckedCreateWithoutCreatedAssignmentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedAssignmentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedAssignmentsInput, Prisma.UserUncheckedUpdateWithoutCreatedAssignmentsInput>
+}
+
+export type UserUpdateWithoutCreatedAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetLevel?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submissions?: Prisma.SubmissionUpdateManyWithoutUserNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  drills?: Prisma.DrillUpdateManyWithoutUserNestedInput
+  readingExercises?: Prisma.ReadingExerciseUpdateManyWithoutUserNestedInput
+  speakingExercises?: Prisma.SpeakingExerciseUpdateManyWithoutUserNestedInput
+  flashcards?: Prisma.FlashcardUpdateManyWithoutUserNestedInput
+  listeningExercises?: Prisma.ListeningExerciseUpdateManyWithoutUserNestedInput
+  sessionProgress?: Prisma.SessionProgressUpdateOneWithoutUserNestedInput
+  tagSchedules?: Prisma.TagScheduleUpdateManyWithoutUserNestedInput
+  classroomMemberships?: Prisma.ClassroomMemberUpdateManyWithoutUserNestedInput
+  completedReviews?: Prisma.SubmissionReviewUpdateManyWithoutReviewedByNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedAssignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetLevel?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutUserNestedInput
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  drills?: Prisma.DrillUncheckedUpdateManyWithoutUserNestedInput
+  readingExercises?: Prisma.ReadingExerciseUncheckedUpdateManyWithoutUserNestedInput
+  speakingExercises?: Prisma.SpeakingExerciseUncheckedUpdateManyWithoutUserNestedInput
+  flashcards?: Prisma.FlashcardUncheckedUpdateManyWithoutUserNestedInput
+  listeningExercises?: Prisma.ListeningExerciseUncheckedUpdateManyWithoutUserNestedInput
+  sessionProgress?: Prisma.SessionProgressUncheckedUpdateOneWithoutUserNestedInput
+  tagSchedules?: Prisma.TagScheduleUncheckedUpdateManyWithoutUserNestedInput
+  classroomMemberships?: Prisma.ClassroomMemberUncheckedUpdateManyWithoutUserNestedInput
+  completedReviews?: Prisma.SubmissionReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -974,6 +1159,8 @@ export type UserCreateWithoutSubmissionsInput = {
   sessionProgress?: Prisma.SessionProgressCreateNestedOneWithoutUserInput
   tagSchedules?: Prisma.TagScheduleCreateNestedManyWithoutUserInput
   classroomMemberships?: Prisma.ClassroomMemberCreateNestedManyWithoutUserInput
+  createdAssignments?: Prisma.AssignmentCreateNestedManyWithoutCreatedByInput
+  completedReviews?: Prisma.SubmissionReviewCreateNestedManyWithoutReviewedByInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
 }
@@ -996,6 +1183,8 @@ export type UserUncheckedCreateWithoutSubmissionsInput = {
   sessionProgress?: Prisma.SessionProgressUncheckedCreateNestedOneWithoutUserInput
   tagSchedules?: Prisma.TagScheduleUncheckedCreateNestedManyWithoutUserInput
   classroomMemberships?: Prisma.ClassroomMemberUncheckedCreateNestedManyWithoutUserInput
+  createdAssignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutCreatedByInput
+  completedReviews?: Prisma.SubmissionReviewUncheckedCreateNestedManyWithoutReviewedByInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
 }
@@ -1034,6 +1223,8 @@ export type UserUpdateWithoutSubmissionsInput = {
   sessionProgress?: Prisma.SessionProgressUpdateOneWithoutUserNestedInput
   tagSchedules?: Prisma.TagScheduleUpdateManyWithoutUserNestedInput
   classroomMemberships?: Prisma.ClassroomMemberUpdateManyWithoutUserNestedInput
+  createdAssignments?: Prisma.AssignmentUpdateManyWithoutCreatedByNestedInput
+  completedReviews?: Prisma.SubmissionReviewUpdateManyWithoutReviewedByNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
 }
@@ -1056,6 +1247,120 @@ export type UserUncheckedUpdateWithoutSubmissionsInput = {
   sessionProgress?: Prisma.SessionProgressUncheckedUpdateOneWithoutUserNestedInput
   tagSchedules?: Prisma.TagScheduleUncheckedUpdateManyWithoutUserNestedInput
   classroomMemberships?: Prisma.ClassroomMemberUncheckedUpdateManyWithoutUserNestedInput
+  createdAssignments?: Prisma.AssignmentUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedReviews?: Prisma.SubmissionReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutCompletedReviewsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  targetLevel?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  submissions?: Prisma.SubmissionCreateNestedManyWithoutUserInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  drills?: Prisma.DrillCreateNestedManyWithoutUserInput
+  readingExercises?: Prisma.ReadingExerciseCreateNestedManyWithoutUserInput
+  speakingExercises?: Prisma.SpeakingExerciseCreateNestedManyWithoutUserInput
+  flashcards?: Prisma.FlashcardCreateNestedManyWithoutUserInput
+  listeningExercises?: Prisma.ListeningExerciseCreateNestedManyWithoutUserInput
+  sessionProgress?: Prisma.SessionProgressCreateNestedOneWithoutUserInput
+  tagSchedules?: Prisma.TagScheduleCreateNestedManyWithoutUserInput
+  classroomMemberships?: Prisma.ClassroomMemberCreateNestedManyWithoutUserInput
+  createdAssignments?: Prisma.AssignmentCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutCompletedReviewsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: boolean
+  image?: string | null
+  targetLevel?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  submissions?: Prisma.SubmissionUncheckedCreateNestedManyWithoutUserInput
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  drills?: Prisma.DrillUncheckedCreateNestedManyWithoutUserInput
+  readingExercises?: Prisma.ReadingExerciseUncheckedCreateNestedManyWithoutUserInput
+  speakingExercises?: Prisma.SpeakingExerciseUncheckedCreateNestedManyWithoutUserInput
+  flashcards?: Prisma.FlashcardUncheckedCreateNestedManyWithoutUserInput
+  listeningExercises?: Prisma.ListeningExerciseUncheckedCreateNestedManyWithoutUserInput
+  sessionProgress?: Prisma.SessionProgressUncheckedCreateNestedOneWithoutUserInput
+  tagSchedules?: Prisma.TagScheduleUncheckedCreateNestedManyWithoutUserInput
+  classroomMemberships?: Prisma.ClassroomMemberUncheckedCreateNestedManyWithoutUserInput
+  createdAssignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutCreatedByInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutCompletedReviewsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCompletedReviewsInput, Prisma.UserUncheckedCreateWithoutCompletedReviewsInput>
+}
+
+export type UserUpsertWithoutCompletedReviewsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCompletedReviewsInput, Prisma.UserUncheckedUpdateWithoutCompletedReviewsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCompletedReviewsInput, Prisma.UserUncheckedCreateWithoutCompletedReviewsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCompletedReviewsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCompletedReviewsInput, Prisma.UserUncheckedUpdateWithoutCompletedReviewsInput>
+}
+
+export type UserUpdateWithoutCompletedReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetLevel?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submissions?: Prisma.SubmissionUpdateManyWithoutUserNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  drills?: Prisma.DrillUpdateManyWithoutUserNestedInput
+  readingExercises?: Prisma.ReadingExerciseUpdateManyWithoutUserNestedInput
+  speakingExercises?: Prisma.SpeakingExerciseUpdateManyWithoutUserNestedInput
+  flashcards?: Prisma.FlashcardUpdateManyWithoutUserNestedInput
+  listeningExercises?: Prisma.ListeningExerciseUpdateManyWithoutUserNestedInput
+  sessionProgress?: Prisma.SessionProgressUpdateOneWithoutUserNestedInput
+  tagSchedules?: Prisma.TagScheduleUpdateManyWithoutUserNestedInput
+  classroomMemberships?: Prisma.ClassroomMemberUpdateManyWithoutUserNestedInput
+  createdAssignments?: Prisma.AssignmentUpdateManyWithoutCreatedByNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCompletedReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetLevel?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submissions?: Prisma.SubmissionUncheckedUpdateManyWithoutUserNestedInput
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  drills?: Prisma.DrillUncheckedUpdateManyWithoutUserNestedInput
+  readingExercises?: Prisma.ReadingExerciseUncheckedUpdateManyWithoutUserNestedInput
+  speakingExercises?: Prisma.SpeakingExerciseUncheckedUpdateManyWithoutUserNestedInput
+  flashcards?: Prisma.FlashcardUncheckedUpdateManyWithoutUserNestedInput
+  listeningExercises?: Prisma.ListeningExerciseUncheckedUpdateManyWithoutUserNestedInput
+  sessionProgress?: Prisma.SessionProgressUncheckedUpdateOneWithoutUserNestedInput
+  tagSchedules?: Prisma.TagScheduleUncheckedUpdateManyWithoutUserNestedInput
+  classroomMemberships?: Prisma.ClassroomMemberUncheckedUpdateManyWithoutUserNestedInput
+  createdAssignments?: Prisma.AssignmentUncheckedUpdateManyWithoutCreatedByNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -1078,6 +1383,8 @@ export type UserCreateWithoutProfileInput = {
   sessionProgress?: Prisma.SessionProgressCreateNestedOneWithoutUserInput
   tagSchedules?: Prisma.TagScheduleCreateNestedManyWithoutUserInput
   classroomMemberships?: Prisma.ClassroomMemberCreateNestedManyWithoutUserInput
+  createdAssignments?: Prisma.AssignmentCreateNestedManyWithoutCreatedByInput
+  completedReviews?: Prisma.SubmissionReviewCreateNestedManyWithoutReviewedByInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
 }
@@ -1100,6 +1407,8 @@ export type UserUncheckedCreateWithoutProfileInput = {
   sessionProgress?: Prisma.SessionProgressUncheckedCreateNestedOneWithoutUserInput
   tagSchedules?: Prisma.TagScheduleUncheckedCreateNestedManyWithoutUserInput
   classroomMemberships?: Prisma.ClassroomMemberUncheckedCreateNestedManyWithoutUserInput
+  createdAssignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutCreatedByInput
+  completedReviews?: Prisma.SubmissionReviewUncheckedCreateNestedManyWithoutReviewedByInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
 }
@@ -1138,6 +1447,8 @@ export type UserUpdateWithoutProfileInput = {
   sessionProgress?: Prisma.SessionProgressUpdateOneWithoutUserNestedInput
   tagSchedules?: Prisma.TagScheduleUpdateManyWithoutUserNestedInput
   classroomMemberships?: Prisma.ClassroomMemberUpdateManyWithoutUserNestedInput
+  createdAssignments?: Prisma.AssignmentUpdateManyWithoutCreatedByNestedInput
+  completedReviews?: Prisma.SubmissionReviewUpdateManyWithoutReviewedByNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
 }
@@ -1160,6 +1471,8 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   sessionProgress?: Prisma.SessionProgressUncheckedUpdateOneWithoutUserNestedInput
   tagSchedules?: Prisma.TagScheduleUncheckedUpdateManyWithoutUserNestedInput
   classroomMemberships?: Prisma.ClassroomMemberUncheckedUpdateManyWithoutUserNestedInput
+  createdAssignments?: Prisma.AssignmentUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedReviews?: Prisma.SubmissionReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -1182,6 +1495,8 @@ export type UserCreateWithoutSessionProgressInput = {
   listeningExercises?: Prisma.ListeningExerciseCreateNestedManyWithoutUserInput
   tagSchedules?: Prisma.TagScheduleCreateNestedManyWithoutUserInput
   classroomMemberships?: Prisma.ClassroomMemberCreateNestedManyWithoutUserInput
+  createdAssignments?: Prisma.AssignmentCreateNestedManyWithoutCreatedByInput
+  completedReviews?: Prisma.SubmissionReviewCreateNestedManyWithoutReviewedByInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
 }
@@ -1204,6 +1519,8 @@ export type UserUncheckedCreateWithoutSessionProgressInput = {
   listeningExercises?: Prisma.ListeningExerciseUncheckedCreateNestedManyWithoutUserInput
   tagSchedules?: Prisma.TagScheduleUncheckedCreateNestedManyWithoutUserInput
   classroomMemberships?: Prisma.ClassroomMemberUncheckedCreateNestedManyWithoutUserInput
+  createdAssignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutCreatedByInput
+  completedReviews?: Prisma.SubmissionReviewUncheckedCreateNestedManyWithoutReviewedByInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
 }
@@ -1242,6 +1559,8 @@ export type UserUpdateWithoutSessionProgressInput = {
   listeningExercises?: Prisma.ListeningExerciseUpdateManyWithoutUserNestedInput
   tagSchedules?: Prisma.TagScheduleUpdateManyWithoutUserNestedInput
   classroomMemberships?: Prisma.ClassroomMemberUpdateManyWithoutUserNestedInput
+  createdAssignments?: Prisma.AssignmentUpdateManyWithoutCreatedByNestedInput
+  completedReviews?: Prisma.SubmissionReviewUpdateManyWithoutReviewedByNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
 }
@@ -1264,6 +1583,8 @@ export type UserUncheckedUpdateWithoutSessionProgressInput = {
   listeningExercises?: Prisma.ListeningExerciseUncheckedUpdateManyWithoutUserNestedInput
   tagSchedules?: Prisma.TagScheduleUncheckedUpdateManyWithoutUserNestedInput
   classroomMemberships?: Prisma.ClassroomMemberUncheckedUpdateManyWithoutUserNestedInput
+  createdAssignments?: Prisma.AssignmentUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedReviews?: Prisma.SubmissionReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -1286,6 +1607,8 @@ export type UserCreateWithoutDrillsInput = {
   sessionProgress?: Prisma.SessionProgressCreateNestedOneWithoutUserInput
   tagSchedules?: Prisma.TagScheduleCreateNestedManyWithoutUserInput
   classroomMemberships?: Prisma.ClassroomMemberCreateNestedManyWithoutUserInput
+  createdAssignments?: Prisma.AssignmentCreateNestedManyWithoutCreatedByInput
+  completedReviews?: Prisma.SubmissionReviewCreateNestedManyWithoutReviewedByInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
 }
@@ -1308,6 +1631,8 @@ export type UserUncheckedCreateWithoutDrillsInput = {
   sessionProgress?: Prisma.SessionProgressUncheckedCreateNestedOneWithoutUserInput
   tagSchedules?: Prisma.TagScheduleUncheckedCreateNestedManyWithoutUserInput
   classroomMemberships?: Prisma.ClassroomMemberUncheckedCreateNestedManyWithoutUserInput
+  createdAssignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutCreatedByInput
+  completedReviews?: Prisma.SubmissionReviewUncheckedCreateNestedManyWithoutReviewedByInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
 }
@@ -1346,6 +1671,8 @@ export type UserUpdateWithoutDrillsInput = {
   sessionProgress?: Prisma.SessionProgressUpdateOneWithoutUserNestedInput
   tagSchedules?: Prisma.TagScheduleUpdateManyWithoutUserNestedInput
   classroomMemberships?: Prisma.ClassroomMemberUpdateManyWithoutUserNestedInput
+  createdAssignments?: Prisma.AssignmentUpdateManyWithoutCreatedByNestedInput
+  completedReviews?: Prisma.SubmissionReviewUpdateManyWithoutReviewedByNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
 }
@@ -1368,6 +1695,8 @@ export type UserUncheckedUpdateWithoutDrillsInput = {
   sessionProgress?: Prisma.SessionProgressUncheckedUpdateOneWithoutUserNestedInput
   tagSchedules?: Prisma.TagScheduleUncheckedUpdateManyWithoutUserNestedInput
   classroomMemberships?: Prisma.ClassroomMemberUncheckedUpdateManyWithoutUserNestedInput
+  createdAssignments?: Prisma.AssignmentUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedReviews?: Prisma.SubmissionReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -1390,6 +1719,8 @@ export type UserCreateWithoutFlashcardsInput = {
   sessionProgress?: Prisma.SessionProgressCreateNestedOneWithoutUserInput
   tagSchedules?: Prisma.TagScheduleCreateNestedManyWithoutUserInput
   classroomMemberships?: Prisma.ClassroomMemberCreateNestedManyWithoutUserInput
+  createdAssignments?: Prisma.AssignmentCreateNestedManyWithoutCreatedByInput
+  completedReviews?: Prisma.SubmissionReviewCreateNestedManyWithoutReviewedByInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
 }
@@ -1412,6 +1743,8 @@ export type UserUncheckedCreateWithoutFlashcardsInput = {
   sessionProgress?: Prisma.SessionProgressUncheckedCreateNestedOneWithoutUserInput
   tagSchedules?: Prisma.TagScheduleUncheckedCreateNestedManyWithoutUserInput
   classroomMemberships?: Prisma.ClassroomMemberUncheckedCreateNestedManyWithoutUserInput
+  createdAssignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutCreatedByInput
+  completedReviews?: Prisma.SubmissionReviewUncheckedCreateNestedManyWithoutReviewedByInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
 }
@@ -1450,6 +1783,8 @@ export type UserUpdateWithoutFlashcardsInput = {
   sessionProgress?: Prisma.SessionProgressUpdateOneWithoutUserNestedInput
   tagSchedules?: Prisma.TagScheduleUpdateManyWithoutUserNestedInput
   classroomMemberships?: Prisma.ClassroomMemberUpdateManyWithoutUserNestedInput
+  createdAssignments?: Prisma.AssignmentUpdateManyWithoutCreatedByNestedInput
+  completedReviews?: Prisma.SubmissionReviewUpdateManyWithoutReviewedByNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
 }
@@ -1472,6 +1807,8 @@ export type UserUncheckedUpdateWithoutFlashcardsInput = {
   sessionProgress?: Prisma.SessionProgressUncheckedUpdateOneWithoutUserNestedInput
   tagSchedules?: Prisma.TagScheduleUncheckedUpdateManyWithoutUserNestedInput
   classroomMemberships?: Prisma.ClassroomMemberUncheckedUpdateManyWithoutUserNestedInput
+  createdAssignments?: Prisma.AssignmentUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedReviews?: Prisma.SubmissionReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -1494,6 +1831,8 @@ export type UserCreateWithoutTagSchedulesInput = {
   listeningExercises?: Prisma.ListeningExerciseCreateNestedManyWithoutUserInput
   sessionProgress?: Prisma.SessionProgressCreateNestedOneWithoutUserInput
   classroomMemberships?: Prisma.ClassroomMemberCreateNestedManyWithoutUserInput
+  createdAssignments?: Prisma.AssignmentCreateNestedManyWithoutCreatedByInput
+  completedReviews?: Prisma.SubmissionReviewCreateNestedManyWithoutReviewedByInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
 }
@@ -1516,6 +1855,8 @@ export type UserUncheckedCreateWithoutTagSchedulesInput = {
   listeningExercises?: Prisma.ListeningExerciseUncheckedCreateNestedManyWithoutUserInput
   sessionProgress?: Prisma.SessionProgressUncheckedCreateNestedOneWithoutUserInput
   classroomMemberships?: Prisma.ClassroomMemberUncheckedCreateNestedManyWithoutUserInput
+  createdAssignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutCreatedByInput
+  completedReviews?: Prisma.SubmissionReviewUncheckedCreateNestedManyWithoutReviewedByInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
 }
@@ -1554,6 +1895,8 @@ export type UserUpdateWithoutTagSchedulesInput = {
   listeningExercises?: Prisma.ListeningExerciseUpdateManyWithoutUserNestedInput
   sessionProgress?: Prisma.SessionProgressUpdateOneWithoutUserNestedInput
   classroomMemberships?: Prisma.ClassroomMemberUpdateManyWithoutUserNestedInput
+  createdAssignments?: Prisma.AssignmentUpdateManyWithoutCreatedByNestedInput
+  completedReviews?: Prisma.SubmissionReviewUpdateManyWithoutReviewedByNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
 }
@@ -1576,6 +1919,8 @@ export type UserUncheckedUpdateWithoutTagSchedulesInput = {
   listeningExercises?: Prisma.ListeningExerciseUncheckedUpdateManyWithoutUserNestedInput
   sessionProgress?: Prisma.SessionProgressUncheckedUpdateOneWithoutUserNestedInput
   classroomMemberships?: Prisma.ClassroomMemberUncheckedUpdateManyWithoutUserNestedInput
+  createdAssignments?: Prisma.AssignmentUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedReviews?: Prisma.SubmissionReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -1598,6 +1943,8 @@ export type UserCreateWithoutSpeakingExercisesInput = {
   sessionProgress?: Prisma.SessionProgressCreateNestedOneWithoutUserInput
   tagSchedules?: Prisma.TagScheduleCreateNestedManyWithoutUserInput
   classroomMemberships?: Prisma.ClassroomMemberCreateNestedManyWithoutUserInput
+  createdAssignments?: Prisma.AssignmentCreateNestedManyWithoutCreatedByInput
+  completedReviews?: Prisma.SubmissionReviewCreateNestedManyWithoutReviewedByInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
 }
@@ -1620,6 +1967,8 @@ export type UserUncheckedCreateWithoutSpeakingExercisesInput = {
   sessionProgress?: Prisma.SessionProgressUncheckedCreateNestedOneWithoutUserInput
   tagSchedules?: Prisma.TagScheduleUncheckedCreateNestedManyWithoutUserInput
   classroomMemberships?: Prisma.ClassroomMemberUncheckedCreateNestedManyWithoutUserInput
+  createdAssignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutCreatedByInput
+  completedReviews?: Prisma.SubmissionReviewUncheckedCreateNestedManyWithoutReviewedByInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
 }
@@ -1658,6 +2007,8 @@ export type UserUpdateWithoutSpeakingExercisesInput = {
   sessionProgress?: Prisma.SessionProgressUpdateOneWithoutUserNestedInput
   tagSchedules?: Prisma.TagScheduleUpdateManyWithoutUserNestedInput
   classroomMemberships?: Prisma.ClassroomMemberUpdateManyWithoutUserNestedInput
+  createdAssignments?: Prisma.AssignmentUpdateManyWithoutCreatedByNestedInput
+  completedReviews?: Prisma.SubmissionReviewUpdateManyWithoutReviewedByNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
 }
@@ -1680,6 +2031,8 @@ export type UserUncheckedUpdateWithoutSpeakingExercisesInput = {
   sessionProgress?: Prisma.SessionProgressUncheckedUpdateOneWithoutUserNestedInput
   tagSchedules?: Prisma.TagScheduleUncheckedUpdateManyWithoutUserNestedInput
   classroomMemberships?: Prisma.ClassroomMemberUncheckedUpdateManyWithoutUserNestedInput
+  createdAssignments?: Prisma.AssignmentUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedReviews?: Prisma.SubmissionReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -1702,6 +2055,8 @@ export type UserCreateWithoutListeningExercisesInput = {
   sessionProgress?: Prisma.SessionProgressCreateNestedOneWithoutUserInput
   tagSchedules?: Prisma.TagScheduleCreateNestedManyWithoutUserInput
   classroomMemberships?: Prisma.ClassroomMemberCreateNestedManyWithoutUserInput
+  createdAssignments?: Prisma.AssignmentCreateNestedManyWithoutCreatedByInput
+  completedReviews?: Prisma.SubmissionReviewCreateNestedManyWithoutReviewedByInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
 }
@@ -1724,6 +2079,8 @@ export type UserUncheckedCreateWithoutListeningExercisesInput = {
   sessionProgress?: Prisma.SessionProgressUncheckedCreateNestedOneWithoutUserInput
   tagSchedules?: Prisma.TagScheduleUncheckedCreateNestedManyWithoutUserInput
   classroomMemberships?: Prisma.ClassroomMemberUncheckedCreateNestedManyWithoutUserInput
+  createdAssignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutCreatedByInput
+  completedReviews?: Prisma.SubmissionReviewUncheckedCreateNestedManyWithoutReviewedByInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
 }
@@ -1762,6 +2119,8 @@ export type UserUpdateWithoutListeningExercisesInput = {
   sessionProgress?: Prisma.SessionProgressUpdateOneWithoutUserNestedInput
   tagSchedules?: Prisma.TagScheduleUpdateManyWithoutUserNestedInput
   classroomMemberships?: Prisma.ClassroomMemberUpdateManyWithoutUserNestedInput
+  createdAssignments?: Prisma.AssignmentUpdateManyWithoutCreatedByNestedInput
+  completedReviews?: Prisma.SubmissionReviewUpdateManyWithoutReviewedByNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
 }
@@ -1784,6 +2143,8 @@ export type UserUncheckedUpdateWithoutListeningExercisesInput = {
   sessionProgress?: Prisma.SessionProgressUncheckedUpdateOneWithoutUserNestedInput
   tagSchedules?: Prisma.TagScheduleUncheckedUpdateManyWithoutUserNestedInput
   classroomMemberships?: Prisma.ClassroomMemberUncheckedUpdateManyWithoutUserNestedInput
+  createdAssignments?: Prisma.AssignmentUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedReviews?: Prisma.SubmissionReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -1806,6 +2167,8 @@ export type UserCreateWithoutReadingExercisesInput = {
   sessionProgress?: Prisma.SessionProgressCreateNestedOneWithoutUserInput
   tagSchedules?: Prisma.TagScheduleCreateNestedManyWithoutUserInput
   classroomMemberships?: Prisma.ClassroomMemberCreateNestedManyWithoutUserInput
+  createdAssignments?: Prisma.AssignmentCreateNestedManyWithoutCreatedByInput
+  completedReviews?: Prisma.SubmissionReviewCreateNestedManyWithoutReviewedByInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
 }
@@ -1828,6 +2191,8 @@ export type UserUncheckedCreateWithoutReadingExercisesInput = {
   sessionProgress?: Prisma.SessionProgressUncheckedCreateNestedOneWithoutUserInput
   tagSchedules?: Prisma.TagScheduleUncheckedCreateNestedManyWithoutUserInput
   classroomMemberships?: Prisma.ClassroomMemberUncheckedCreateNestedManyWithoutUserInput
+  createdAssignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutCreatedByInput
+  completedReviews?: Prisma.SubmissionReviewUncheckedCreateNestedManyWithoutReviewedByInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
 }
@@ -1866,6 +2231,8 @@ export type UserUpdateWithoutReadingExercisesInput = {
   sessionProgress?: Prisma.SessionProgressUpdateOneWithoutUserNestedInput
   tagSchedules?: Prisma.TagScheduleUpdateManyWithoutUserNestedInput
   classroomMemberships?: Prisma.ClassroomMemberUpdateManyWithoutUserNestedInput
+  createdAssignments?: Prisma.AssignmentUpdateManyWithoutCreatedByNestedInput
+  completedReviews?: Prisma.SubmissionReviewUpdateManyWithoutReviewedByNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
 }
@@ -1888,6 +2255,8 @@ export type UserUncheckedUpdateWithoutReadingExercisesInput = {
   sessionProgress?: Prisma.SessionProgressUncheckedUpdateOneWithoutUserNestedInput
   tagSchedules?: Prisma.TagScheduleUncheckedUpdateManyWithoutUserNestedInput
   classroomMemberships?: Prisma.ClassroomMemberUncheckedUpdateManyWithoutUserNestedInput
+  createdAssignments?: Prisma.AssignmentUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedReviews?: Prisma.SubmissionReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -1906,6 +2275,8 @@ export type UserCountOutputType = {
   listeningExercises: number
   tagSchedules: number
   classroomMemberships: number
+  createdAssignments: number
+  completedReviews: number
   sessions: number
   accounts: number
 }
@@ -1919,6 +2290,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   listeningExercises?: boolean | UserCountOutputTypeCountListeningExercisesArgs
   tagSchedules?: boolean | UserCountOutputTypeCountTagSchedulesArgs
   classroomMemberships?: boolean | UserCountOutputTypeCountClassroomMembershipsArgs
+  createdAssignments?: boolean | UserCountOutputTypeCountCreatedAssignmentsArgs
+  completedReviews?: boolean | UserCountOutputTypeCountCompletedReviewsArgs
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   accounts?: boolean | UserCountOutputTypeCountAccountsArgs
 }
@@ -1992,6 +2365,20 @@ export type UserCountOutputTypeCountClassroomMembershipsArgs<ExtArgs extends run
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountCreatedAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AssignmentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCompletedReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SubmissionReviewWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.SessionWhereInput
 }
@@ -2023,6 +2410,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   sessionProgress?: boolean | Prisma.User$sessionProgressArgs<ExtArgs>
   tagSchedules?: boolean | Prisma.User$tagSchedulesArgs<ExtArgs>
   classroomMemberships?: boolean | Prisma.User$classroomMembershipsArgs<ExtArgs>
+  createdAssignments?: boolean | Prisma.User$createdAssignmentsArgs<ExtArgs>
+  completedReviews?: boolean | Prisma.User$completedReviewsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -2073,6 +2462,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   sessionProgress?: boolean | Prisma.User$sessionProgressArgs<ExtArgs>
   tagSchedules?: boolean | Prisma.User$tagSchedulesArgs<ExtArgs>
   classroomMemberships?: boolean | Prisma.User$classroomMembershipsArgs<ExtArgs>
+  createdAssignments?: boolean | Prisma.User$createdAssignmentsArgs<ExtArgs>
+  completedReviews?: boolean | Prisma.User$completedReviewsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -2093,6 +2484,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     sessionProgress: Prisma.$SessionProgressPayload<ExtArgs> | null
     tagSchedules: Prisma.$TagSchedulePayload<ExtArgs>[]
     classroomMemberships: Prisma.$ClassroomMemberPayload<ExtArgs>[]
+    createdAssignments: Prisma.$AssignmentPayload<ExtArgs>[]
+    completedReviews: Prisma.$SubmissionReviewPayload<ExtArgs>[]
     sessions: Prisma.$SessionPayload<ExtArgs>[]
     accounts: Prisma.$AccountPayload<ExtArgs>[]
   }
@@ -2509,6 +2902,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   sessionProgress<T extends Prisma.User$sessionProgressArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionProgressArgs<ExtArgs>>): Prisma.Prisma__SessionProgressClient<runtime.Types.Result.GetResult<Prisma.$SessionProgressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   tagSchedules<T extends Prisma.User$tagSchedulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$tagSchedulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TagSchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   classroomMemberships<T extends Prisma.User$classroomMembershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$classroomMembershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClassroomMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdAssignments<T extends Prisma.User$createdAssignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  completedReviews<T extends Prisma.User$completedReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$completedReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubmissionReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -3168,6 +3563,54 @@ export type User$classroomMembershipsArgs<ExtArgs extends runtime.Types.Extensio
   take?: number
   skip?: number
   distinct?: Prisma.ClassroomMemberScalarFieldEnum | Prisma.ClassroomMemberScalarFieldEnum[]
+}
+
+/**
+ * User.createdAssignments
+ */
+export type User$createdAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Assignment
+   */
+  select?: Prisma.AssignmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Assignment
+   */
+  omit?: Prisma.AssignmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AssignmentInclude<ExtArgs> | null
+  where?: Prisma.AssignmentWhereInput
+  orderBy?: Prisma.AssignmentOrderByWithRelationInput | Prisma.AssignmentOrderByWithRelationInput[]
+  cursor?: Prisma.AssignmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AssignmentScalarFieldEnum | Prisma.AssignmentScalarFieldEnum[]
+}
+
+/**
+ * User.completedReviews
+ */
+export type User$completedReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SubmissionReview
+   */
+  select?: Prisma.SubmissionReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SubmissionReview
+   */
+  omit?: Prisma.SubmissionReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SubmissionReviewInclude<ExtArgs> | null
+  where?: Prisma.SubmissionReviewWhereInput
+  orderBy?: Prisma.SubmissionReviewOrderByWithRelationInput | Prisma.SubmissionReviewOrderByWithRelationInput[]
+  cursor?: Prisma.SubmissionReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SubmissionReviewScalarFieldEnum | Prisma.SubmissionReviewScalarFieldEnum[]
 }
 
 /**

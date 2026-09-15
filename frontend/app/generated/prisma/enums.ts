@@ -27,3 +27,23 @@ export const ClassroomRole = {
 } as const
 
 export type ClassroomRole = (typeof ClassroomRole)[keyof typeof ClassroomRole]
+
+
+export const AssignmentStatus = {
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED',
+  CLOSED: 'CLOSED'
+} as const
+
+export type AssignmentStatus = (typeof AssignmentStatus)[keyof typeof AssignmentStatus]
+
+
+export const ReviewStatus = {
+  PROCESSING: 'PROCESSING',
+  AI_DRAFT: 'AI_DRAFT',
+  ANALYSIS_FAILED: 'ANALYSIS_FAILED',
+  RETURNED_FOR_REVISION: 'RETURNED_FOR_REVISION',
+  APPROVED: 'APPROVED'
+} as const
+
+export type ReviewStatus = (typeof ReviewStatus)[keyof typeof ReviewStatus]

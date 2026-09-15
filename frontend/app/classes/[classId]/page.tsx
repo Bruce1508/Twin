@@ -7,6 +7,9 @@ import {
   getClassroomOverview,
 } from "@/lib/classroom-service";
 import { JoinCodeControls, RemoveStudentButton } from "./ClassroomControls";
+import AssignmentCard from "../AssignmentCard";
+import AssignmentActions from "./AssignmentActions";
+import { listAssignmentsForMember } from "@/lib/assignments";
 
 export const dynamic = "force-dynamic";
 
@@ -25,6 +28,7 @@ export default async function ClassroomPage({ params }: { params: Promise<{ clas
 
   const { classroom, isTeacher } = overview;
   const students = isTeacher ? classroom.memberships.filter((item) => item.role === "STUDENT") : [];
+  const assignments = await listAssignmentsForMember(user.id, classroom.id);
 
   return (
     <div className="mx-auto max-w-5xl px-5 py-12">
@@ -36,6 +40,41 @@ export default async function ClassroomPage({ params }: { params: Promise<{ clas
           {isTeacher ? "Gérez les membres et préparez les prochains devoirs." : "Les devoirs publiés apparaîtront ici."}
         </p>
       </header>
+
+      <section className="mt-10">
+        <div className="ledger-heading border-b-3 border-ink pb-4">
+          <h2>Devoirs</h2>
+          {isTeacher && (
+            <Link href={`/teacher/classes/${classroom.id}/assignments/new`} className="font-mono text-xs font-bold uppercase underline underline-offset-4">
+              Nouveau devoir →
+            </Link>
+          )}
+        </div>
+        <div className="border-x-3 border-t-3 border-ink">
+          {assignments.map((assignment) => (
+            <AssignmentCard
+              key={assignment.id}
+              assignment={assignment}
+              teacher={isTeacher}
+              actions={isTeacher ? (
+                <>
+                  {assignment.status === "DRAFT" && (
+                    <Link href={`/teacher/assignments/${assignment.id}/edit`} className="font-mono text-xs font-bold uppercase underline underline-offset-4">
+                      Modifier
+                    </Link>
+                  )}
+                  <AssignmentActions assignmentId={assignment.id} status={assignment.status} />
+                </>
+              ) : undefined}
+            />
+          ))}
+          {assignments.length === 0 && (
+            <p className="border-b-3 border-ink bg-paper-raised px-5 py-8 text-ink-muted">
+              {isTeacher ? "Créez votre premier devoir d’écriture." : "Votre professeur n’a pas encore publié de devoir."}
+            </p>
+          )}
+        </div>
+      </section>
 
       {isTeacher ? (
         <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_300px]">
@@ -67,13 +106,7 @@ export default async function ClassroomPage({ params }: { params: Promise<{ clas
             />
           </aside>
         </div>
-      ) : (
-        <section className="mt-10 border-3 border-ink bg-paper-raised p-7">
-          <p className="ledger-label text-ink-faint">Devoirs</p>
-          <h2 className="mt-3 font-display text-3xl uppercase">Rien à rendre</h2>
-          <p className="mt-4 text-ink-muted">Votre professeur n’a pas encore publié de devoir.</p>
-        </section>
-      )}
+      ) : null}
     </div>
   );
 }

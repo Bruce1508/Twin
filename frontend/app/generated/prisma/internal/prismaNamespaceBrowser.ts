@@ -57,7 +57,9 @@ export const ModelName = {
   Verification: 'Verification',
   Classroom: 'Classroom',
   ClassroomMember: 'ClassroomMember',
+  Assignment: 'Assignment',
   Submission: 'Submission',
+  SubmissionReview: 'SubmissionReview',
   ErrorEvent: 'ErrorEvent',
   Profile: 'Profile',
   SessionProgress: 'SessionProgress',
@@ -167,9 +169,27 @@ export const ClassroomMemberScalarFieldEnum = {
 export type ClassroomMemberScalarFieldEnum = (typeof ClassroomMemberScalarFieldEnum)[keyof typeof ClassroomMemberScalarFieldEnum]
 
 
+export const AssignmentScalarFieldEnum = {
+  id: 'id',
+  classroomId: 'classroomId',
+  createdById: 'createdById',
+  title: 'title',
+  instructions: 'instructions',
+  taskType: 'taskType',
+  dueAt: 'dueAt',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AssignmentScalarFieldEnum = (typeof AssignmentScalarFieldEnum)[keyof typeof AssignmentScalarFieldEnum]
+
+
 export const SubmissionScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  assignmentId: 'assignmentId',
+  attemptNumber: 'attemptNumber',
   source: 'source',
   prompt: 'prompt',
   content: 'content',
@@ -179,6 +199,27 @@ export const SubmissionScalarFieldEnum = {
 } as const
 
 export type SubmissionScalarFieldEnum = (typeof SubmissionScalarFieldEnum)[keyof typeof SubmissionScalarFieldEnum]
+
+
+export const SubmissionReviewScalarFieldEnum = {
+  id: 'id',
+  submissionId: 'submissionId',
+  status: 'status',
+  aiExtraction: 'aiExtraction',
+  aiRubric: 'aiRubric',
+  reviewedExtraction: 'reviewedExtraction',
+  teacherFeedback: 'teacherFeedback',
+  modelName: 'modelName',
+  promptVersion: 'promptVersion',
+  reviewedById: 'reviewedById',
+  reviewedAt: 'reviewedAt',
+  confirmedAt: 'confirmedAt',
+  failureReason: 'failureReason',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SubmissionReviewScalarFieldEnum = (typeof SubmissionReviewScalarFieldEnum)[keyof typeof SubmissionReviewScalarFieldEnum]
 
 
 export const ErrorEventScalarFieldEnum = {

@@ -165,6 +165,23 @@ export type EnumClassroomRoleWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumClassroomRoleFilter<$PrismaModel>
 }
 
+export type EnumAssignmentStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.AssignmentStatus | Prisma.EnumAssignmentStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.AssignmentStatus[] | Prisma.ListEnumAssignmentStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AssignmentStatus[] | Prisma.ListEnumAssignmentStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAssignmentStatusFilter<$PrismaModel> | $Enums.AssignmentStatus
+}
+
+export type EnumAssignmentStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AssignmentStatus | Prisma.EnumAssignmentStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.AssignmentStatus[] | Prisma.ListEnumAssignmentStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AssignmentStatus[] | Prisma.ListEnumAssignmentStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAssignmentStatusWithAggregatesFilter<$PrismaModel> | $Enums.AssignmentStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAssignmentStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAssignmentStatusFilter<$PrismaModel>
+}
+
 export type IntFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel>
   in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
@@ -243,21 +260,11 @@ export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
   _max?: Prisma.NestedJsonFilter<$PrismaModel>
 }
 
-export type EnumErrorCategoryFilter<$PrismaModel = never> = {
-  equals?: $Enums.ErrorCategory | Prisma.EnumErrorCategoryFieldRefInput<$PrismaModel>
-  in?: $Enums.ErrorCategory[] | Prisma.ListEnumErrorCategoryFieldRefInput<$PrismaModel>
-  notIn?: $Enums.ErrorCategory[] | Prisma.ListEnumErrorCategoryFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumErrorCategoryFilter<$PrismaModel> | $Enums.ErrorCategory
-}
-
-export type EnumErrorCategoryWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.ErrorCategory | Prisma.EnumErrorCategoryFieldRefInput<$PrismaModel>
-  in?: $Enums.ErrorCategory[] | Prisma.ListEnumErrorCategoryFieldRefInput<$PrismaModel>
-  notIn?: $Enums.ErrorCategory[] | Prisma.ListEnumErrorCategoryFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumErrorCategoryWithAggregatesFilter<$PrismaModel> | $Enums.ErrorCategory
-  _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumErrorCategoryFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumErrorCategoryFilter<$PrismaModel>
+export type EnumReviewStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.ReviewStatus | Prisma.EnumReviewStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ReviewStatus[] | Prisma.ListEnumReviewStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ReviewStatus[] | Prisma.ListEnumReviewStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumReviewStatusFilter<$PrismaModel> | $Enums.ReviewStatus
 }
 
 export type JsonNullableFilter<$PrismaModel = never> =
@@ -282,6 +289,16 @@ export type JsonNullableFilterBase<$PrismaModel = never> = {
   gt?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>
   gte?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>
   not?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | Prisma.JsonNullValueFilter
+}
+
+export type EnumReviewStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ReviewStatus | Prisma.EnumReviewStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ReviewStatus[] | Prisma.ListEnumReviewStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ReviewStatus[] | Prisma.ListEnumReviewStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumReviewStatusWithAggregatesFilter<$PrismaModel> | $Enums.ReviewStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumReviewStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumReviewStatusFilter<$PrismaModel>
 }
 
 export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
@@ -309,6 +326,23 @@ export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedJsonNullableFilter<$PrismaModel>
   _max?: Prisma.NestedJsonNullableFilter<$PrismaModel>
+}
+
+export type EnumErrorCategoryFilter<$PrismaModel = never> = {
+  equals?: $Enums.ErrorCategory | Prisma.EnumErrorCategoryFieldRefInput<$PrismaModel>
+  in?: $Enums.ErrorCategory[] | Prisma.ListEnumErrorCategoryFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ErrorCategory[] | Prisma.ListEnumErrorCategoryFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumErrorCategoryFilter<$PrismaModel> | $Enums.ErrorCategory
+}
+
+export type EnumErrorCategoryWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ErrorCategory | Prisma.EnumErrorCategoryFieldRefInput<$PrismaModel>
+  in?: $Enums.ErrorCategory[] | Prisma.ListEnumErrorCategoryFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ErrorCategory[] | Prisma.ListEnumErrorCategoryFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumErrorCategoryWithAggregatesFilter<$PrismaModel> | $Enums.ErrorCategory
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumErrorCategoryFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumErrorCategoryFilter<$PrismaModel>
 }
 
 export type FloatFilter<$PrismaModel = never> = {
@@ -502,6 +536,23 @@ export type NestedEnumClassroomRoleWithAggregatesFilter<$PrismaModel = never> = 
   _max?: Prisma.NestedEnumClassroomRoleFilter<$PrismaModel>
 }
 
+export type NestedEnumAssignmentStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.AssignmentStatus | Prisma.EnumAssignmentStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.AssignmentStatus[] | Prisma.ListEnumAssignmentStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AssignmentStatus[] | Prisma.ListEnumAssignmentStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAssignmentStatusFilter<$PrismaModel> | $Enums.AssignmentStatus
+}
+
+export type NestedEnumAssignmentStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AssignmentStatus | Prisma.EnumAssignmentStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.AssignmentStatus[] | Prisma.ListEnumAssignmentStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AssignmentStatus[] | Prisma.ListEnumAssignmentStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAssignmentStatusWithAggregatesFilter<$PrismaModel> | $Enums.AssignmentStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAssignmentStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAssignmentStatusFilter<$PrismaModel>
+}
+
 export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel>
   in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
@@ -553,21 +604,21 @@ export type NestedJsonFilterBase<$PrismaModel = never> = {
   not?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | Prisma.JsonNullValueFilter
 }
 
-export type NestedEnumErrorCategoryFilter<$PrismaModel = never> = {
-  equals?: $Enums.ErrorCategory | Prisma.EnumErrorCategoryFieldRefInput<$PrismaModel>
-  in?: $Enums.ErrorCategory[] | Prisma.ListEnumErrorCategoryFieldRefInput<$PrismaModel>
-  notIn?: $Enums.ErrorCategory[] | Prisma.ListEnumErrorCategoryFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumErrorCategoryFilter<$PrismaModel> | $Enums.ErrorCategory
+export type NestedEnumReviewStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.ReviewStatus | Prisma.EnumReviewStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ReviewStatus[] | Prisma.ListEnumReviewStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ReviewStatus[] | Prisma.ListEnumReviewStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumReviewStatusFilter<$PrismaModel> | $Enums.ReviewStatus
 }
 
-export type NestedEnumErrorCategoryWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.ErrorCategory | Prisma.EnumErrorCategoryFieldRefInput<$PrismaModel>
-  in?: $Enums.ErrorCategory[] | Prisma.ListEnumErrorCategoryFieldRefInput<$PrismaModel>
-  notIn?: $Enums.ErrorCategory[] | Prisma.ListEnumErrorCategoryFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumErrorCategoryWithAggregatesFilter<$PrismaModel> | $Enums.ErrorCategory
+export type NestedEnumReviewStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ReviewStatus | Prisma.EnumReviewStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ReviewStatus[] | Prisma.ListEnumReviewStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ReviewStatus[] | Prisma.ListEnumReviewStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumReviewStatusWithAggregatesFilter<$PrismaModel> | $Enums.ReviewStatus
   _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumErrorCategoryFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumErrorCategoryFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumReviewStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumReviewStatusFilter<$PrismaModel>
 }
 
 export type NestedJsonNullableFilter<$PrismaModel = never> =
@@ -592,6 +643,23 @@ export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
   gt?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>
   gte?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>
   not?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | Prisma.JsonNullValueFilter
+}
+
+export type NestedEnumErrorCategoryFilter<$PrismaModel = never> = {
+  equals?: $Enums.ErrorCategory | Prisma.EnumErrorCategoryFieldRefInput<$PrismaModel>
+  in?: $Enums.ErrorCategory[] | Prisma.ListEnumErrorCategoryFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ErrorCategory[] | Prisma.ListEnumErrorCategoryFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumErrorCategoryFilter<$PrismaModel> | $Enums.ErrorCategory
+}
+
+export type NestedEnumErrorCategoryWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ErrorCategory | Prisma.EnumErrorCategoryFieldRefInput<$PrismaModel>
+  in?: $Enums.ErrorCategory[] | Prisma.ListEnumErrorCategoryFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ErrorCategory[] | Prisma.ListEnumErrorCategoryFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumErrorCategoryWithAggregatesFilter<$PrismaModel> | $Enums.ErrorCategory
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumErrorCategoryFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumErrorCategoryFilter<$PrismaModel>
 }
 
 export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {

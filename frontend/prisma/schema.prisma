@@ -23,6 +23,20 @@ enum ClassroomRole {
   STUDENT
 }
 
+enum AssignmentStatus {
+  DRAFT
+  PUBLISHED
+  CLOSED
+}
+
+enum ReviewStatus {
+  PROCESSING
+  AI_DRAFT
+  ANALYSIS_FAILED
+  RETURNED_FOR_REVISION
+  APPROVED
+}
+
 // error_tag is a plain String validated against the TS taxonomy at the app layer
 // (keeping it out of the schema avoids duplicating the taxonomy in two places)
 
@@ -48,6 +62,8 @@ model User {
   sessionProgress      SessionProgress?
   tagSchedules         TagSchedule[]
   classroomMemberships ClassroomMember[]
+  createdAssignments   Assignment[]       @relation("AssignmentCreator")
+  completedReviews     SubmissionReview[] @relation("SubmissionReviewer")
   sessions             Session[]
   accounts             Account[]
 }
@@ -108,6 +124,7 @@ model Classroom {
   updatedAt DateTime @updatedAt
 
   memberships ClassroomMember[]
+  assignments Assignment[]
 }
 
 model ClassroomMember {
@@ -124,19 +141,42 @@ model ClassroomMember {
   @@index([userId])
 }
 
+model Assignment {
+  id           String           @id @default(cuid())
+  classroomId  String
+  createdById  String
+  title        String
+  instructions String
+  taskType     String
+  dueAt        DateTime?
+  status       AssignmentStatus @default(DRAFT)
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+
+  classroom  Classroom   @relation(fields: [classroomId], references: [id], onDelete: Cascade)
+  createdBy  User        @relation("AssignmentCreator", fields: [createdById], references: [id])
+  submissions Submission[]
+
+  @@index([classroomId, status])
+}
+
 // A single unit of language production — immutable after creation.
 // source: "free_practice" | "drill_response"
 model Submission {
-  id        String   @id @default(cuid())
-  userId    String
-  source    String
-  prompt    String?
-  content   String
-  wordCount Int
-  metrics   Json
-  createdAt DateTime @default(now())
+  id            String   @id @default(cuid())
+  userId        String
+  assignmentId  String?
+  attemptNumber Int      @default(1)
+  source        String
+  prompt        String?
+  content       String
+  wordCount     Int
+  metrics       Json
+  createdAt     DateTime @default(now())
 
   user                    User               @relation(fields: [userId], references: [id])
+  assignment              Assignment?        @relation(fields: [assignmentId], references: [id])
+  review                  SubmissionReview?
   errorEvents             ErrorEvent[]
   // When this submission is the response to a drill, the drill links back here.
   drillAnswer             Drill?             @relation("DrillResponse")
@@ -145,6 +185,30 @@ model Submission {
   // When this submission is the response to a speaking exercise, it links back here.
   speakingExerciseAnswer  SpeakingExercise?  @relation("SpeakingExerciseResponse")
   listeningExerciseAnswer ListeningExercise? @relation("ListeningExerciseResponse")
+
+  @@unique([assignmentId, userId, attemptNumber])
+  @@index([assignmentId, userId])
+}
+
+model SubmissionReview {
+  id                 String       @id @default(cuid())
+  submissionId       String       @unique
+  status             ReviewStatus @default(PROCESSING)
+  aiExtraction       Json?
+  aiRubric           Json?
+  reviewedExtraction Json?
+  teacherFeedback    String?
+  modelName          String?
+  promptVersion      String?
+  reviewedById       String?
+  reviewedAt         DateTime?
+  confirmedAt        DateTime?
+  failureReason      String?
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+
+  submission Submission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  reviewedBy User?      @relation("SubmissionReviewer", fields: [reviewedById], references: [id])
 }
 
 // A single error extracted from a Submission — immutable after creation.

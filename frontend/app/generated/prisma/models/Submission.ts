@@ -27,16 +27,20 @@ export type AggregateSubmission = {
 }
 
 export type SubmissionAvgAggregateOutputType = {
+  attemptNumber: number | null
   wordCount: number | null
 }
 
 export type SubmissionSumAggregateOutputType = {
+  attemptNumber: number | null
   wordCount: number | null
 }
 
 export type SubmissionMinAggregateOutputType = {
   id: string | null
   userId: string | null
+  assignmentId: string | null
+  attemptNumber: number | null
   source: string | null
   prompt: string | null
   content: string | null
@@ -47,6 +51,8 @@ export type SubmissionMinAggregateOutputType = {
 export type SubmissionMaxAggregateOutputType = {
   id: string | null
   userId: string | null
+  assignmentId: string | null
+  attemptNumber: number | null
   source: string | null
   prompt: string | null
   content: string | null
@@ -57,6 +63,8 @@ export type SubmissionMaxAggregateOutputType = {
 export type SubmissionCountAggregateOutputType = {
   id: number
   userId: number
+  assignmentId: number
+  attemptNumber: number
   source: number
   prompt: number
   content: number
@@ -68,16 +76,20 @@ export type SubmissionCountAggregateOutputType = {
 
 
 export type SubmissionAvgAggregateInputType = {
+  attemptNumber?: true
   wordCount?: true
 }
 
 export type SubmissionSumAggregateInputType = {
+  attemptNumber?: true
   wordCount?: true
 }
 
 export type SubmissionMinAggregateInputType = {
   id?: true
   userId?: true
+  assignmentId?: true
+  attemptNumber?: true
   source?: true
   prompt?: true
   content?: true
@@ -88,6 +100,8 @@ export type SubmissionMinAggregateInputType = {
 export type SubmissionMaxAggregateInputType = {
   id?: true
   userId?: true
+  assignmentId?: true
+  attemptNumber?: true
   source?: true
   prompt?: true
   content?: true
@@ -98,6 +112,8 @@ export type SubmissionMaxAggregateInputType = {
 export type SubmissionCountAggregateInputType = {
   id?: true
   userId?: true
+  assignmentId?: true
+  attemptNumber?: true
   source?: true
   prompt?: true
   content?: true
@@ -196,6 +212,8 @@ export type SubmissionGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inter
 export type SubmissionGroupByOutputType = {
   id: string
   userId: string
+  assignmentId: string | null
+  attemptNumber: number
   source: string
   prompt: string | null
   content: string
@@ -230,6 +248,8 @@ export type SubmissionWhereInput = {
   NOT?: Prisma.SubmissionWhereInput | Prisma.SubmissionWhereInput[]
   id?: Prisma.StringFilter<"Submission"> | string
   userId?: Prisma.StringFilter<"Submission"> | string
+  assignmentId?: Prisma.StringNullableFilter<"Submission"> | string | null
+  attemptNumber?: Prisma.IntFilter<"Submission"> | number
   source?: Prisma.StringFilter<"Submission"> | string
   prompt?: Prisma.StringNullableFilter<"Submission"> | string | null
   content?: Prisma.StringFilter<"Submission"> | string
@@ -237,6 +257,8 @@ export type SubmissionWhereInput = {
   metrics?: Prisma.JsonFilter<"Submission">
   createdAt?: Prisma.DateTimeFilter<"Submission"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  assignment?: Prisma.XOR<Prisma.AssignmentNullableScalarRelationFilter, Prisma.AssignmentWhereInput> | null
+  review?: Prisma.XOR<Prisma.SubmissionReviewNullableScalarRelationFilter, Prisma.SubmissionReviewWhereInput> | null
   errorEvents?: Prisma.ErrorEventListRelationFilter
   drillAnswer?: Prisma.XOR<Prisma.DrillNullableScalarRelationFilter, Prisma.DrillWhereInput> | null
   readingExerciseAnswer?: Prisma.XOR<Prisma.ReadingExerciseNullableScalarRelationFilter, Prisma.ReadingExerciseWhereInput> | null
@@ -247,6 +269,8 @@ export type SubmissionWhereInput = {
 export type SubmissionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  assignmentId?: Prisma.SortOrderInput | Prisma.SortOrder
+  attemptNumber?: Prisma.SortOrder
   source?: Prisma.SortOrder
   prompt?: Prisma.SortOrderInput | Prisma.SortOrder
   content?: Prisma.SortOrder
@@ -254,6 +278,8 @@ export type SubmissionOrderByWithRelationInput = {
   metrics?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
+  assignment?: Prisma.AssignmentOrderByWithRelationInput
+  review?: Prisma.SubmissionReviewOrderByWithRelationInput
   errorEvents?: Prisma.ErrorEventOrderByRelationAggregateInput
   drillAnswer?: Prisma.DrillOrderByWithRelationInput
   readingExerciseAnswer?: Prisma.ReadingExerciseOrderByWithRelationInput
@@ -263,10 +289,13 @@ export type SubmissionOrderByWithRelationInput = {
 
 export type SubmissionWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  assignmentId_userId_attemptNumber?: Prisma.SubmissionAssignmentIdUserIdAttemptNumberCompoundUniqueInput
   AND?: Prisma.SubmissionWhereInput | Prisma.SubmissionWhereInput[]
   OR?: Prisma.SubmissionWhereInput[]
   NOT?: Prisma.SubmissionWhereInput | Prisma.SubmissionWhereInput[]
   userId?: Prisma.StringFilter<"Submission"> | string
+  assignmentId?: Prisma.StringNullableFilter<"Submission"> | string | null
+  attemptNumber?: Prisma.IntFilter<"Submission"> | number
   source?: Prisma.StringFilter<"Submission"> | string
   prompt?: Prisma.StringNullableFilter<"Submission"> | string | null
   content?: Prisma.StringFilter<"Submission"> | string
@@ -274,16 +303,20 @@ export type SubmissionWhereUniqueInput = Prisma.AtLeast<{
   metrics?: Prisma.JsonFilter<"Submission">
   createdAt?: Prisma.DateTimeFilter<"Submission"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  assignment?: Prisma.XOR<Prisma.AssignmentNullableScalarRelationFilter, Prisma.AssignmentWhereInput> | null
+  review?: Prisma.XOR<Prisma.SubmissionReviewNullableScalarRelationFilter, Prisma.SubmissionReviewWhereInput> | null
   errorEvents?: Prisma.ErrorEventListRelationFilter
   drillAnswer?: Prisma.XOR<Prisma.DrillNullableScalarRelationFilter, Prisma.DrillWhereInput> | null
   readingExerciseAnswer?: Prisma.XOR<Prisma.ReadingExerciseNullableScalarRelationFilter, Prisma.ReadingExerciseWhereInput> | null
   speakingExerciseAnswer?: Prisma.XOR<Prisma.SpeakingExerciseNullableScalarRelationFilter, Prisma.SpeakingExerciseWhereInput> | null
   listeningExerciseAnswer?: Prisma.XOR<Prisma.ListeningExerciseNullableScalarRelationFilter, Prisma.ListeningExerciseWhereInput> | null
-}, "id">
+}, "id" | "assignmentId_userId_attemptNumber">
 
 export type SubmissionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  assignmentId?: Prisma.SortOrderInput | Prisma.SortOrder
+  attemptNumber?: Prisma.SortOrder
   source?: Prisma.SortOrder
   prompt?: Prisma.SortOrderInput | Prisma.SortOrder
   content?: Prisma.SortOrder
@@ -303,6 +336,8 @@ export type SubmissionScalarWhereWithAggregatesInput = {
   NOT?: Prisma.SubmissionScalarWhereWithAggregatesInput | Prisma.SubmissionScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Submission"> | string
   userId?: Prisma.StringWithAggregatesFilter<"Submission"> | string
+  assignmentId?: Prisma.StringNullableWithAggregatesFilter<"Submission"> | string | null
+  attemptNumber?: Prisma.IntWithAggregatesFilter<"Submission"> | number
   source?: Prisma.StringWithAggregatesFilter<"Submission"> | string
   prompt?: Prisma.StringNullableWithAggregatesFilter<"Submission"> | string | null
   content?: Prisma.StringWithAggregatesFilter<"Submission"> | string
@@ -313,6 +348,7 @@ export type SubmissionScalarWhereWithAggregatesInput = {
 
 export type SubmissionCreateInput = {
   id?: string
+  attemptNumber?: number
   source: string
   prompt?: string | null
   content: string
@@ -320,6 +356,8 @@ export type SubmissionCreateInput = {
   metrics: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutSubmissionsInput
+  assignment?: Prisma.AssignmentCreateNestedOneWithoutSubmissionsInput
+  review?: Prisma.SubmissionReviewCreateNestedOneWithoutSubmissionInput
   errorEvents?: Prisma.ErrorEventCreateNestedManyWithoutSubmissionInput
   drillAnswer?: Prisma.DrillCreateNestedOneWithoutResponseSubmissionInput
   readingExerciseAnswer?: Prisma.ReadingExerciseCreateNestedOneWithoutSubmissionInput
@@ -330,12 +368,15 @@ export type SubmissionCreateInput = {
 export type SubmissionUncheckedCreateInput = {
   id?: string
   userId: string
+  assignmentId?: string | null
+  attemptNumber?: number
   source: string
   prompt?: string | null
   content: string
   wordCount: number
   metrics: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
+  review?: Prisma.SubmissionReviewUncheckedCreateNestedOneWithoutSubmissionInput
   errorEvents?: Prisma.ErrorEventUncheckedCreateNestedManyWithoutSubmissionInput
   drillAnswer?: Prisma.DrillUncheckedCreateNestedOneWithoutResponseSubmissionInput
   readingExerciseAnswer?: Prisma.ReadingExerciseUncheckedCreateNestedOneWithoutSubmissionInput
@@ -345,6 +386,7 @@ export type SubmissionUncheckedCreateInput = {
 
 export type SubmissionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
   source?: Prisma.StringFieldUpdateOperationsInput | string
   prompt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
@@ -352,6 +394,8 @@ export type SubmissionUpdateInput = {
   metrics?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutSubmissionsNestedInput
+  assignment?: Prisma.AssignmentUpdateOneWithoutSubmissionsNestedInput
+  review?: Prisma.SubmissionReviewUpdateOneWithoutSubmissionNestedInput
   errorEvents?: Prisma.ErrorEventUpdateManyWithoutSubmissionNestedInput
   drillAnswer?: Prisma.DrillUpdateOneWithoutResponseSubmissionNestedInput
   readingExerciseAnswer?: Prisma.ReadingExerciseUpdateOneWithoutSubmissionNestedInput
@@ -362,12 +406,15 @@ export type SubmissionUpdateInput = {
 export type SubmissionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  assignmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
   source?: Prisma.StringFieldUpdateOperationsInput | string
   prompt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
   wordCount?: Prisma.IntFieldUpdateOperationsInput | number
   metrics?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  review?: Prisma.SubmissionReviewUncheckedUpdateOneWithoutSubmissionNestedInput
   errorEvents?: Prisma.ErrorEventUncheckedUpdateManyWithoutSubmissionNestedInput
   drillAnswer?: Prisma.DrillUncheckedUpdateOneWithoutResponseSubmissionNestedInput
   readingExerciseAnswer?: Prisma.ReadingExerciseUncheckedUpdateOneWithoutSubmissionNestedInput
@@ -378,6 +425,8 @@ export type SubmissionUncheckedUpdateInput = {
 export type SubmissionCreateManyInput = {
   id?: string
   userId: string
+  assignmentId?: string | null
+  attemptNumber?: number
   source: string
   prompt?: string | null
   content: string
@@ -388,6 +437,7 @@ export type SubmissionCreateManyInput = {
 
 export type SubmissionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
   source?: Prisma.StringFieldUpdateOperationsInput | string
   prompt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
@@ -399,6 +449,8 @@ export type SubmissionUpdateManyMutationInput = {
 export type SubmissionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  assignmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
   source?: Prisma.StringFieldUpdateOperationsInput | string
   prompt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
@@ -417,9 +469,17 @@ export type SubmissionOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type SubmissionAssignmentIdUserIdAttemptNumberCompoundUniqueInput = {
+  assignmentId: string
+  userId: string
+  attemptNumber: number
+}
+
 export type SubmissionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  assignmentId?: Prisma.SortOrder
+  attemptNumber?: Prisma.SortOrder
   source?: Prisma.SortOrder
   prompt?: Prisma.SortOrder
   content?: Prisma.SortOrder
@@ -429,12 +489,15 @@ export type SubmissionCountOrderByAggregateInput = {
 }
 
 export type SubmissionAvgOrderByAggregateInput = {
+  attemptNumber?: Prisma.SortOrder
   wordCount?: Prisma.SortOrder
 }
 
 export type SubmissionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  assignmentId?: Prisma.SortOrder
+  attemptNumber?: Prisma.SortOrder
   source?: Prisma.SortOrder
   prompt?: Prisma.SortOrder
   content?: Prisma.SortOrder
@@ -445,6 +508,8 @@ export type SubmissionMaxOrderByAggregateInput = {
 export type SubmissionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  assignmentId?: Prisma.SortOrder
+  attemptNumber?: Prisma.SortOrder
   source?: Prisma.SortOrder
   prompt?: Prisma.SortOrder
   content?: Prisma.SortOrder
@@ -453,6 +518,7 @@ export type SubmissionMinOrderByAggregateInput = {
 }
 
 export type SubmissionSumOrderByAggregateInput = {
+  attemptNumber?: Prisma.SortOrder
   wordCount?: Prisma.SortOrder
 }
 
@@ -508,12 +574,68 @@ export type SubmissionUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.SubmissionScalarWhereInput | Prisma.SubmissionScalarWhereInput[]
 }
 
+export type SubmissionCreateNestedManyWithoutAssignmentInput = {
+  create?: Prisma.XOR<Prisma.SubmissionCreateWithoutAssignmentInput, Prisma.SubmissionUncheckedCreateWithoutAssignmentInput> | Prisma.SubmissionCreateWithoutAssignmentInput[] | Prisma.SubmissionUncheckedCreateWithoutAssignmentInput[]
+  connectOrCreate?: Prisma.SubmissionCreateOrConnectWithoutAssignmentInput | Prisma.SubmissionCreateOrConnectWithoutAssignmentInput[]
+  createMany?: Prisma.SubmissionCreateManyAssignmentInputEnvelope
+  connect?: Prisma.SubmissionWhereUniqueInput | Prisma.SubmissionWhereUniqueInput[]
+}
+
+export type SubmissionUncheckedCreateNestedManyWithoutAssignmentInput = {
+  create?: Prisma.XOR<Prisma.SubmissionCreateWithoutAssignmentInput, Prisma.SubmissionUncheckedCreateWithoutAssignmentInput> | Prisma.SubmissionCreateWithoutAssignmentInput[] | Prisma.SubmissionUncheckedCreateWithoutAssignmentInput[]
+  connectOrCreate?: Prisma.SubmissionCreateOrConnectWithoutAssignmentInput | Prisma.SubmissionCreateOrConnectWithoutAssignmentInput[]
+  createMany?: Prisma.SubmissionCreateManyAssignmentInputEnvelope
+  connect?: Prisma.SubmissionWhereUniqueInput | Prisma.SubmissionWhereUniqueInput[]
+}
+
+export type SubmissionUpdateManyWithoutAssignmentNestedInput = {
+  create?: Prisma.XOR<Prisma.SubmissionCreateWithoutAssignmentInput, Prisma.SubmissionUncheckedCreateWithoutAssignmentInput> | Prisma.SubmissionCreateWithoutAssignmentInput[] | Prisma.SubmissionUncheckedCreateWithoutAssignmentInput[]
+  connectOrCreate?: Prisma.SubmissionCreateOrConnectWithoutAssignmentInput | Prisma.SubmissionCreateOrConnectWithoutAssignmentInput[]
+  upsert?: Prisma.SubmissionUpsertWithWhereUniqueWithoutAssignmentInput | Prisma.SubmissionUpsertWithWhereUniqueWithoutAssignmentInput[]
+  createMany?: Prisma.SubmissionCreateManyAssignmentInputEnvelope
+  set?: Prisma.SubmissionWhereUniqueInput | Prisma.SubmissionWhereUniqueInput[]
+  disconnect?: Prisma.SubmissionWhereUniqueInput | Prisma.SubmissionWhereUniqueInput[]
+  delete?: Prisma.SubmissionWhereUniqueInput | Prisma.SubmissionWhereUniqueInput[]
+  connect?: Prisma.SubmissionWhereUniqueInput | Prisma.SubmissionWhereUniqueInput[]
+  update?: Prisma.SubmissionUpdateWithWhereUniqueWithoutAssignmentInput | Prisma.SubmissionUpdateWithWhereUniqueWithoutAssignmentInput[]
+  updateMany?: Prisma.SubmissionUpdateManyWithWhereWithoutAssignmentInput | Prisma.SubmissionUpdateManyWithWhereWithoutAssignmentInput[]
+  deleteMany?: Prisma.SubmissionScalarWhereInput | Prisma.SubmissionScalarWhereInput[]
+}
+
+export type SubmissionUncheckedUpdateManyWithoutAssignmentNestedInput = {
+  create?: Prisma.XOR<Prisma.SubmissionCreateWithoutAssignmentInput, Prisma.SubmissionUncheckedCreateWithoutAssignmentInput> | Prisma.SubmissionCreateWithoutAssignmentInput[] | Prisma.SubmissionUncheckedCreateWithoutAssignmentInput[]
+  connectOrCreate?: Prisma.SubmissionCreateOrConnectWithoutAssignmentInput | Prisma.SubmissionCreateOrConnectWithoutAssignmentInput[]
+  upsert?: Prisma.SubmissionUpsertWithWhereUniqueWithoutAssignmentInput | Prisma.SubmissionUpsertWithWhereUniqueWithoutAssignmentInput[]
+  createMany?: Prisma.SubmissionCreateManyAssignmentInputEnvelope
+  set?: Prisma.SubmissionWhereUniqueInput | Prisma.SubmissionWhereUniqueInput[]
+  disconnect?: Prisma.SubmissionWhereUniqueInput | Prisma.SubmissionWhereUniqueInput[]
+  delete?: Prisma.SubmissionWhereUniqueInput | Prisma.SubmissionWhereUniqueInput[]
+  connect?: Prisma.SubmissionWhereUniqueInput | Prisma.SubmissionWhereUniqueInput[]
+  update?: Prisma.SubmissionUpdateWithWhereUniqueWithoutAssignmentInput | Prisma.SubmissionUpdateWithWhereUniqueWithoutAssignmentInput[]
+  updateMany?: Prisma.SubmissionUpdateManyWithWhereWithoutAssignmentInput | Prisma.SubmissionUpdateManyWithWhereWithoutAssignmentInput[]
+  deleteMany?: Prisma.SubmissionScalarWhereInput | Prisma.SubmissionScalarWhereInput[]
+}
+
 export type IntFieldUpdateOperationsInput = {
   set?: number
   increment?: number
   decrement?: number
   multiply?: number
   divide?: number
+}
+
+export type SubmissionCreateNestedOneWithoutReviewInput = {
+  create?: Prisma.XOR<Prisma.SubmissionCreateWithoutReviewInput, Prisma.SubmissionUncheckedCreateWithoutReviewInput>
+  connectOrCreate?: Prisma.SubmissionCreateOrConnectWithoutReviewInput
+  connect?: Prisma.SubmissionWhereUniqueInput
+}
+
+export type SubmissionUpdateOneRequiredWithoutReviewNestedInput = {
+  create?: Prisma.XOR<Prisma.SubmissionCreateWithoutReviewInput, Prisma.SubmissionUncheckedCreateWithoutReviewInput>
+  connectOrCreate?: Prisma.SubmissionCreateOrConnectWithoutReviewInput
+  upsert?: Prisma.SubmissionUpsertWithoutReviewInput
+  connect?: Prisma.SubmissionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SubmissionUpdateToOneWithWhereWithoutReviewInput, Prisma.SubmissionUpdateWithoutReviewInput>, Prisma.SubmissionUncheckedUpdateWithoutReviewInput>
 }
 
 export type SubmissionCreateNestedOneWithoutErrorEventsInput = {
@@ -596,12 +718,15 @@ export type SubmissionUpdateOneWithoutReadingExerciseAnswerNestedInput = {
 
 export type SubmissionCreateWithoutUserInput = {
   id?: string
+  attemptNumber?: number
   source: string
   prompt?: string | null
   content: string
   wordCount: number
   metrics: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
+  assignment?: Prisma.AssignmentCreateNestedOneWithoutSubmissionsInput
+  review?: Prisma.SubmissionReviewCreateNestedOneWithoutSubmissionInput
   errorEvents?: Prisma.ErrorEventCreateNestedManyWithoutSubmissionInput
   drillAnswer?: Prisma.DrillCreateNestedOneWithoutResponseSubmissionInput
   readingExerciseAnswer?: Prisma.ReadingExerciseCreateNestedOneWithoutSubmissionInput
@@ -611,12 +736,15 @@ export type SubmissionCreateWithoutUserInput = {
 
 export type SubmissionUncheckedCreateWithoutUserInput = {
   id?: string
+  assignmentId?: string | null
+  attemptNumber?: number
   source: string
   prompt?: string | null
   content: string
   wordCount: number
   metrics: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
+  review?: Prisma.SubmissionReviewUncheckedCreateNestedOneWithoutSubmissionInput
   errorEvents?: Prisma.ErrorEventUncheckedCreateNestedManyWithoutSubmissionInput
   drillAnswer?: Prisma.DrillUncheckedCreateNestedOneWithoutResponseSubmissionInput
   readingExerciseAnswer?: Prisma.ReadingExerciseUncheckedCreateNestedOneWithoutSubmissionInput
@@ -656,6 +784,8 @@ export type SubmissionScalarWhereInput = {
   NOT?: Prisma.SubmissionScalarWhereInput | Prisma.SubmissionScalarWhereInput[]
   id?: Prisma.StringFilter<"Submission"> | string
   userId?: Prisma.StringFilter<"Submission"> | string
+  assignmentId?: Prisma.StringNullableFilter<"Submission"> | string | null
+  attemptNumber?: Prisma.IntFilter<"Submission"> | number
   source?: Prisma.StringFilter<"Submission"> | string
   prompt?: Prisma.StringNullableFilter<"Submission"> | string | null
   content?: Prisma.StringFilter<"Submission"> | string
@@ -664,8 +794,9 @@ export type SubmissionScalarWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Submission"> | Date | string
 }
 
-export type SubmissionCreateWithoutErrorEventsInput = {
+export type SubmissionCreateWithoutAssignmentInput = {
   id?: string
+  attemptNumber?: number
   source: string
   prompt?: string | null
   content: string
@@ -673,6 +804,158 @@ export type SubmissionCreateWithoutErrorEventsInput = {
   metrics: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutSubmissionsInput
+  review?: Prisma.SubmissionReviewCreateNestedOneWithoutSubmissionInput
+  errorEvents?: Prisma.ErrorEventCreateNestedManyWithoutSubmissionInput
+  drillAnswer?: Prisma.DrillCreateNestedOneWithoutResponseSubmissionInput
+  readingExerciseAnswer?: Prisma.ReadingExerciseCreateNestedOneWithoutSubmissionInput
+  speakingExerciseAnswer?: Prisma.SpeakingExerciseCreateNestedOneWithoutSubmissionInput
+  listeningExerciseAnswer?: Prisma.ListeningExerciseCreateNestedOneWithoutSubmissionInput
+}
+
+export type SubmissionUncheckedCreateWithoutAssignmentInput = {
+  id?: string
+  userId: string
+  attemptNumber?: number
+  source: string
+  prompt?: string | null
+  content: string
+  wordCount: number
+  metrics: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  review?: Prisma.SubmissionReviewUncheckedCreateNestedOneWithoutSubmissionInput
+  errorEvents?: Prisma.ErrorEventUncheckedCreateNestedManyWithoutSubmissionInput
+  drillAnswer?: Prisma.DrillUncheckedCreateNestedOneWithoutResponseSubmissionInput
+  readingExerciseAnswer?: Prisma.ReadingExerciseUncheckedCreateNestedOneWithoutSubmissionInput
+  speakingExerciseAnswer?: Prisma.SpeakingExerciseUncheckedCreateNestedOneWithoutSubmissionInput
+  listeningExerciseAnswer?: Prisma.ListeningExerciseUncheckedCreateNestedOneWithoutSubmissionInput
+}
+
+export type SubmissionCreateOrConnectWithoutAssignmentInput = {
+  where: Prisma.SubmissionWhereUniqueInput
+  create: Prisma.XOR<Prisma.SubmissionCreateWithoutAssignmentInput, Prisma.SubmissionUncheckedCreateWithoutAssignmentInput>
+}
+
+export type SubmissionCreateManyAssignmentInputEnvelope = {
+  data: Prisma.SubmissionCreateManyAssignmentInput | Prisma.SubmissionCreateManyAssignmentInput[]
+  skipDuplicates?: boolean
+}
+
+export type SubmissionUpsertWithWhereUniqueWithoutAssignmentInput = {
+  where: Prisma.SubmissionWhereUniqueInput
+  update: Prisma.XOR<Prisma.SubmissionUpdateWithoutAssignmentInput, Prisma.SubmissionUncheckedUpdateWithoutAssignmentInput>
+  create: Prisma.XOR<Prisma.SubmissionCreateWithoutAssignmentInput, Prisma.SubmissionUncheckedCreateWithoutAssignmentInput>
+}
+
+export type SubmissionUpdateWithWhereUniqueWithoutAssignmentInput = {
+  where: Prisma.SubmissionWhereUniqueInput
+  data: Prisma.XOR<Prisma.SubmissionUpdateWithoutAssignmentInput, Prisma.SubmissionUncheckedUpdateWithoutAssignmentInput>
+}
+
+export type SubmissionUpdateManyWithWhereWithoutAssignmentInput = {
+  where: Prisma.SubmissionScalarWhereInput
+  data: Prisma.XOR<Prisma.SubmissionUpdateManyMutationInput, Prisma.SubmissionUncheckedUpdateManyWithoutAssignmentInput>
+}
+
+export type SubmissionCreateWithoutReviewInput = {
+  id?: string
+  attemptNumber?: number
+  source: string
+  prompt?: string | null
+  content: string
+  wordCount: number
+  metrics: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutSubmissionsInput
+  assignment?: Prisma.AssignmentCreateNestedOneWithoutSubmissionsInput
+  errorEvents?: Prisma.ErrorEventCreateNestedManyWithoutSubmissionInput
+  drillAnswer?: Prisma.DrillCreateNestedOneWithoutResponseSubmissionInput
+  readingExerciseAnswer?: Prisma.ReadingExerciseCreateNestedOneWithoutSubmissionInput
+  speakingExerciseAnswer?: Prisma.SpeakingExerciseCreateNestedOneWithoutSubmissionInput
+  listeningExerciseAnswer?: Prisma.ListeningExerciseCreateNestedOneWithoutSubmissionInput
+}
+
+export type SubmissionUncheckedCreateWithoutReviewInput = {
+  id?: string
+  userId: string
+  assignmentId?: string | null
+  attemptNumber?: number
+  source: string
+  prompt?: string | null
+  content: string
+  wordCount: number
+  metrics: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  errorEvents?: Prisma.ErrorEventUncheckedCreateNestedManyWithoutSubmissionInput
+  drillAnswer?: Prisma.DrillUncheckedCreateNestedOneWithoutResponseSubmissionInput
+  readingExerciseAnswer?: Prisma.ReadingExerciseUncheckedCreateNestedOneWithoutSubmissionInput
+  speakingExerciseAnswer?: Prisma.SpeakingExerciseUncheckedCreateNestedOneWithoutSubmissionInput
+  listeningExerciseAnswer?: Prisma.ListeningExerciseUncheckedCreateNestedOneWithoutSubmissionInput
+}
+
+export type SubmissionCreateOrConnectWithoutReviewInput = {
+  where: Prisma.SubmissionWhereUniqueInput
+  create: Prisma.XOR<Prisma.SubmissionCreateWithoutReviewInput, Prisma.SubmissionUncheckedCreateWithoutReviewInput>
+}
+
+export type SubmissionUpsertWithoutReviewInput = {
+  update: Prisma.XOR<Prisma.SubmissionUpdateWithoutReviewInput, Prisma.SubmissionUncheckedUpdateWithoutReviewInput>
+  create: Prisma.XOR<Prisma.SubmissionCreateWithoutReviewInput, Prisma.SubmissionUncheckedCreateWithoutReviewInput>
+  where?: Prisma.SubmissionWhereInput
+}
+
+export type SubmissionUpdateToOneWithWhereWithoutReviewInput = {
+  where?: Prisma.SubmissionWhereInput
+  data: Prisma.XOR<Prisma.SubmissionUpdateWithoutReviewInput, Prisma.SubmissionUncheckedUpdateWithoutReviewInput>
+}
+
+export type SubmissionUpdateWithoutReviewInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  source?: Prisma.StringFieldUpdateOperationsInput | string
+  prompt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  wordCount?: Prisma.IntFieldUpdateOperationsInput | number
+  metrics?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutSubmissionsNestedInput
+  assignment?: Prisma.AssignmentUpdateOneWithoutSubmissionsNestedInput
+  errorEvents?: Prisma.ErrorEventUpdateManyWithoutSubmissionNestedInput
+  drillAnswer?: Prisma.DrillUpdateOneWithoutResponseSubmissionNestedInput
+  readingExerciseAnswer?: Prisma.ReadingExerciseUpdateOneWithoutSubmissionNestedInput
+  speakingExerciseAnswer?: Prisma.SpeakingExerciseUpdateOneWithoutSubmissionNestedInput
+  listeningExerciseAnswer?: Prisma.ListeningExerciseUpdateOneWithoutSubmissionNestedInput
+}
+
+export type SubmissionUncheckedUpdateWithoutReviewInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  assignmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  source?: Prisma.StringFieldUpdateOperationsInput | string
+  prompt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  wordCount?: Prisma.IntFieldUpdateOperationsInput | number
+  metrics?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  errorEvents?: Prisma.ErrorEventUncheckedUpdateManyWithoutSubmissionNestedInput
+  drillAnswer?: Prisma.DrillUncheckedUpdateOneWithoutResponseSubmissionNestedInput
+  readingExerciseAnswer?: Prisma.ReadingExerciseUncheckedUpdateOneWithoutSubmissionNestedInput
+  speakingExerciseAnswer?: Prisma.SpeakingExerciseUncheckedUpdateOneWithoutSubmissionNestedInput
+  listeningExerciseAnswer?: Prisma.ListeningExerciseUncheckedUpdateOneWithoutSubmissionNestedInput
+}
+
+export type SubmissionCreateWithoutErrorEventsInput = {
+  id?: string
+  attemptNumber?: number
+  source: string
+  prompt?: string | null
+  content: string
+  wordCount: number
+  metrics: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutSubmissionsInput
+  assignment?: Prisma.AssignmentCreateNestedOneWithoutSubmissionsInput
+  review?: Prisma.SubmissionReviewCreateNestedOneWithoutSubmissionInput
   drillAnswer?: Prisma.DrillCreateNestedOneWithoutResponseSubmissionInput
   readingExerciseAnswer?: Prisma.ReadingExerciseCreateNestedOneWithoutSubmissionInput
   speakingExerciseAnswer?: Prisma.SpeakingExerciseCreateNestedOneWithoutSubmissionInput
@@ -682,12 +965,15 @@ export type SubmissionCreateWithoutErrorEventsInput = {
 export type SubmissionUncheckedCreateWithoutErrorEventsInput = {
   id?: string
   userId: string
+  assignmentId?: string | null
+  attemptNumber?: number
   source: string
   prompt?: string | null
   content: string
   wordCount: number
   metrics: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
+  review?: Prisma.SubmissionReviewUncheckedCreateNestedOneWithoutSubmissionInput
   drillAnswer?: Prisma.DrillUncheckedCreateNestedOneWithoutResponseSubmissionInput
   readingExerciseAnswer?: Prisma.ReadingExerciseUncheckedCreateNestedOneWithoutSubmissionInput
   speakingExerciseAnswer?: Prisma.SpeakingExerciseUncheckedCreateNestedOneWithoutSubmissionInput
@@ -712,6 +998,7 @@ export type SubmissionUpdateToOneWithWhereWithoutErrorEventsInput = {
 
 export type SubmissionUpdateWithoutErrorEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
   source?: Prisma.StringFieldUpdateOperationsInput | string
   prompt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
@@ -719,6 +1006,8 @@ export type SubmissionUpdateWithoutErrorEventsInput = {
   metrics?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutSubmissionsNestedInput
+  assignment?: Prisma.AssignmentUpdateOneWithoutSubmissionsNestedInput
+  review?: Prisma.SubmissionReviewUpdateOneWithoutSubmissionNestedInput
   drillAnswer?: Prisma.DrillUpdateOneWithoutResponseSubmissionNestedInput
   readingExerciseAnswer?: Prisma.ReadingExerciseUpdateOneWithoutSubmissionNestedInput
   speakingExerciseAnswer?: Prisma.SpeakingExerciseUpdateOneWithoutSubmissionNestedInput
@@ -728,12 +1017,15 @@ export type SubmissionUpdateWithoutErrorEventsInput = {
 export type SubmissionUncheckedUpdateWithoutErrorEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  assignmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
   source?: Prisma.StringFieldUpdateOperationsInput | string
   prompt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
   wordCount?: Prisma.IntFieldUpdateOperationsInput | number
   metrics?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  review?: Prisma.SubmissionReviewUncheckedUpdateOneWithoutSubmissionNestedInput
   drillAnswer?: Prisma.DrillUncheckedUpdateOneWithoutResponseSubmissionNestedInput
   readingExerciseAnswer?: Prisma.ReadingExerciseUncheckedUpdateOneWithoutSubmissionNestedInput
   speakingExerciseAnswer?: Prisma.SpeakingExerciseUncheckedUpdateOneWithoutSubmissionNestedInput
@@ -742,6 +1034,7 @@ export type SubmissionUncheckedUpdateWithoutErrorEventsInput = {
 
 export type SubmissionCreateWithoutDrillAnswerInput = {
   id?: string
+  attemptNumber?: number
   source: string
   prompt?: string | null
   content: string
@@ -749,6 +1042,8 @@ export type SubmissionCreateWithoutDrillAnswerInput = {
   metrics: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutSubmissionsInput
+  assignment?: Prisma.AssignmentCreateNestedOneWithoutSubmissionsInput
+  review?: Prisma.SubmissionReviewCreateNestedOneWithoutSubmissionInput
   errorEvents?: Prisma.ErrorEventCreateNestedManyWithoutSubmissionInput
   readingExerciseAnswer?: Prisma.ReadingExerciseCreateNestedOneWithoutSubmissionInput
   speakingExerciseAnswer?: Prisma.SpeakingExerciseCreateNestedOneWithoutSubmissionInput
@@ -758,12 +1053,15 @@ export type SubmissionCreateWithoutDrillAnswerInput = {
 export type SubmissionUncheckedCreateWithoutDrillAnswerInput = {
   id?: string
   userId: string
+  assignmentId?: string | null
+  attemptNumber?: number
   source: string
   prompt?: string | null
   content: string
   wordCount: number
   metrics: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
+  review?: Prisma.SubmissionReviewUncheckedCreateNestedOneWithoutSubmissionInput
   errorEvents?: Prisma.ErrorEventUncheckedCreateNestedManyWithoutSubmissionInput
   readingExerciseAnswer?: Prisma.ReadingExerciseUncheckedCreateNestedOneWithoutSubmissionInput
   speakingExerciseAnswer?: Prisma.SpeakingExerciseUncheckedCreateNestedOneWithoutSubmissionInput
@@ -788,6 +1086,7 @@ export type SubmissionUpdateToOneWithWhereWithoutDrillAnswerInput = {
 
 export type SubmissionUpdateWithoutDrillAnswerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
   source?: Prisma.StringFieldUpdateOperationsInput | string
   prompt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
@@ -795,6 +1094,8 @@ export type SubmissionUpdateWithoutDrillAnswerInput = {
   metrics?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutSubmissionsNestedInput
+  assignment?: Prisma.AssignmentUpdateOneWithoutSubmissionsNestedInput
+  review?: Prisma.SubmissionReviewUpdateOneWithoutSubmissionNestedInput
   errorEvents?: Prisma.ErrorEventUpdateManyWithoutSubmissionNestedInput
   readingExerciseAnswer?: Prisma.ReadingExerciseUpdateOneWithoutSubmissionNestedInput
   speakingExerciseAnswer?: Prisma.SpeakingExerciseUpdateOneWithoutSubmissionNestedInput
@@ -804,12 +1105,15 @@ export type SubmissionUpdateWithoutDrillAnswerInput = {
 export type SubmissionUncheckedUpdateWithoutDrillAnswerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  assignmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
   source?: Prisma.StringFieldUpdateOperationsInput | string
   prompt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
   wordCount?: Prisma.IntFieldUpdateOperationsInput | number
   metrics?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  review?: Prisma.SubmissionReviewUncheckedUpdateOneWithoutSubmissionNestedInput
   errorEvents?: Prisma.ErrorEventUncheckedUpdateManyWithoutSubmissionNestedInput
   readingExerciseAnswer?: Prisma.ReadingExerciseUncheckedUpdateOneWithoutSubmissionNestedInput
   speakingExerciseAnswer?: Prisma.SpeakingExerciseUncheckedUpdateOneWithoutSubmissionNestedInput
@@ -818,6 +1122,7 @@ export type SubmissionUncheckedUpdateWithoutDrillAnswerInput = {
 
 export type SubmissionCreateWithoutSpeakingExerciseAnswerInput = {
   id?: string
+  attemptNumber?: number
   source: string
   prompt?: string | null
   content: string
@@ -825,6 +1130,8 @@ export type SubmissionCreateWithoutSpeakingExerciseAnswerInput = {
   metrics: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutSubmissionsInput
+  assignment?: Prisma.AssignmentCreateNestedOneWithoutSubmissionsInput
+  review?: Prisma.SubmissionReviewCreateNestedOneWithoutSubmissionInput
   errorEvents?: Prisma.ErrorEventCreateNestedManyWithoutSubmissionInput
   drillAnswer?: Prisma.DrillCreateNestedOneWithoutResponseSubmissionInput
   readingExerciseAnswer?: Prisma.ReadingExerciseCreateNestedOneWithoutSubmissionInput
@@ -834,12 +1141,15 @@ export type SubmissionCreateWithoutSpeakingExerciseAnswerInput = {
 export type SubmissionUncheckedCreateWithoutSpeakingExerciseAnswerInput = {
   id?: string
   userId: string
+  assignmentId?: string | null
+  attemptNumber?: number
   source: string
   prompt?: string | null
   content: string
   wordCount: number
   metrics: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
+  review?: Prisma.SubmissionReviewUncheckedCreateNestedOneWithoutSubmissionInput
   errorEvents?: Prisma.ErrorEventUncheckedCreateNestedManyWithoutSubmissionInput
   drillAnswer?: Prisma.DrillUncheckedCreateNestedOneWithoutResponseSubmissionInput
   readingExerciseAnswer?: Prisma.ReadingExerciseUncheckedCreateNestedOneWithoutSubmissionInput
@@ -864,6 +1174,7 @@ export type SubmissionUpdateToOneWithWhereWithoutSpeakingExerciseAnswerInput = {
 
 export type SubmissionUpdateWithoutSpeakingExerciseAnswerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
   source?: Prisma.StringFieldUpdateOperationsInput | string
   prompt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
@@ -871,6 +1182,8 @@ export type SubmissionUpdateWithoutSpeakingExerciseAnswerInput = {
   metrics?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutSubmissionsNestedInput
+  assignment?: Prisma.AssignmentUpdateOneWithoutSubmissionsNestedInput
+  review?: Prisma.SubmissionReviewUpdateOneWithoutSubmissionNestedInput
   errorEvents?: Prisma.ErrorEventUpdateManyWithoutSubmissionNestedInput
   drillAnswer?: Prisma.DrillUpdateOneWithoutResponseSubmissionNestedInput
   readingExerciseAnswer?: Prisma.ReadingExerciseUpdateOneWithoutSubmissionNestedInput
@@ -880,12 +1193,15 @@ export type SubmissionUpdateWithoutSpeakingExerciseAnswerInput = {
 export type SubmissionUncheckedUpdateWithoutSpeakingExerciseAnswerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  assignmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
   source?: Prisma.StringFieldUpdateOperationsInput | string
   prompt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
   wordCount?: Prisma.IntFieldUpdateOperationsInput | number
   metrics?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  review?: Prisma.SubmissionReviewUncheckedUpdateOneWithoutSubmissionNestedInput
   errorEvents?: Prisma.ErrorEventUncheckedUpdateManyWithoutSubmissionNestedInput
   drillAnswer?: Prisma.DrillUncheckedUpdateOneWithoutResponseSubmissionNestedInput
   readingExerciseAnswer?: Prisma.ReadingExerciseUncheckedUpdateOneWithoutSubmissionNestedInput
@@ -894,6 +1210,7 @@ export type SubmissionUncheckedUpdateWithoutSpeakingExerciseAnswerInput = {
 
 export type SubmissionCreateWithoutListeningExerciseAnswerInput = {
   id?: string
+  attemptNumber?: number
   source: string
   prompt?: string | null
   content: string
@@ -901,6 +1218,8 @@ export type SubmissionCreateWithoutListeningExerciseAnswerInput = {
   metrics: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutSubmissionsInput
+  assignment?: Prisma.AssignmentCreateNestedOneWithoutSubmissionsInput
+  review?: Prisma.SubmissionReviewCreateNestedOneWithoutSubmissionInput
   errorEvents?: Prisma.ErrorEventCreateNestedManyWithoutSubmissionInput
   drillAnswer?: Prisma.DrillCreateNestedOneWithoutResponseSubmissionInput
   readingExerciseAnswer?: Prisma.ReadingExerciseCreateNestedOneWithoutSubmissionInput
@@ -910,12 +1229,15 @@ export type SubmissionCreateWithoutListeningExerciseAnswerInput = {
 export type SubmissionUncheckedCreateWithoutListeningExerciseAnswerInput = {
   id?: string
   userId: string
+  assignmentId?: string | null
+  attemptNumber?: number
   source: string
   prompt?: string | null
   content: string
   wordCount: number
   metrics: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
+  review?: Prisma.SubmissionReviewUncheckedCreateNestedOneWithoutSubmissionInput
   errorEvents?: Prisma.ErrorEventUncheckedCreateNestedManyWithoutSubmissionInput
   drillAnswer?: Prisma.DrillUncheckedCreateNestedOneWithoutResponseSubmissionInput
   readingExerciseAnswer?: Prisma.ReadingExerciseUncheckedCreateNestedOneWithoutSubmissionInput
@@ -940,6 +1262,7 @@ export type SubmissionUpdateToOneWithWhereWithoutListeningExerciseAnswerInput = 
 
 export type SubmissionUpdateWithoutListeningExerciseAnswerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
   source?: Prisma.StringFieldUpdateOperationsInput | string
   prompt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
@@ -947,6 +1270,8 @@ export type SubmissionUpdateWithoutListeningExerciseAnswerInput = {
   metrics?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutSubmissionsNestedInput
+  assignment?: Prisma.AssignmentUpdateOneWithoutSubmissionsNestedInput
+  review?: Prisma.SubmissionReviewUpdateOneWithoutSubmissionNestedInput
   errorEvents?: Prisma.ErrorEventUpdateManyWithoutSubmissionNestedInput
   drillAnswer?: Prisma.DrillUpdateOneWithoutResponseSubmissionNestedInput
   readingExerciseAnswer?: Prisma.ReadingExerciseUpdateOneWithoutSubmissionNestedInput
@@ -956,12 +1281,15 @@ export type SubmissionUpdateWithoutListeningExerciseAnswerInput = {
 export type SubmissionUncheckedUpdateWithoutListeningExerciseAnswerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  assignmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
   source?: Prisma.StringFieldUpdateOperationsInput | string
   prompt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
   wordCount?: Prisma.IntFieldUpdateOperationsInput | number
   metrics?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  review?: Prisma.SubmissionReviewUncheckedUpdateOneWithoutSubmissionNestedInput
   errorEvents?: Prisma.ErrorEventUncheckedUpdateManyWithoutSubmissionNestedInput
   drillAnswer?: Prisma.DrillUncheckedUpdateOneWithoutResponseSubmissionNestedInput
   readingExerciseAnswer?: Prisma.ReadingExerciseUncheckedUpdateOneWithoutSubmissionNestedInput
@@ -970,6 +1298,7 @@ export type SubmissionUncheckedUpdateWithoutListeningExerciseAnswerInput = {
 
 export type SubmissionCreateWithoutReadingExerciseAnswerInput = {
   id?: string
+  attemptNumber?: number
   source: string
   prompt?: string | null
   content: string
@@ -977,6 +1306,8 @@ export type SubmissionCreateWithoutReadingExerciseAnswerInput = {
   metrics: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutSubmissionsInput
+  assignment?: Prisma.AssignmentCreateNestedOneWithoutSubmissionsInput
+  review?: Prisma.SubmissionReviewCreateNestedOneWithoutSubmissionInput
   errorEvents?: Prisma.ErrorEventCreateNestedManyWithoutSubmissionInput
   drillAnswer?: Prisma.DrillCreateNestedOneWithoutResponseSubmissionInput
   speakingExerciseAnswer?: Prisma.SpeakingExerciseCreateNestedOneWithoutSubmissionInput
@@ -986,12 +1317,15 @@ export type SubmissionCreateWithoutReadingExerciseAnswerInput = {
 export type SubmissionUncheckedCreateWithoutReadingExerciseAnswerInput = {
   id?: string
   userId: string
+  assignmentId?: string | null
+  attemptNumber?: number
   source: string
   prompt?: string | null
   content: string
   wordCount: number
   metrics: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
+  review?: Prisma.SubmissionReviewUncheckedCreateNestedOneWithoutSubmissionInput
   errorEvents?: Prisma.ErrorEventUncheckedCreateNestedManyWithoutSubmissionInput
   drillAnswer?: Prisma.DrillUncheckedCreateNestedOneWithoutResponseSubmissionInput
   speakingExerciseAnswer?: Prisma.SpeakingExerciseUncheckedCreateNestedOneWithoutSubmissionInput
@@ -1016,6 +1350,7 @@ export type SubmissionUpdateToOneWithWhereWithoutReadingExerciseAnswerInput = {
 
 export type SubmissionUpdateWithoutReadingExerciseAnswerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
   source?: Prisma.StringFieldUpdateOperationsInput | string
   prompt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1023,6 +1358,8 @@ export type SubmissionUpdateWithoutReadingExerciseAnswerInput = {
   metrics?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutSubmissionsNestedInput
+  assignment?: Prisma.AssignmentUpdateOneWithoutSubmissionsNestedInput
+  review?: Prisma.SubmissionReviewUpdateOneWithoutSubmissionNestedInput
   errorEvents?: Prisma.ErrorEventUpdateManyWithoutSubmissionNestedInput
   drillAnswer?: Prisma.DrillUpdateOneWithoutResponseSubmissionNestedInput
   speakingExerciseAnswer?: Prisma.SpeakingExerciseUpdateOneWithoutSubmissionNestedInput
@@ -1032,12 +1369,15 @@ export type SubmissionUpdateWithoutReadingExerciseAnswerInput = {
 export type SubmissionUncheckedUpdateWithoutReadingExerciseAnswerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  assignmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
   source?: Prisma.StringFieldUpdateOperationsInput | string
   prompt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
   wordCount?: Prisma.IntFieldUpdateOperationsInput | number
   metrics?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  review?: Prisma.SubmissionReviewUncheckedUpdateOneWithoutSubmissionNestedInput
   errorEvents?: Prisma.ErrorEventUncheckedUpdateManyWithoutSubmissionNestedInput
   drillAnswer?: Prisma.DrillUncheckedUpdateOneWithoutResponseSubmissionNestedInput
   speakingExerciseAnswer?: Prisma.SpeakingExerciseUncheckedUpdateOneWithoutSubmissionNestedInput
@@ -1046,6 +1386,8 @@ export type SubmissionUncheckedUpdateWithoutReadingExerciseAnswerInput = {
 
 export type SubmissionCreateManyUserInput = {
   id?: string
+  assignmentId?: string | null
+  attemptNumber?: number
   source: string
   prompt?: string | null
   content: string
@@ -1056,12 +1398,15 @@ export type SubmissionCreateManyUserInput = {
 
 export type SubmissionUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
   source?: Prisma.StringFieldUpdateOperationsInput | string
   prompt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
   wordCount?: Prisma.IntFieldUpdateOperationsInput | number
   metrics?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  assignment?: Prisma.AssignmentUpdateOneWithoutSubmissionsNestedInput
+  review?: Prisma.SubmissionReviewUpdateOneWithoutSubmissionNestedInput
   errorEvents?: Prisma.ErrorEventUpdateManyWithoutSubmissionNestedInput
   drillAnswer?: Prisma.DrillUpdateOneWithoutResponseSubmissionNestedInput
   readingExerciseAnswer?: Prisma.ReadingExerciseUpdateOneWithoutSubmissionNestedInput
@@ -1071,12 +1416,15 @@ export type SubmissionUpdateWithoutUserInput = {
 
 export type SubmissionUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  assignmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
   source?: Prisma.StringFieldUpdateOperationsInput | string
   prompt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
   wordCount?: Prisma.IntFieldUpdateOperationsInput | number
   metrics?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  review?: Prisma.SubmissionReviewUncheckedUpdateOneWithoutSubmissionNestedInput
   errorEvents?: Prisma.ErrorEventUncheckedUpdateManyWithoutSubmissionNestedInput
   drillAnswer?: Prisma.DrillUncheckedUpdateOneWithoutResponseSubmissionNestedInput
   readingExerciseAnswer?: Prisma.ReadingExerciseUncheckedUpdateOneWithoutSubmissionNestedInput
@@ -1086,6 +1434,68 @@ export type SubmissionUncheckedUpdateWithoutUserInput = {
 
 export type SubmissionUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  assignmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  source?: Prisma.StringFieldUpdateOperationsInput | string
+  prompt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  wordCount?: Prisma.IntFieldUpdateOperationsInput | number
+  metrics?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type SubmissionCreateManyAssignmentInput = {
+  id?: string
+  userId: string
+  attemptNumber?: number
+  source: string
+  prompt?: string | null
+  content: string
+  wordCount: number
+  metrics: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+}
+
+export type SubmissionUpdateWithoutAssignmentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  source?: Prisma.StringFieldUpdateOperationsInput | string
+  prompt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  wordCount?: Prisma.IntFieldUpdateOperationsInput | number
+  metrics?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutSubmissionsNestedInput
+  review?: Prisma.SubmissionReviewUpdateOneWithoutSubmissionNestedInput
+  errorEvents?: Prisma.ErrorEventUpdateManyWithoutSubmissionNestedInput
+  drillAnswer?: Prisma.DrillUpdateOneWithoutResponseSubmissionNestedInput
+  readingExerciseAnswer?: Prisma.ReadingExerciseUpdateOneWithoutSubmissionNestedInput
+  speakingExerciseAnswer?: Prisma.SpeakingExerciseUpdateOneWithoutSubmissionNestedInput
+  listeningExerciseAnswer?: Prisma.ListeningExerciseUpdateOneWithoutSubmissionNestedInput
+}
+
+export type SubmissionUncheckedUpdateWithoutAssignmentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  source?: Prisma.StringFieldUpdateOperationsInput | string
+  prompt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  wordCount?: Prisma.IntFieldUpdateOperationsInput | number
+  metrics?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  review?: Prisma.SubmissionReviewUncheckedUpdateOneWithoutSubmissionNestedInput
+  errorEvents?: Prisma.ErrorEventUncheckedUpdateManyWithoutSubmissionNestedInput
+  drillAnswer?: Prisma.DrillUncheckedUpdateOneWithoutResponseSubmissionNestedInput
+  readingExerciseAnswer?: Prisma.ReadingExerciseUncheckedUpdateOneWithoutSubmissionNestedInput
+  speakingExerciseAnswer?: Prisma.SpeakingExerciseUncheckedUpdateOneWithoutSubmissionNestedInput
+  listeningExerciseAnswer?: Prisma.ListeningExerciseUncheckedUpdateOneWithoutSubmissionNestedInput
+}
+
+export type SubmissionUncheckedUpdateManyWithoutAssignmentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
   source?: Prisma.StringFieldUpdateOperationsInput | string
   prompt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1128,6 +1538,8 @@ export type SubmissionCountOutputTypeCountErrorEventsArgs<ExtArgs extends runtim
 export type SubmissionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
+  assignmentId?: boolean
+  attemptNumber?: boolean
   source?: boolean
   prompt?: boolean
   content?: boolean
@@ -1135,6 +1547,8 @@ export type SubmissionSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   metrics?: boolean
   createdAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  assignment?: boolean | Prisma.Submission$assignmentArgs<ExtArgs>
+  review?: boolean | Prisma.Submission$reviewArgs<ExtArgs>
   errorEvents?: boolean | Prisma.Submission$errorEventsArgs<ExtArgs>
   drillAnswer?: boolean | Prisma.Submission$drillAnswerArgs<ExtArgs>
   readingExerciseAnswer?: boolean | Prisma.Submission$readingExerciseAnswerArgs<ExtArgs>
@@ -1146,6 +1560,8 @@ export type SubmissionSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
 export type SubmissionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
+  assignmentId?: boolean
+  attemptNumber?: boolean
   source?: boolean
   prompt?: boolean
   content?: boolean
@@ -1153,11 +1569,14 @@ export type SubmissionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   metrics?: boolean
   createdAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  assignment?: boolean | Prisma.Submission$assignmentArgs<ExtArgs>
 }, ExtArgs["result"]["submission"]>
 
 export type SubmissionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
+  assignmentId?: boolean
+  attemptNumber?: boolean
   source?: boolean
   prompt?: boolean
   content?: boolean
@@ -1165,11 +1584,14 @@ export type SubmissionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   metrics?: boolean
   createdAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  assignment?: boolean | Prisma.Submission$assignmentArgs<ExtArgs>
 }, ExtArgs["result"]["submission"]>
 
 export type SubmissionSelectScalar = {
   id?: boolean
   userId?: boolean
+  assignmentId?: boolean
+  attemptNumber?: boolean
   source?: boolean
   prompt?: boolean
   content?: boolean
@@ -1178,9 +1600,11 @@ export type SubmissionSelectScalar = {
   createdAt?: boolean
 }
 
-export type SubmissionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "source" | "prompt" | "content" | "wordCount" | "metrics" | "createdAt", ExtArgs["result"]["submission"]>
+export type SubmissionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "assignmentId" | "attemptNumber" | "source" | "prompt" | "content" | "wordCount" | "metrics" | "createdAt", ExtArgs["result"]["submission"]>
 export type SubmissionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  assignment?: boolean | Prisma.Submission$assignmentArgs<ExtArgs>
+  review?: boolean | Prisma.Submission$reviewArgs<ExtArgs>
   errorEvents?: boolean | Prisma.Submission$errorEventsArgs<ExtArgs>
   drillAnswer?: boolean | Prisma.Submission$drillAnswerArgs<ExtArgs>
   readingExerciseAnswer?: boolean | Prisma.Submission$readingExerciseAnswerArgs<ExtArgs>
@@ -1190,15 +1614,19 @@ export type SubmissionInclude<ExtArgs extends runtime.Types.Extensions.InternalA
 }
 export type SubmissionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  assignment?: boolean | Prisma.Submission$assignmentArgs<ExtArgs>
 }
 export type SubmissionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  assignment?: boolean | Prisma.Submission$assignmentArgs<ExtArgs>
 }
 
 export type $SubmissionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Submission"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
+    assignment: Prisma.$AssignmentPayload<ExtArgs> | null
+    review: Prisma.$SubmissionReviewPayload<ExtArgs> | null
     errorEvents: Prisma.$ErrorEventPayload<ExtArgs>[]
     drillAnswer: Prisma.$DrillPayload<ExtArgs> | null
     readingExerciseAnswer: Prisma.$ReadingExercisePayload<ExtArgs> | null
@@ -1208,6 +1636,8 @@ export type $SubmissionPayload<ExtArgs extends runtime.Types.Extensions.Internal
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     userId: string
+    assignmentId: string | null
+    attemptNumber: number
     source: string
     prompt: string | null
     content: string
@@ -1609,6 +2039,8 @@ readonly fields: SubmissionFieldRefs;
 export interface Prisma__SubmissionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  assignment<T extends Prisma.Submission$assignmentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Submission$assignmentArgs<ExtArgs>>): Prisma.Prisma__AssignmentClient<runtime.Types.Result.GetResult<Prisma.$AssignmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  review<T extends Prisma.Submission$reviewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Submission$reviewArgs<ExtArgs>>): Prisma.Prisma__SubmissionReviewClient<runtime.Types.Result.GetResult<Prisma.$SubmissionReviewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   errorEvents<T extends Prisma.Submission$errorEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Submission$errorEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ErrorEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   drillAnswer<T extends Prisma.Submission$drillAnswerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Submission$drillAnswerArgs<ExtArgs>>): Prisma.Prisma__DrillClient<runtime.Types.Result.GetResult<Prisma.$DrillPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   readingExerciseAnswer<T extends Prisma.Submission$readingExerciseAnswerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Submission$readingExerciseAnswerArgs<ExtArgs>>): Prisma.Prisma__ReadingExerciseClient<runtime.Types.Result.GetResult<Prisma.$ReadingExercisePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -1645,6 +2077,8 @@ export interface Prisma__SubmissionClient<T, Null = never, ExtArgs extends runti
 export interface SubmissionFieldRefs {
   readonly id: Prisma.FieldRef<"Submission", 'String'>
   readonly userId: Prisma.FieldRef<"Submission", 'String'>
+  readonly assignmentId: Prisma.FieldRef<"Submission", 'String'>
+  readonly attemptNumber: Prisma.FieldRef<"Submission", 'Int'>
   readonly source: Prisma.FieldRef<"Submission", 'String'>
   readonly prompt: Prisma.FieldRef<"Submission", 'String'>
   readonly content: Prisma.FieldRef<"Submission", 'String'>
@@ -2049,6 +2483,44 @@ export type SubmissionDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Limit how many Submissions to delete.
    */
   limit?: number
+}
+
+/**
+ * Submission.assignment
+ */
+export type Submission$assignmentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Assignment
+   */
+  select?: Prisma.AssignmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Assignment
+   */
+  omit?: Prisma.AssignmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AssignmentInclude<ExtArgs> | null
+  where?: Prisma.AssignmentWhereInput
+}
+
+/**
+ * Submission.review
+ */
+export type Submission$reviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SubmissionReview
+   */
+  select?: Prisma.SubmissionReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SubmissionReview
+   */
+  omit?: Prisma.SubmissionReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SubmissionReviewInclude<ExtArgs> | null
+  where?: Prisma.SubmissionReviewWhereInput
 }
 
 /**

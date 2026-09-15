@@ -72,10 +72,20 @@ export type Classroom = Prisma.ClassroomModel
  */
 export type ClassroomMember = Prisma.ClassroomMemberModel
 /**
+ * Model Assignment
+ *
+ */
+export type Assignment = Prisma.AssignmentModel
+/**
  * Model Submission
  *
  */
 export type Submission = Prisma.SubmissionModel
+/**
+ * Model SubmissionReview
+ *
+ */
+export type SubmissionReview = Prisma.SubmissionReviewModel
 /**
  * Model ErrorEvent
  *

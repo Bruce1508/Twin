@@ -11,7 +11,7 @@
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 [![Prisma](https://img.shields.io/badge/Prisma-7-2D3748?logo=prisma&logoColor=white)](https://www.prisma.io/)
 [![Gemini](https://img.shields.io/badge/Gemini-2.5_Flash-8E75B2?logo=googlegemini&logoColor=white)](https://ai.google.dev/)
-[![Tests](https://img.shields.io/badge/tests-76_passing-22C55E?logo=vitest&logoColor=white)](#development)
+[![Tests](https://img.shields.io/badge/tests-84_passing-22C55E?logo=vitest&logoColor=white)](#development)
 
 [Features](#features) · [How it works](#how-it-works) · [Quick start](#quick-start) · [Architecture](#architecture) · [Development](#development)
 
@@ -224,7 +224,7 @@ npm run lint
 npm run build
 ```
 
-The current suite contains **76 tests** covering identity isolation, classroom authorization and validation, deterministic sessions, targeting, the study plan, and reporting.
+The current suite contains **84 tests** covering identity isolation, classroom and assignment authorization, state transitions, deterministic sessions, targeting, the study plan, and reporting.
 
 To regenerate `frontend/lib/plan.ts` after editing the spreadsheet:
 
@@ -235,7 +235,7 @@ node scripts/extract-plan.mjs
 
 ## Current scope
 
-Linguistic Twin is transitioning from its original local single-user workflow to the Classroom Writing MVP described in [`docs/classroom-mvp/PRD.md`](docs/classroom-mvp/PRD.md). Google session authentication, classroom membership, join codes, and the first teacher/student class screens are in place; assignment and teacher-review screens are still under implementation. Twin does not claim an official proficiency score.
+Linguistic Twin is transitioning from its original local single-user workflow to the Classroom Writing MVP described in [`docs/classroom-mvp/PRD.md`](docs/classroom-mvp/PRD.md). Google session authentication, classroom membership, join codes, and teacher-controlled assignment drafts are in place; assignment submission and teacher review are still under implementation. Twin does not claim an official proficiency score.
 
 ## Resetting local data
 
